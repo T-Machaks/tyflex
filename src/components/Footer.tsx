@@ -32,8 +32,11 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <Link href="/" className="text-2xl font-bold">
-              Tyflex<span className="text-brand-red">.</span>
+            <Link href="/" className="flex items-center gap-3">
+              <img src="/tyflex/logo.png" alt="Tyflex" className="h-8 w-8 rounded-lg bg-white/90 p-0.5 object-contain" />
+              <span className="text-2xl font-bold">
+                Tyflex<span className="text-brand-red">.</span>
+              </span>
             </Link>
             <p className="mt-4 text-gray-400 max-w-md leading-relaxed text-sm">
               Enterprise technology solutions for Zimbabwean businesses. From
