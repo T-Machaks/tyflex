@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get a Quote | Tyflex</title>
+<meta name="description" content="Request a free technology consultation and quote - Tyflex Zimbabwe">
+<link rel="stylesheet" href="/tyflex/styles.css">
+</head>
+<body>
+<header class="header">
+  <div class="header-inner">
+    <a href="/tyflex/" class="logo">Tyflex<span>.</span></a>
+    <nav class="nav">
+      <div class="dd">
+        <button class="dd-trigger">Solutions <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="dd-menu">
+          <a href="/tyflex/solutions/" class="highlight">All Solutions</a>
+          <div class="sep"></div>
+          <a href="/tyflex/solutions/ucaas/">UCaaS &amp; VoIP</a>
+          <a href="/tyflex/solutions/3cx/">3CX Phone Systems</a>
+          <a href="/tyflex/solutions/barcode-scanning/">Barcode &amp; Scanning</a>
+          <a href="/tyflex/solutions/pos-systems/">POS Systems</a>
+          <a href="/tyflex/solutions/networking/">Networking</a>
+          <a href="/tyflex/solutions/bulk-messaging/">Bulk Messaging</a>
+          <a href="/tyflex/solutions/enterprise-printing/">Enterprise Printing</a>
+          <a href="/tyflex/solutions/erp-software/">ERP Software</a>
+        </div>
+      </div>
+      <a href="/tyflex/webstore/">Webstore</a>
+      <a href="/tyflex/resources/">Resources</a>
+      <a href="/tyflex/about/">About</a>
+      <a href="/tyflex/contact/">Contact Us</a>
+      <a href="/tyflex/get-quote/" class="btn-primary">Get a Quote</a>
+    </nav>
+  </div>
+</header>
+<div class="page-wrapper">
+
+<style>
+.quote-grid { display: grid; grid-template-columns: 320px 1fr; gap: 64px; align-items: start; }
+.quote-sidebar { position: sticky; top: 100px; }
+.quote-sidebar h2 { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+.quote-sidebar .lead { color: #9ca3af; font-size: 14px; line-height: 1.6; margin-bottom: 32px; }
+.step { display: flex; gap: 16px; align-items: flex-start; padding: 16px 0; }
+.step-num { width: 32px; height: 32px; border-radius: 50%; background: var(--brand-red); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0; }
+.step h4 { font-weight: 600; font-size: 15px; margin-bottom: 4px; }
+.step p { font-size: 13px; color: #9ca3af; margin: 0; line-height: 1.5; }
+.quote-form { padding: 40px; border-radius: 16px; background: var(--brand-card); border: 1px solid rgba(255,255,255,0.05); }
+.quote-form h2 { font-size: 22px; font-weight: 700; margin-bottom: 24px; }
+.quote-form label { display: block; font-size: 13px; font-weight: 500; color: #d1d5db; margin-bottom: 6px; margin-top: 16px; }
+.quote-form label:first-of-type { margin-top: 0; }
+.quote-form input, .quote-form textarea, .quote-form select { width: 100%; padding: 12px 16px; border-radius: 8px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; font-size: 14px; }
+.quote-form textarea { min-height: 120px; resize: vertical; }
+.quote-form .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 768px) { .quote-grid { grid-template-columns: 1fr; } .quote-sidebar { position: static; } .quote-form .row { grid-template-columns: 1fr; } }
+</style>
+
+<section class="section">
+  <div class="container">
+    <div class="quote-grid">
+      <div class="quote-sidebar">
+        <h2>Get a Quote</h2>
+        <p class="lead">Tell us what you need and we&rsquo;ll prepare a customised proposal within 24 hours.</p>
+        
+        <div class="step">
+          <span class="step-num">1</span>
+          <div>
+            <h4>Submit Your Requirements</h4>
+            <p>Fill out the form with your business needs and preferred solutions.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">2</span>
+          <div>
+            <h4>Consultation Call</h4>
+            <p>Our team will call you to discuss requirements and recommend the best options.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">3</span>
+          <div>
+            <h4>Receive Your Proposal</h4>
+            <p>Get a detailed, no-obligation quote with pricing, timelines, and specifications.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="quote-form">
+        <h2>Request a Quote</h2>
+        <form id="quoteForm">
+          <div class="row">
+            <div>
+              <label>Full Name</label>
+              <input name="name" required placeholder="Your full name">
+            </div>
+            <div>
+              <label>Company</label>
+              <input name="company" placeholder="Your company name">
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label>Email Address</label>
+              <input name="email" type="email" required placeholder="you@company.co.zw">
+            </div>
+            <div>
+              <label>Phone Number</label>
+              <input name="phone" placeholder="+263...">
+            </div>
+          </div>
+          <label>Solution Interest</label>
+          <select name="solution">
+            <option value="">Select a solution...</option>
+            <option>UCaaS &amp; VoIP</option>
+            <option>3CX Phone Systems</option>
+            <option>Barcode &amp; Scanning</option>
+            <option>POS Systems</option>
+            <option>Networking</option>
+            <option>Bulk Messaging</option>
+            <option>Enterprise Printing</option>
+            <option>ERP Software</option>
+            <option>Multiple Solutions</option>
+            <option>Other</option>
+          </select>
+          <label>Budget Range (USD)</label>
+          <select name="budget">
+            <option value="">Select a range...</option>
+            <option>Under $1,000</option>
+            <option>$1,000 - $5,000</option>
+            <option>$5,000 - $15,000</option>
+            <option>$15,000 - $50,000</option>
+            <option>$50,000+</option>
+            <option>Not sure yet</option>
+          </select>
+          <label>Project Details</label>
+          <textarea name="details" required placeholder="Describe what you need, number of users, locations, timeline, etc."></textarea>
+          <button type="submit" class="btn-primary" style="width:100%;padding:14px;margin-top:24px">Submit Quote Request</button>
+          <p style="text-align:center;font-size:11px;color:#6b7280;margin-top:12px">Opens your email client to send directly to our sales team.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+document.getElementById('quoteForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var f = new FormData(this);
+  var s = encodeURIComponent('[Tyflex Quote Request] ' + f.get('solution') + ' - ' + f.get('company'));
+  var b = encodeURIComponent('Name: ' + f.get('name') + '\nCompany: ' + f.get('company') + '\nEmail: ' + f.get('email') + '\nPhone: ' + f.get('phone') + '\nSolution: ' + f.get('solution') + '\nBudget: ' + f.get('budget') + '\n\nDetails:\n' + f.get('details'));
+  window.location.href = 'mailto:info@tyflex.co.zw?subject=' + s + '&body=' + b;
+});
+</script>
+</div>
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">Tyflex<span>.</span></div>
+        <p>Enterprise technology solutions for Zimbabwean businesses. From unified communications to commerce platforms, we deliver technology that drives growth.</p>
+        <div class="footer-contact">+263 867 717 4838<br>info@tyflex.co.zw<br>122 Chiremba Road, Cranborne, Harare</div>
+      </div>
+      <div class="footer-col"><h4>Solutions</h4><ul>
+        <li><a href="/tyflex/solutions/ucaas/">UCaaS &amp; VoIP</a></li>
+        <li><a href="/tyflex/solutions/3cx/">3CX</a></li>
+        <li><a href="/tyflex/solutions/barcode-scanning/">Barcode</a></li>
+        <li><a href="/tyflex/solutions/pos-systems/">POS</a></li>
+        <li><a href="/tyflex/solutions/networking/">Networking</a></li>
+        <li><a href="/tyflex/solutions/bulk-messaging/">Messaging</a></li>
+        <li><a href="/tyflex/solutions/enterprise-printing/">Printing</a></li>
+        <li><a href="/tyflex/solutions/erp-software/">ERP</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Resources</h4><ul>
+        <li><a href="/tyflex/resources/blog/">Blog</a></li>
+        <li><a href="/tyflex/resources/case-studies/">Case Studies</a></li>
+        <li><a href="/tyflex/resources/docs/">Docs</a></li>
+        <li><a href="/tyflex/support/">Support</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Company</h4><ul>
+        <li><a href="/tyflex/about/">About Us</a></li>
+        <li><a href="/tyflex/projects/">Ventures</a></li>
+        <li><a href="/tyflex/careers/">Careers</a></li>
+        <li><a href="/tyflex/contact/">Contact</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Tyflex Investments (Pvt) Ltd. All rights reserved.</span>
+      <div class="footer-links"><a href="/tyflex/privacy/">Privacy</a><a href="/tyflex/terms/">Terms</a></div>
+    </div>
+  </div>
+</footer>
+<button class="propose-btn" onclick="document.getElementById('pm').classList.add('open')">&#x1F4A1; Propose Change</button>
+<div class="modal-overlay" id="pm">
+  <div class="modal">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px"><h2 style="margin:0">Propose a Change</h2><button onclick="document.getElementById('pm').classList.remove('open')" style="background:none;color:#9ca3af;font-size:24px;border:none">&times;</button></div>
+    <form id="pf">
+      <label>Your Name</label><input name="name" required placeholder="Your name">
+      <label>Area</label><select name="project"><option>Website - Homepage</option><option>Website - Solutions</option><option>Website - Webstore</option><option>Website - Resources</option><option>Website - About</option><option>Website - Contact</option><option>Vekta</option><option>Omniflex</option><option>Mediaserv Digital</option></select>
+      <label>Type</label><select name="type"><option>Enhancement</option><option>Adjustment</option><option>New Page</option><option>Bug Fix</option><option>Content Update</option><option>Question</option></select>
+      <label>Priority</label><select name="priority"><option>Low</option><option selected>Medium</option><option>High</option></select>
+      <label>Summary</label><input name="summary" required placeholder="Brief description">
+      <label>Details</label><textarea name="details" placeholder="Describe the change..."></textarea>
+      <button type="submit" class="btn-primary" style="width:100%;padding:12px;margin-top:8px">Send Proposal</button>
+      <p style="text-align:center;font-size:11px;color:#6b7280;margin-top:8px">Opens your email client to tamuka@tyflex.co.zw</p>
+    </form>
+  </div>
+</div>
+<script>
+document.getElementById('pm').addEventListener('click',function(e){if(e.target===this)this.classList.remove('open')});
+document.getElementById('pf').addEventListener('submit',function(e){e.preventDefault();var f=new FormData(this);var s=encodeURIComponent('[Tyflex Website] '+f.get('type')+' - '+f.get('project')+': '+f.get('summary'));var b=encodeURIComponent('From: '+f.get('name')+'\nArea: '+f.get('project')+'\nType: '+f.get('type')+'\nPriority: '+f.get('priority')+'\nSummary: '+f.get('summary')+'\n\nDetails:\n'+f.get('details'));window.location.href='mailto:tamuka@tyflex.co.zw?subject='+s+'&body='+b});
+</script>
+</body>
+</html>

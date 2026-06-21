@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enterprise Technology Solutions in Zimbabwe | Tyflex</title>
+<meta name="description" content="Tyflex - Enterprise Technology Solutions in Zimbabwe">
+<link rel="stylesheet" href="/tyflex/styles.css">
+</head>
+<body>
+<header class="header">
+  <div class="header-inner">
+    <a href="/tyflex/" class="logo">Tyflex<span>.</span></a>
+    <nav class="nav">
+      <div class="dd">
+        <button class="dd-trigger">Solutions <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="dd-menu">
+          <a href="/tyflex/solutions/" class="highlight">All Solutions</a>
+          <div class="sep"></div>
+          <a href="/tyflex/solutions/ucaas/">UCaaS &amp; VoIP</a>
+          <a href="/tyflex/solutions/3cx/">3CX Phone Systems</a>
+          <a href="/tyflex/solutions/barcode-scanning/">Barcode &amp; Scanning</a>
+          <a href="/tyflex/solutions/pos-systems/">POS Systems</a>
+          <a href="/tyflex/solutions/networking/">Networking</a>
+          <a href="/tyflex/solutions/bulk-messaging/">Bulk Messaging</a>
+          <a href="/tyflex/solutions/enterprise-printing/">Enterprise Printing</a>
+          <a href="/tyflex/solutions/erp-software/">ERP Software</a>
+        </div>
+      </div>
+      <a href="/tyflex/webstore/">Webstore</a>
+      <a href="/tyflex/resources/">Resources</a>
+      <a href="/tyflex/about/">About</a>
+      <a href="/tyflex/contact/">Contact Us</a>
+      <a href="/tyflex/get-quote/" class="btn-primary">Get a Quote</a>
+    </nav>
+  </div>
+</header>
+<div class="page-wrapper">
+
+<style>
+.hero { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.hero-bg { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(220,38,38,0.05), transparent); }
+.hero-glow { position: absolute; top: 20%; left: 50%; transform: translateX(-50%); width: 800px; height: 800px; background: rgba(220,38,38,0.05); border-radius: 50%; filter: blur(100px); }
+.hero-content { position: relative; text-align: center; max-width: 800px; margin: 0 auto; padding: 0 24px; }
+.hero h1 { font-size: clamp(40px, 6vw, 64px); font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 24px; }
+.gradient-text { background: linear-gradient(to right, #fff, #9ca3af); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.badge { display: inline-block; padding: 6px 16px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 50px; font-size: 13px; color: #d1d5db; margin-bottom: 32px; }
+.hero p { font-size: 18px; color: #9ca3af; max-width: 600px; margin: 0 auto 40px; line-height: 1.7; }
+.hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; max-width: 700px; margin: 80px auto 0; }
+.stat-val { font-size: 36px; font-weight: 700; }
+.stat-lbl { font-size: 13px; color: #9ca3af; margin-top: 4px; }
+
+.tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 32px; }
+.tab { padding: 8px 16px; font-size: 13px; border-radius: 8px; background: rgba(255,255,255,0.05); color: #d1d5db; border: none; transition: all 0.2s; }
+.tab:hover { background: rgba(255,255,255,0.1); color: #fff; }
+.tab.active { background: var(--brand-red); color: #fff; }
+.tab-panel { padding: 48px; border-radius: 16px; background: var(--brand-card); border: 1px solid rgba(255,255,255,0.05); display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+.tab-panel h3 { font-size: 24px; font-weight: 700; margin-bottom: 16px; }
+.tab-panel p { color: #9ca3af; line-height: 1.7; margin-bottom: 24px; font-size: 15px; }
+.feat-list { list-style: none; padding: 0; }
+.feat-list li { display: flex; align-items: center; gap: 10px; color: #d1d5db; padding: 6px 0; font-size: 14px; }
+.feat-list .ck { color: var(--brand-red); font-weight: 700; }
+.tab-icon { display: flex; align-items: center; justify-content: center; height: 240px; border-radius: 12px; background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01)); border: 1px solid rgba(255,255,255,0.05); font-size: 56px; }
+
+.ventures-section { border-top: 1px solid rgba(255,255,255,0.05); }
+.ventures-badge { display: inline-block; padding: 6px 16px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 50px; font-size: 13px; color: #d1d5db; margin-bottom: 12px; }
+.venture-tag { color: var(--brand-red); font-size: 13px; font-weight: 500; margin-bottom: 12px; }
+.venture-desc { color: #9ca3af; font-size: 13px; line-height: 1.6; }
+
+.why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+.why-left h2 { font-size: 36px; font-weight: 700; margin-bottom: 24px; }
+.why-left p { color: #9ca3af; line-height: 1.7; margin-bottom: 24px; }
+.checklist { list-style: none; padding: 0; }
+.checklist li { display: flex; align-items: flex-start; gap: 12px; color: #d1d5db; padding: 6px 0; font-size: 14px; }
+.checklist .ck { color: var(--brand-red); margin-top: 2px; }
+.str-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.str-card { padding: 24px; border-radius: 12px; background: var(--brand-card); border: 1px solid rgba(255,255,255,0.05); }
+.str-card .icon { font-size: 24px; margin-bottom: 12px; }
+.str-card h4 { font-weight: 600; margin-bottom: 8px; font-size: 15px; }
+.str-card p { font-size: 13px; color: #9ca3af; line-height: 1.5; }
+
+.cta-band { position: relative; overflow: hidden; text-align: center; }
+.cta-band::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, rgba(220,38,38,0.1), transparent); }
+.cta-band h2 { font-size: 36px; font-weight: 700; margin-bottom: 16px; position: relative; }
+.cta-band p { color: #9ca3af; max-width: 480px; margin: 0 auto 32px; position: relative; }
+.cta-btns { display: flex; gap: 16px; justify-content: center; position: relative; flex-wrap: wrap; }
+@media (max-width: 768px) { .stats { grid-template-columns: repeat(2, 1fr); } .tab-panel { grid-template-columns: 1fr; } .tab-icon { display: none; } .why-grid { grid-template-columns: 1fr; } .str-grid { grid-template-columns: 1fr; } }
+</style>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <span class="badge">Trusted by businesses across Zimbabwe</span>
+    <h1><span class="gradient-text">Streamlined Tech Solutions</span><br>for Business Growth</h1>
+    <p>From unified communications to enterprise hardware, we deliver technology solutions that drive efficiency, reduce costs, and accelerate your business growth.</p>
+    <div class="hero-btns">
+      <a href="/tyflex/get-quote/" class="btn-primary btn-lg">Get a Free Consultation</a>
+      <a href="/tyflex/solutions/" class="btn-secondary btn-lg">Explore Solutions</a>
+    </div>
+    <div class="stats">
+      <div style="text-align:center"><div class="stat-val">3+</div><div class="stat-lbl">Active Ventures</div></div>
+      <div style="text-align:center"><div class="stat-val">10+</div><div class="stat-lbl">Years Building</div></div>
+      <div style="text-align:center"><div class="stat-val">5</div><div class="stat-lbl">Industries</div></div>
+      <div style="text-align:center"><div class="stat-val">1M+</div><div class="stat-lbl">Users Reached</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Solutions Tabs -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Our Solutions</h2>
+      <p>Comprehensive technology solutions tailored for businesses operating in Zimbabwe and the region.</p>
+    </div>
+    <div class="tabs" id="tabs"></div>
+    <div class="tab-panel" id="tabPanel"></div>
+  </div>
+</section>
+
+<!-- Ventures -->
+<section class="section ventures-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="ventures-badge">Our Ventures</span>
+      <h2>Built by Tyflex</h2>
+      <p>Beyond solutions, we build and scale technology companies that serve African markets.</p>
+    </div>
+    <div class="grid-3">
+      <a href="/tyflex/projects/#vekta" class="card">
+        <h3 style="font-size:20px;font-weight:700;margin-bottom:4px">Vekta</h3>
+        <div class="venture-tag">Last-Mile Delivery &amp; Digital Commerce</div>
+        <div class="venture-desc">An integrated logistics and commerce platform powering last-mile delivery for businesses and consumers across Zimbabwe.</div>
+      </a>
+      <a href="/tyflex/projects/#omniflex" class="card">
+        <h3 style="font-size:20px;font-weight:700;margin-bottom:4px">Omniflex</h3>
+        <div class="venture-tag">AI-Powered Bulk Messaging</div>
+        <div class="venture-desc">Enterprise messaging platform delivering millions of SMS, enabling businesses to reach their customers at scale with smart automation.</div>
+      </a>
+      <a href="/tyflex/projects/#mediaserv" class="card">
+        <h3 style="font-size:20px;font-weight:700;margin-bottom:4px">Mediaserv Digital</h3>
+        <div class="venture-tag">Digital Publishing &amp; Event Technology</div>
+        <div class="venture-desc">Digital media company powering publications, events, and MineCon &#8212; Zimbabwe's premier mining &amp; construction exhibition.</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Why Choose Us -->
+<section class="section" style="border-top:1px solid rgba(255,255,255,0.05)">
+  <div class="container">
+    <div class="why-grid">
+      <div class="why-left">
+        <h2>Why Choose Tyflex</h2>
+        <p>With over a decade of experience delivering technology solutions in Zimbabwe, we combine global enterprise products with deep local knowledge and support.</p>
+        <ul class="checklist">
+          <li><span class="ck">&#10003;</span> Certified partners of leading technology brands</li>
+          <li><span class="ck">&#10003;</span> On-site installation and training across Zimbabwe</li>
+          <li><span class="ck">&#10003;</span> 24/7 technical support for enterprise clients</li>
+          <li><span class="ck">&#10003;</span> Flexible payment plans and USD pricing</li>
+          <li><span class="ck">&#10003;</span> 10+ years trusted by leading Zimbabwean businesses</li>
+        </ul>
+      </div>
+      <div class="str-grid">
+        <div class="str-card"><div class="icon">&#x1F30D;</div><h4>Local Expertise</h4><p>Deep understanding of Zimbabwean business challenges with local infrastructure solutions.</p></div>
+        <div class="str-card"><div class="icon">&#x1F91D;</div><h4>End-to-End Support</h4><p>From consultation and installation to training and ongoing support.</p></div>
+        <div class="str-card"><div class="icon">&#x26A1;</div><h4>Proven Technology</h4><p>Enterprise-grade solutions from global partners, deployed locally.</p></div>
+        <div class="str-card"><div class="icon">&#x1F4C8;</div><h4>Scalable Growth</h4><p>Solutions that grow with your business as needs evolve.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section cta-band">
+  <div class="container">
+    <h2>Ready to Transform Your Business?</h2>
+    <p>Get a free consultation with our team to find the right technology solution for your business needs.</p>
+    <div class="cta-btns">
+      <a href="/tyflex/get-quote/" class="btn-primary btn-lg">Get a Free Quote</a>
+      <a href="/tyflex/contact/" class="btn-secondary btn-lg">Contact Us</a>
+    </div>
+  </div>
+</section>
+
+<script>
+var tabs=[
+  {n:"VoIP Solutions",d:"Enterprise-grade voice communications with crystal-clear calls, auto-attendants, and unified messaging. Reduce phone costs by up to 60%.",f:["HD voice quality","Auto-attendant & IVR","Call recording & analytics","Mobile & desktop apps"],i:"&#x1F4DE;",h:"/tyflex/solutions/ucaas/"},
+  {n:"Barcode Solutions",d:"Complete barcode and scanning solutions for warehousing, retail, and asset management.",f:["Handheld & fixed scanners","Label printing","Inventory management","Asset tracking"],i:"&#x1F4F1;",h:"/tyflex/solutions/barcode-scanning/"},
+  {n:"POS Systems",d:"Point-of-sale systems for retail, hospitality, and services. Fast, reliable, and integrated.",f:["Touch screen terminals","Receipt printers","Cash drawers","Inventory sync"],i:"&#x1F4B3;",h:"/tyflex/solutions/pos-systems/"},
+  {n:"Networking",d:"Enterprise networking infrastructure for performance and security.",f:["Structured cabling","Managed switches","Firewalls & security","Wi-Fi coverage"],i:"&#x1F310;",h:"/tyflex/solutions/networking/"},
+  {n:"Bulk Messaging",d:"Reach thousands instantly with bulk SMS and WhatsApp. Smart scheduling and delivery tracking.",f:["Bulk SMS campaigns","WhatsApp Business API","Scheduled delivery","Delivery reports"],i:"&#x1F4E8;",h:"/tyflex/solutions/bulk-messaging/"},
+  {n:"ERP Software",d:"Unified business management connecting finance, HR, inventory, and operations.",f:["Financial management","HR & payroll","Inventory control","Custom modules"],i:"&#x1F4CA;",h:"/tyflex/solutions/erp-software/"}
+];
+var tEl=document.getElementById('tabs'),pEl=document.getElementById('tabPanel');
+function showTab(i){var t=tabs[i];pEl.innerHTML='<div><h3>'+t.n+'</h3><p>'+t.d+'</p><ul class="feat-list">'+t.f.map(function(x){return'<li><span class="ck">&#10003;</span>'+x+'</li>'}).join('')+'</ul><a href="'+t.h+'" class="btn-primary">Learn More</a></div><div class="tab-icon">'+t.i+'</div>';document.querySelectorAll('.tab').forEach(function(b,j){b.classList.toggle('active',j===i)})}
+tabs.forEach(function(t,i){var b=document.createElement('button');b.className='tab'+(i===0?' active':'');b.textContent=t.n;b.onclick=function(){showTab(i)};tEl.appendChild(b)});
+showTab(0);
+</script>
+
+</div>
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">Tyflex<span>.</span></div>
+        <p>Enterprise technology solutions for Zimbabwean businesses. From unified communications to commerce platforms, we deliver technology that drives growth.</p>
+        <div class="footer-contact">+263 867 717 4838<br>info@tyflex.co.zw<br>122 Chiremba Road, Cranborne, Harare</div>
+      </div>
+      <div class="footer-col"><h4>Solutions</h4><ul>
+        <li><a href="/tyflex/solutions/ucaas/">UCaaS &amp; VoIP</a></li>
+        <li><a href="/tyflex/solutions/3cx/">3CX</a></li>
+        <li><a href="/tyflex/solutions/barcode-scanning/">Barcode</a></li>
+        <li><a href="/tyflex/solutions/pos-systems/">POS</a></li>
+        <li><a href="/tyflex/solutions/networking/">Networking</a></li>
+        <li><a href="/tyflex/solutions/bulk-messaging/">Messaging</a></li>
+        <li><a href="/tyflex/solutions/enterprise-printing/">Printing</a></li>
+        <li><a href="/tyflex/solutions/erp-software/">ERP</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Resources</h4><ul>
+        <li><a href="/tyflex/resources/blog/">Blog</a></li>
+        <li><a href="/tyflex/resources/case-studies/">Case Studies</a></li>
+        <li><a href="/tyflex/resources/docs/">Docs</a></li>
+        <li><a href="/tyflex/support/">Support</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Company</h4><ul>
+        <li><a href="/tyflex/about/">About Us</a></li>
+        <li><a href="/tyflex/projects/">Ventures</a></li>
+        <li><a href="/tyflex/careers/">Careers</a></li>
+        <li><a href="/tyflex/contact/">Contact</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Tyflex Investments (Pvt) Ltd. All rights reserved.</span>
+      <div class="footer-links"><a href="/tyflex/privacy/">Privacy</a><a href="/tyflex/terms/">Terms</a></div>
+    </div>
+  </div>
+</footer>
+<button class="propose-btn" onclick="document.getElementById('pm').classList.add('open')">&#x1F4A1; Propose Change</button>
+<div class="modal-overlay" id="pm">
+  <div class="modal">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px"><h2 style="margin:0">Propose a Change</h2><button onclick="document.getElementById('pm').classList.remove('open')" style="background:none;color:#9ca3af;font-size:24px;border:none">&times;</button></div>
+    <form id="pf">
+      <label>Your Name</label><input name="name" required placeholder="Your name">
+      <label>Area</label><select name="project"><option>Website - Homepage</option><option>Website - Solutions</option><option>Website - Webstore</option><option>Website - Resources</option><option>Website - About</option><option>Website - Contact</option><option>Vekta</option><option>Omniflex</option><option>Mediaserv Digital</option></select>
+      <label>Type</label><select name="type"><option>Enhancement</option><option>Adjustment</option><option>New Page</option><option>Bug Fix</option><option>Content Update</option><option>Question</option></select>
+      <label>Priority</label><select name="priority"><option>Low</option><option selected>Medium</option><option>High</option></select>
+      <label>Summary</label><input name="summary" required placeholder="Brief description">
+      <label>Details</label><textarea name="details" placeholder="Describe the change..."></textarea>
+      <button type="submit" class="btn-primary" style="width:100%;padding:12px;margin-top:8px">Send Proposal</button>
+      <p style="text-align:center;font-size:11px;color:#6b7280;margin-top:8px">Opens your email client to tamuka@tyflex.co.zw</p>
+    </form>
+  </div>
+</div>
+<script>
+document.getElementById('pm').addEventListener('click',function(e){if(e.target===this)this.classList.remove('open')});
+document.getElementById('pf').addEventListener('submit',function(e){e.preventDefault();var f=new FormData(this);var s=encodeURIComponent('[Tyflex Website] '+f.get('type')+' - '+f.get('project')+': '+f.get('summary'));var b=encodeURIComponent('From: '+f.get('name')+'\nArea: '+f.get('project')+'\nType: '+f.get('type')+'\nPriority: '+f.get('priority')+'\nSummary: '+f.get('summary')+'\n\nDetails:\n'+f.get('details'));window.location.href='mailto:tamuka@tyflex.co.zw?subject='+s+'&body='+b});
+</script>
+</body>
+</html>
