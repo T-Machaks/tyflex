@@ -48,7 +48,7 @@ const ventures = [
     highlights: [
       "Digital publications engine for all Mediaserv titles",
       "Event ticketing, gate scanning, and check-in systems",
-      "MineCon \u2014 Zimbabwe's premier mining & construction exhibition",
+      "MineCon — Zimbabwe's premier mining & construction exhibition",
       "Exhibitor portal with lead capture",
       "Advertising delivery and impression tracking",
       "Integrated Vekta commerce layer for payments",
