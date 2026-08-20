@@ -1,18 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
-
-const solutions = [
-  { name: "UCaaS & VoIP", href: "/solutions/ucaas" },
-  { name: "3CX Phone Systems", href: "/solutions/3cx" },
-  { name: "Barcode & Scanning", href: "/solutions/barcode-scanning" },
-  { name: "POS Systems", href: "/solutions/pos-systems" },
-  { name: "Networking", href: "/solutions/networking" },
-  { name: "Bulk Messaging", href: "/solutions/bulk-messaging" },
-  { name: "Enterprise Printing", href: "/solutions/enterprise-printing" },
-  { name: "ERP Software", href: "/solutions/erp-software" },
-];
+import { usePathname } from "next/navigation";
+import { solutions } from "@/lib/data/solutions";
+import { isProtectedPath } from "@/lib/constants";
 
 const navLinks = [
   { label: "Webstore", href: "/webstore" },
@@ -22,15 +15,26 @@ const navLinks = [
 ];
 
 export default function Header() {
+  const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [solOpen, setSolOpen] = useState(false);
+
+  // Authenticated app sections (portal/tracker/accounts) get their own chrome.
+  if (isProtectedPath(pathname)) return null;
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-brand-black/80 backdrop-blur-md border-b border-white/5">
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3">
-          <img src="/tyflex/logo.png" alt="Tyflex" className="h-9 w-9 rounded-lg bg-white/90 p-0.5 object-contain" />
+          <Image
+            src="/logo.png"
+            alt="Tyflex"
+            width={40}
+            height={40}
+            priority
+            className="h-9 w-9 rounded-lg bg-white/90 p-0.5 object-contain"
+          />
           <span className="text-2xl font-bold tracking-tight">
             <span className="text-white">Tyflex</span>
             <span className="text-brand-red">.</span>
@@ -52,23 +56,25 @@ export default function Header() {
               </svg>
             </button>
             {solOpen && (
-              <div className="absolute top-full left-0 mt-2 w-64 bg-brand-dark border border-white/10 rounded-xl shadow-2xl py-2 z-50">
+              <div className="absolute top-full left-0 mt-2 w-[560px] bg-brand-dark border border-white/10 rounded-xl shadow-2xl p-4 z-50">
                 <Link
                   href="/solutions"
-                  className="block px-4 py-2.5 text-sm text-brand-red font-medium hover:bg-white/5 transition-colors"
+                  className="block px-3 py-2 mb-1 text-sm text-brand-red font-medium hover:bg-white/5 rounded-lg transition-colors"
                 >
-                  All Solutions
+                  All Solutions &rarr;
                 </Link>
-                <div className="border-t border-white/5 my-1" />
-                {solutions.map((sol) => (
-                  <Link
-                    key={sol.href}
-                    href={sol.href}
-                    className="block px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
-                  >
-                    {sol.name}
-                  </Link>
-                ))}
+                <div className="border-t border-white/5 mb-2" />
+                <div className="grid grid-cols-2 gap-x-2 gap-y-0.5">
+                  {solutions.map((sol) => (
+                    <Link
+                      key={sol.slug}
+                      href={`/solutions/${sol.slug}`}
+                      className="block px-3 py-2 text-sm text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
+                    >
+                      {sol.name}
+                    </Link>
+                  ))}
+                </div>
               </div>
             )}
           </div>
@@ -116,16 +122,18 @@ export default function Header() {
           >
             Solutions
           </Link>
-          {solutions.map((sol) => (
-            <Link
-              key={sol.href}
-              href={sol.href}
-              className="block text-gray-400 hover:text-white py-1.5 pl-4 text-sm"
-              onClick={() => setMobileOpen(false)}
-            >
-              {sol.name}
-            </Link>
-          ))}
+          <div className="max-h-64 overflow-y-auto">
+            {solutions.map((sol) => (
+              <Link
+                key={sol.slug}
+                href={`/solutions/${sol.slug}`}
+                className="block text-gray-400 hover:text-white py-1.5 pl-4 text-sm"
+                onClick={() => setMobileOpen(false)}
+              >
+                {sol.name}
+              </Link>
+            ))}
+          </div>
           <div className="border-t border-white/5 my-2" />
           {navLinks.map((link) => (
             <Link

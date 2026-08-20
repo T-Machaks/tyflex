@@ -1,15 +1,13 @@
-import Link from "next/link";
+"use client";
 
-const solutions = [
-  { name: "UCaaS & VoIP", href: "/solutions/ucaas" },
-  { name: "3CX Phone Systems", href: "/solutions/3cx" },
-  { name: "Barcode & Scanning", href: "/solutions/barcode-scanning" },
-  { name: "POS Systems", href: "/solutions/pos-systems" },
-  { name: "Networking", href: "/solutions/networking" },
-  { name: "Bulk Messaging", href: "/solutions/bulk-messaging" },
-  { name: "Enterprise Printing", href: "/solutions/enterprise-printing" },
-  { name: "ERP Software", href: "/solutions/erp-software" },
-];
+import Link from "next/link";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { COMPANY, isProtectedPath } from "@/lib/constants";
+import { solutions as allSolutions } from "@/lib/data/solutions";
+
+// Footer shows a curated subset — the full list lives at /solutions.
+const footerSolutions = allSolutions.slice(0, 6);
 
 const resources = [
   { name: "Blog", href: "/resources/blog" },
@@ -26,6 +24,11 @@ const company = [
 ];
 
 export default function Footer() {
+  const pathname = usePathname();
+
+  // Authenticated app sections (portal/tracker/accounts) get their own chrome.
+  if (isProtectedPath(pathname)) return null;
+
   return (
     <footer className="bg-brand-black border-t border-white/5 pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-6">
@@ -33,7 +36,13 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center gap-3">
-              <img src="/tyflex/logo.png" alt="Tyflex" className="h-8 w-8 rounded-lg bg-white/90 p-0.5 object-contain" />
+              <Image
+                src="/logo.png"
+                alt="Tyflex"
+                width={40}
+                height={40}
+                className="h-8 w-8 rounded-lg bg-white/90 p-0.5 object-contain"
+              />
               <span className="text-2xl font-bold">
                 Tyflex<span className="text-brand-red">.</span>
               </span>
@@ -44,9 +53,9 @@ export default function Footer() {
               that drives growth.
             </p>
             <div className="mt-6 text-sm text-gray-500 space-y-1">
-              <p>+263 867 717 4838</p>
-              <p>info@tyflex.co.zw</p>
-              <p>122 Chiremba Road, Cranborne, Harare</p>
+              <p>{COMPANY.phoneDisplay}</p>
+              <p>{COMPANY.email}</p>
+              <p>{COMPANY.address}</p>
             </div>
           </div>
 
@@ -56,13 +65,18 @@ export default function Footer() {
               Solutions
             </h4>
             <ul className="space-y-2">
-              {solutions.map((s) => (
-                <li key={s.name}>
-                  <Link href={s.href} className="text-gray-400 hover:text-white text-sm transition-colors">
+              {footerSolutions.map((s) => (
+                <li key={s.slug}>
+                  <Link href={`/solutions/${s.slug}`} className="text-gray-400 hover:text-white text-sm transition-colors">
                     {s.name}
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link href="/solutions" className="text-brand-red hover:text-white text-sm font-medium transition-colors">
+                  View All Solutions &rarr;
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -101,7 +115,7 @@ export default function Footer() {
 
         <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-gray-500">
-            &copy; {new Date().getFullYear()} Tyflex Investments (Pvt) Ltd. All rights reserved.
+            &copy; {new Date().getFullYear()} {COMPANY.legalName}. All rights reserved.
           </p>
           <div className="flex gap-6 text-sm text-gray-500">
             <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>

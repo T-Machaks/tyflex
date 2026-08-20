@@ -1,0 +1,21 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm ci
+    build:
+      commands:
+        - npm run build
+  artifacts:
+    # .next (not `out`) — this is a full SSR/compute deployment, not a
+    # static export. Amplify Hosting detects the Next.js build output here
+    # and provisions the request-serving compute (API routes, middleware,
+    # dynamic pages) automatically.
+    baseDirectory: .next
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
+      - .next/cache/**/*

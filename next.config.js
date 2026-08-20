@@ -1,11 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
-  basePath: '/tyflex',
-  trailingSlash: true,
+  // Deployed on AWS Amplify in full SSR mode — no static export, no basePath.
   images: {
-    unoptimized: true,
+    remotePatterns: [],
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

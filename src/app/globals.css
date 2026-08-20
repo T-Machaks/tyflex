@@ -9,6 +9,11 @@
 
 html {
   scroll-behavior: smooth;
+  /* The whole site is dark-themed — without this, browsers render native
+     form chrome (date-picker calendar icon, spinner buttons, etc.) in its
+     light-mode colors, which is a dark icon on our dark inputs and nearly
+     invisible. This tells the browser to use its dark-mode form control art. */
+  color-scheme: dark;
 }
 
 body {
@@ -22,5 +27,19 @@ body {
   }
   .gradient-text {
     @apply bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent;
+  }
+  /* Brand gradient heading: red to orange */
+  .gradient-text-brand {
+    @apply bg-gradient-to-r from-brand-red via-orange-500 to-amber-400 bg-clip-text text-transparent;
+  }
+  .glass {
+    @apply bg-white/5 backdrop-blur-md border border-white/10;
+  }
+  .glow-border-hover {
+    @apply transition-all duration-300 hover:border-brand-red/40;
+    box-shadow: 0 0 0 rgba(220, 38, 38, 0);
+  }
+  .glow-border-hover:hover {
+    box-shadow: 0 0 40px rgba(220, 38, 38, 0.15);
   }
 }

@@ -1,0 +1,18 @@
+TYFLEX DOCUMENT PORTAL — DEMO PLACEHOLDER FILE
+================================================
+
+This is placeholder content for the Tyflex Document Portal demo.
+It stands in for "Barcode Scanner Installation Report.pdf" and is not a
+real business document.
+
+Prepared for: Harare Logistics Group
+Prepared by: FlexTech (Tyflex Investments)
+
+Summary:
+- Deployed handheld 1D/2D scanners across all three depots
+- Configured wireless data capture and inventory sync
+- On-site training completed for warehouse staff
+- Zero downtime during rollout
+
+This placeholder exists so the portal's download flow has real files to
+serve during development and testing.

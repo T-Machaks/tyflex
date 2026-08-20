@@ -1,0 +1,62 @@
+import type { MetadataRoute } from "next";
+import { COMPANY } from "@/lib/constants";
+import { solutions } from "@/lib/data/solutions";
+import { products } from "@/lib/data/products";
+import { getAllPostsMeta } from "@/lib/blog";
+
+/**
+ * Auto-generated sitemap covering every public marketing route plus each
+ * dynamic detail page (solutions, webstore products, blog posts). Protected
+ * app sections (/portal, /tracker, /accounts) and API routes are
+ * intentionally excluded — see robots.ts.
+ *
+ * /projects is also excluded: it's a leftover page from the pre-rebuild
+ * scaffold that predates this site's sitemap and was never part of any
+ * stage's brief, so it's deliberately left out of both the sitemap and
+ * primary site navigation rather than indexed as if it were current content.
+ */
+export default function sitemap(): MetadataRoute.Sitemap {
+  const base = COMPANY.url;
+  const now = new Date();
+
+  const staticRoutes: MetadataRoute.Sitemap = [
+    { url: `${base}/`, lastModified: now, changeFrequency: "weekly", priority: 1 },
+    { url: `${base}/solutions`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${base}/webstore`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${base}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${base}/contact`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${base}/get-quote`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${base}/resources`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
+    { url: `${base}/resources/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
+    { url: `${base}/resources/case-studies`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${base}/resources/docs`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${base}/partners`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${base}/careers`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${base}/support`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${base}/privacy`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${base}/terms`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
+  ];
+
+  const solutionRoutes: MetadataRoute.Sitemap = solutions.map((s) => ({
+    url: `${base}/solutions/${s.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.8,
+  }));
+
+  const productRoutes: MetadataRoute.Sitemap = products.map((p) => ({
+    url: `${base}/webstore/product/${p.id}`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.6,
+  }));
+
+  const blogRoutes: MetadataRoute.Sitemap = getAllPostsMeta().map((post) => ({
+    url: `${base}/resources/blog/${post.slug}`,
+    lastModified: new Date(post.date),
+    changeFrequency: "yearly",
+    priority: 0.5,
+  }));
+
+  return [...staticRoutes, ...solutionRoutes, ...productRoutes, ...blogRoutes];
+}
