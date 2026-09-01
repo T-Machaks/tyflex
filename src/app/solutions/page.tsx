@@ -22,7 +22,7 @@ export default function SolutionsPage() {
         <div className="text-center mb-16">
           <FadeIn>
             <span className="inline-block px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-sm text-gray-300 mb-4">
-              15 Solutions, One Partner
+              {solutions.length} Solutions, One Partner
             </span>
           </FadeIn>
           <FadeIn delay={0.1}>

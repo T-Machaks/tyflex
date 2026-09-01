@@ -39,12 +39,12 @@ const solutionTabs = [
     href: "/solutions/ucaas",
   },
   {
-    name: "Barcode Solutions",
+    name: "AutoID Solutions",
     icon: Barcode,
     description:
-      "Complete barcode and scanning solutions for warehousing, retail, and asset management. From handheld scanners to enterprise systems.",
-    features: ["Handheld & fixed scanners", "Label printing", "Inventory management", "Asset tracking"],
-    href: "/solutions/barcode-scanning",
+      "Barcode scanning, mobile computing, rugged field devices, and label and line matrix printing for warehousing, retail, and logistics.",
+    features: ["Handheld & fixed scanners", "Rugged mobile computers", "Label printing", "Line matrix printing"],
+    href: "/solutions/autoid",
   },
   {
     name: "POS Systems",

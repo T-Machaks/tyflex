@@ -1,6 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { buildChatSystemPrompt } from "@/lib/chat-system-prompt";
 import { chatSchema, MAX_CHAT_USER_MESSAGES } from "@/lib/validation";
+import { solutions } from "@/lib/data/solutions";
 
 // The Anthropic SDK needs the full Node runtime, not the Edge runtime.
 export const runtime = "nodejs";
@@ -17,7 +18,7 @@ const RATE_LIMIT_MESSAGE = `You've reached the ${MAX_CHAT_USER_MESSAGES}-message
 
 const DEV_FALLBACK_REPLY =
   "Thanks for reaching out! I'm running in local demo mode right now (no live AI connection configured), " +
-  "but here's the short version: Tyflex offers 15 solutions spanning communications, networking, retail " +
+  `but here's the short version: Tyflex offers ${solutions.length} solutions spanning communications, networking, retail ` +
   "technology, business messaging, and cloud infrastructure. Browse them all at /solutions, or head " +
   "straight to /get-quote and our team will follow up with a tailored quote.";
 

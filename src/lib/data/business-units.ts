@@ -35,7 +35,7 @@ export const businessUnits: BusinessUnit[] = [
       "Retail technology division, equipping shops, restaurants, and service businesses with POS terminals, barcode scanning, and printing hardware.",
     founded: 2014,
     icon: "CreditCard",
-    focus: ["POS Systems", "Barcode & Scanning", "Enterprise Printing"],
+    focus: ["POS Systems", "AutoID Solutions", "Hardware-as-a-Service"],
   },
   {
     name: "Getsiman",

@@ -23,6 +23,18 @@ export interface SolutionFAQ {
   answer: string;
 }
 
+export interface BrandGroup {
+  /** e.g. "Platform vendors", "Endpoints & gateways" — keeps a long brand list readable. */
+  label: string;
+  brands: string[];
+}
+
+export interface SolutionCrossLink {
+  label: string;
+  href: string;
+  description: string;
+}
+
 export interface Solution {
   slug: string;
   name: string;
@@ -37,6 +49,15 @@ export interface Solution {
   useCases: SolutionUseCase[];
   relatedProducts: RelatedProduct[];
   faqs: SolutionFAQ[];
+  /** Grouped "Brands we supply" block — omitted entirely when a solution has no brand list to show. */
+  brandGroups?: BrandGroup[];
+  /** Related solution/page callouts rendered near the bottom (e.g. Smart Buildings -> Getsiman). */
+  crossLinks?: SolutionCrossLink[];
+  /** Overrides the generic closing CTA copy ("Get a tailored quote...") when it doesn't fit this solution. */
+  ctaHeading?: string;
+  ctaDescription?: string;
+  /** Overrides the CTA button label (default "Get a Free Quote") — e.g. "Talk to Us About Pricing" where no figures are published. */
+  ctaButtonLabel?: string;
 }
 
 export const solutions: Solution[] = [
@@ -44,18 +65,18 @@ export const solutions: Solution[] = [
     slug: "ucaas",
     name: "UCaaS & VoIP",
     shortDescription:
-      "Enterprise voice communications with HD calls, auto-attendants, call recording, and unified messaging.",
+      "Enterprise voice communications deployed on-premise, hybrid, or fully hosted in the cloud — HD calls, auto-attendants, and unified messaging.",
     tagline:
-      "Enterprise-grade unified communications and Voice over IP solutions for businesses of all sizes.",
+      "Unified communications and VoIP, deployed the way that suits your business — run a PBX in your own server room, extend it to the cloud in a hybrid setup, or go fully hosted.",
     icon: "Phone",
-    badges: ["HD Voice", "Auto-Attendant", "Call Recording", "Mobile Apps"],
+    badges: ["Flexible Deployment", "HD Voice", "Auto-Attendant", "Mobile Apps"],
     features: [
+      { icon: "Server", title: "On-Premise, Hybrid, or Cloud", description: "Keep your PBX fully on-site for complete control, extend it to the cloud as a hybrid setup, or go fully hosted — the deployment model is your choice, not ours." },
       { icon: "Phone", title: "HD Voice Quality", description: "Crystal-clear calls over your existing internet connection — no dedicated phone lines required." },
       { icon: "Settings", title: "Auto-Attendant & IVR", description: "Route callers automatically with customizable menus, business hours, and call queues." },
       { icon: "Activity", title: "Call Recording & Analytics", description: "Record calls for training and compliance, with a dashboard tracking volume and performance." },
       { icon: "Smartphone", title: "Mobile & Desktop Apps", description: "Take your business line anywhere with softphone apps for iOS, Android, Windows, and Mac." },
       { icon: "Video", title: "Video Conferencing", description: "Built-in video meetings for internal and client calls — no extra subscription needed." },
-      { icon: "Mail", title: "Voicemail to Email", description: "Voicemails transcribed and delivered straight to your inbox so nothing gets missed." },
     ],
     useCases: [
       { title: "Growing Sales Teams", description: "Give every rep a professional business line and call analytics without new hardware." },
@@ -68,9 +89,14 @@ export const solutions: Solution[] = [
       { name: "SIP Headsets", description: "Noise-cancelling headsets for busy call center and sales environments.", productId: "sip-headset-noise-cancelling" },
     ],
     faqs: [
+      { question: "Can I choose between on-premise, hybrid, or cloud deployment?", answer: "Yes — that choice is central to how we deploy UCaaS. We'll assess your infrastructure, data control requirements, and budget, then recommend (or you choose) an on-premise, hybrid, or fully cloud-hosted deployment." },
       { question: "Do I need new phone lines to switch to VoIP?", answer: "No — our UCaaS platform runs over your existing internet connection, so there's no need for traditional analog phone lines." },
       { question: "Can I keep my existing business numbers?", answer: "Yes, we handle number porting from your current provider with no downtime during the switch." },
       { question: "What happens if the internet goes down?", answer: "Calls automatically fail over to mobile apps or a backup number you configure, so you stay reachable." },
+    ],
+    brandGroups: [
+      { label: "Platform vendors", brands: ["3CX", "Yeastar", "Epygi"] },
+      { label: "Endpoints & gateways", brands: ["Fanvil", "Yealink", "AudioCodes"] },
     ],
   },
   {
@@ -107,26 +133,26 @@ export const solutions: Solution[] = [
     ],
   },
   {
-    slug: "barcode-scanning",
-    name: "Barcode & Scanning",
+    slug: "autoid",
+    name: "AutoID",
     shortDescription:
-      "Complete barcode solutions for warehousing, retail, and asset management with handheld and fixed scanners.",
+      "Barcode scanning, mobile computing, rugged field devices, and label and line matrix printing for warehousing, retail, and logistics.",
     tagline:
-      "End-to-end barcode and scanning solutions for warehousing, retail, and asset management.",
+      "End-to-end automatic identification and data capture — barcode scanning, mobile computing, rugged field devices, and label and industrial printing, built for the field.",
     icon: "Barcode",
-    badges: ["Handheld Scanners", "Label Printing", "Inventory Sync", "Asset Tracking"],
+    badges: ["Mobile Computing", "Rugged Devices", "Label Printing", "Line Matrix Printing"],
     features: [
       { icon: "ScanLine", title: "Handheld & Fixed Scanners", description: "Rugged handheld and mounted scanners for warehouses, checkout counters, and production lines." },
+      { icon: "Smartphone", title: "Rugged Mobile Computers", description: "Android-based handheld terminals combining scanning with inventory apps, built to survive drops, dust, and daily field use." },
       { icon: "Printer", title: "Label Printing", description: "Thermal label printers and design software for product, shelf, and shipping labels." },
+      { icon: "Truck", title: "Line Matrix Printing", description: "High-volume industrial line matrix printers for logistics, manufacturing, and warehouse environments — built for continuous, high-throughput output." },
       { icon: "Boxes", title: "Inventory Management", description: "Scan-in, scan-out workflows that sync stock counts in real time across locations." },
-      { icon: "Package", title: "Asset Tracking", description: "Tag and track equipment and fixed assets across sites with barcode or QR-based audits." },
       { icon: "Wifi", title: "Wireless Data Capture", description: "Wi-Fi and Bluetooth scanners feed data straight into your systems without cables." },
-      { icon: "BadgeCheck", title: "Rugged, Industrial-Grade", description: "Drop-tested, dust and water-resistant devices built for demanding environments." },
     ],
     useCases: [
-      { title: "Warehousing & Logistics", description: "Speed up picking, packing, and receiving with mobile scanning at every step." },
+      { title: "Warehousing & Logistics", description: "Speed up picking, packing, and receiving with mobile scanning, and keep high-volume dispatch documentation running with line matrix printing." },
       { title: "Retail Stock Control", description: "Keep shelf and back-of-store stock counts accurate with regular barcode audits." },
-      { title: "Manufacturing & Assets", description: "Track work-in-progress and fixed assets from the production floor to dispatch." },
+      { title: "Manufacturing & Assets", description: "Track work-in-progress and fixed assets from the production floor to dispatch with rugged, field-ready devices." },
     ],
     relatedProducts: [
       { name: "Handheld 1D/2D Scanners", description: "Cordless scanners for retail counters and mobile stocktaking.", productId: "zebra-ds2208-handheld-scanner" },
@@ -134,42 +160,16 @@ export const solutions: Solution[] = [
       { name: "Rugged Mobile Computers", description: "Android-based handheld terminals combining scanning with inventory apps.", productId: "zebra-mc3300-rugged-mobile-computer" },
     ],
     faqs: [
-      { question: "Can barcode scanners integrate with our existing POS or ERP?", answer: "Yes, our scanning solutions integrate with most POS and ERP systems, including the ones we deploy directly." },
-      { question: "Do you supply both hardware and labels?", answer: "Yes — we supply scanners, printers, and consumables like labels and ribbons, all sourced and stocked locally." },
-      { question: "What if a scanner is dropped or damaged?", answer: "We stock rugged, industrial-grade devices and offer repair and replacement support under our service plans." },
+      { question: "Can AutoID devices integrate with our existing POS or ERP?", answer: "Yes, our scanning and mobile computing solutions integrate with most POS and ERP systems, including the ones we deploy directly." },
+      { question: "What's the difference between thermal label printing and line matrix printing?", answer: "Thermal printers suit product, shelf, and shipping labels at moderate volume. Line matrix printers are built for continuous, high-volume industrial output — multi-part forms, dispatch documentation, and manufacturing environments where thermal printers aren't designed to keep up." },
+      { question: "Do you supply both hardware and labels?", answer: "Yes — we supply scanners, mobile computers, printers, and consumables like labels and ribbons, all sourced and stocked locally." },
+      { question: "What if a device is dropped or damaged in the field?", answer: "We stock rugged, industrial-grade devices and offer repair and replacement support under our service plans." },
     ],
-  },
-  {
-    slug: "enterprise-printing",
-    name: "Enterprise Printing",
-    shortDescription:
-      "High-volume printers, managed print services, and document solutions for enterprise environments.",
-    tagline:
-      "High-volume printers, managed print services, and document workflow solutions built for enterprise output.",
-    icon: "Printer",
-    badges: ["Managed Print", "High-Volume", "Cost Tracking", "Document Workflow"],
-    features: [
-      { icon: "Printer", title: "High-Volume Printers", description: "Enterprise-grade laser printers and MFPs built for heavy daily print volumes." },
-      { icon: "Activity", title: "Managed Print Services", description: "We monitor toner, service, and uptime so printing just works, without IT overhead." },
-      { icon: "Receipt", title: "Cost Per Page Tracking", description: "Detailed reporting on print costs by department, user, or device to control spend." },
-      { icon: "FileText", title: "Document Workflow", description: "Scan-to-email, scan-to-folder, and secure print release integrated into your network." },
-      { icon: "ShieldCheck", title: "Secure Print Release", description: "Pull printing keeps sensitive documents off the output tray until you badge in." },
-      { icon: "Wrench", title: "On-Site Maintenance", description: "Local technicians and genuine consumables keep devices running with minimal downtime." },
-    ],
-    useCases: [
-      { title: "Corporate Offices", description: "Centralize printing fleets with predictable, tracked costs across departments." },
-      { title: "Banks & Financial Services", description: "Secure print release and audit trails for sensitive customer documentation." },
-      { title: "Schools & Institutions", description: "High-volume, low-cost-per-page printers built to handle daily academic output." },
-    ],
-    relatedProducts: [
-      { name: "Enterprise Laser MFPs", description: "Multi-function print, copy, and scan devices for busy offices." },
-      { name: "Managed Print Toner Plans", description: "Auto-replenished toner and consumables bundled into a monthly plan." },
-      { name: "Document Scanners", description: "High-speed scanners for digitizing paper archives and daily workflows." },
-    ],
-    faqs: [
-      { question: "What is managed print, and does it cost more?", answer: "Managed print bundles the device, consumables, and service into one predictable monthly cost — most clients pay less overall than buying toner ad hoc." },
-      { question: "Can you support a mixed fleet of printer brands?", answer: "Yes, our managed print service covers most major printer brands, not just the units we supply." },
-      { question: "Do you offer secure printing for confidential documents?", answer: "Yes, we deploy secure pull-printing so documents only print once the user authenticates at the device." },
+    brandGroups: [
+      { label: "Scanners & mobile computers", brands: ["Zebra", "Honeywell", "Urovo", "CipherLab", "Hikvision"] },
+      { label: "Rugged devices", brands: ["Getac"] },
+      { label: "Label & industrial printers", brands: ["Zebra", "TSC Printronix", "Argox", "Brother", "Epson"] },
+      { label: "Labelling software", brands: ["BarTender"] },
     ],
   },
   {
@@ -187,12 +187,12 @@ export const solutions: Solution[] = [
       { icon: "Lock", title: "Firewalls & Security", description: "Next-generation firewalls with intrusion prevention to protect your perimeter." },
       { icon: "Wifi", title: "Enterprise Wi-Fi Coverage", description: "Site-surveyed access point deployment for reliable coverage across every floor." },
       { icon: "Activity", title: "Network Monitoring", description: "Proactive monitoring flags issues before they cause downtime." },
-      { icon: "HardDrive", title: "Server Room Setup", description: "Racking, power, and cooling design for a clean, reliable server room." },
+      { icon: "Server", title: "Hikvision Infrastructure", description: "Hikvision switches and network infrastructure, storage arrays and NVR recording storage, and server/computing hardware — extending our networking practice with proven, cost-effective enterprise equipment." },
     ],
     useCases: [
       { title: "New Office Fit-Outs", description: "Cable and network a new site from the ground up, ready for day-one occupancy." },
       { title: "Multi-Site Businesses", description: "Connect branches securely with site-to-site VPNs and centralized management." },
-      { title: "Warehouses & Factories", description: "Extend reliable Wi-Fi and wired coverage across large industrial floor plans." },
+      { title: "Warehouses & Factories", description: "Extend reliable Wi-Fi and wired coverage across large industrial floor plans, with Hikvision NVR storage for local footage retention." },
     ],
     relatedProducts: [
       { name: "Managed Network Switches", description: "Layer 2/3 switches for segmented, monitored enterprise networks.", productId: "unifi-24-port-poe-switch" },
@@ -203,40 +203,45 @@ export const solutions: Solution[] = [
       { question: "Do you handle both cabling and equipment?", answer: "Yes, we design, cable, and supply the switches, firewalls, and access points, end to end." },
       { question: "Can you assess our existing network first?", answer: "Yes, we start most projects with a site survey and network audit to identify gaps before recommending equipment." },
       { question: "Do you offer ongoing network monitoring?", answer: "Yes, our managed network plans include proactive monitoring and alerting so issues are caught before they cause downtime." },
+      { question: "Do you supply Hikvision networking and storage hardware?", answer: "Yes — Hikvision switches, storage arrays, and server/computing hardware are part of our standard networking and infrastructure supply, alongside our existing cabling, switching, and Wi-Fi work." },
     ],
   },
   {
     slug: "pos-systems",
     name: "POS Systems",
     shortDescription:
-      "Point-of-sale hardware and software for retail, hospitality, and services businesses.",
+      "Hardware-as-a-Service point-of-sale — terminals, scanners, and printers on a monthly subscription with no upfront cost. Outright purchase also available.",
     tagline:
-      "Point-of-sale systems designed for retail, hospitality, and services — fast, reliable, and easy to train staff on.",
+      "Point-of-sale as a service — the device, support, and replacement all rolled into one subscription, so you're not tying up capital in checkout hardware. Prefer to own it outright? We do that too.",
     icon: "CreditCard",
-    badges: ["Touch Terminals", "Receipt Printers", "Inventory Sync", "Offline Mode"],
+    badges: ["Hardware-as-a-Service", "No Upfront Cost", "Support Included", "Buy Outright (Optional)"],
     features: [
-      { icon: "CreditCard", title: "Touch Screen Terminals", description: "Fast, intuitive checkout terminals built for high-traffic retail and hospitality." },
+      { icon: "CreditCard", title: "Zero Upfront Cost", description: "Skip the capital outlay for terminals, scanners, and printers — pay a predictable monthly subscription per till instead." },
+      { icon: "Wrench", title: "Device, Support & Replacement Included", description: "Your subscription covers the hardware, ongoing support, and replacement if a device fails — one line item, not a pile of maintenance invoices." },
+      { icon: "Package", title: "Touch Screen Terminals", description: "Fast, intuitive checkout terminals built for high-traffic retail and hospitality." },
       { icon: "Printer", title: "Receipt Printers", description: "Reliable thermal receipt printers integrated directly with your POS software." },
-      { icon: "Package", title: "Cash Drawers", description: "Secure, POS-triggered cash drawers for accurate till management." },
       { icon: "Boxes", title: "Inventory Sync", description: "Stock levels update automatically with every sale, across single or multi-store setups." },
-      { icon: "BarChart", title: "Sales Reporting", description: "Real-time dashboards on sales, best-sellers, and staff performance." },
       { icon: "Wifi", title: "Offline Mode", description: "Keep selling during internet outages — transactions sync once you're back online." },
     ],
     useCases: [
-      { title: "Retail Stores", description: "Fast checkout with barcode scanning and live inventory across one or many branches." },
-      { title: "Restaurants & Cafés", description: "Table and order management paired with kitchen printer integration." },
+      { title: "Retailers Avoiding Capex", description: "Skip the upfront cost of terminals and scanners with a predictable monthly subscription per till." },
+      { title: "Restaurants & Cafés", description: "Table and order management paired with kitchen printer integration, all on the same subscription." },
       { title: "Service Businesses", description: "Combine sales, bookings, and invoicing in a single point-of-sale workflow." },
     ],
     relatedProducts: [
-      { name: "All-in-One POS Terminals", description: "Touchscreen terminals with built-in card reader support.", productId: "all-in-one-touchscreen-pos-terminal" },
+      { name: "POS Hardware-as-a-Service Plan", description: "Monthly subscription covering terminal, scanner, and printer hardware plus support and replacement." },
+      { name: "All-in-One POS Terminals", description: "Touchscreen terminals with built-in card reader support — available on subscription or outright purchase.", productId: "all-in-one-touchscreen-pos-terminal" },
       { name: "Receipt & Kitchen Printers", description: "Thermal printers for receipts, tickets, and kitchen orders.", productId: "thermal-receipt-printer" },
-      { name: "Barcode Scanners for POS", description: "Handheld and counter-mounted scanners for fast checkout.", productId: "barcode-scanner-for-pos" },
     ],
     faqs: [
+      { question: "How does Hardware-as-a-Service work for POS?", answer: "You pay a monthly subscription per till instead of buying terminals, scanners, and printers outright. The subscription covers the device, ongoing support, and replacement if hardware fails — no upfront capital outlay." },
+      { question: "Can I buy the hardware outright instead?", answer: "Yes — outright purchase is available if you'd rather own your POS hardware directly. Talk to us and we'll size either option to your store count." },
       { question: "Does the POS work without internet?", answer: "Yes, our POS systems support offline mode, queuing transactions and syncing automatically once connectivity returns." },
-      { question: "Can it handle multiple store locations?", answer: "Yes, inventory and sales reporting can be centralized across as many branches as you operate." },
-      { question: "Is staff training included?", answer: "Yes, on-site training is included with every POS deployment so your team is confident from day one." },
+      { question: "Can it handle multiple store locations?", answer: "Yes, inventory and sales reporting can be centralized across as many branches as you operate, under either the subscription or outright-purchase model." },
     ],
+    ctaHeading: "Ready to move to Hardware-as-a-Service?",
+    ctaDescription: "Every deployment is sized to your store count and hardware needs — no published pricing here. Talk to us and we'll put together a subscription (or an outright quote) that fits.",
+    ctaButtonLabel: "Talk to Us About Pricing",
   },
   {
     slug: "erp-software",
@@ -407,33 +412,42 @@ export const solutions: Solution[] = [
     slug: "smart-building",
     name: "Smart Building Solutions",
     shortDescription:
-      "Access control, CCTV, and building automation systems that make properties smarter and more secure.",
+      "Hikvision-powered smart building systems — network cameras, sensors, access control, and commercial displays — for offices, retail, and warehouses.",
     tagline:
-      "Access control, CCTV, and building automation systems that make commercial properties smarter, safer, and more efficient.",
+      "One integrated system for security, access, environmental monitoring, and display — built on the Hikvision ecosystem for commercial properties, from office parks to gated residential estates.",
     icon: "Building2",
-    badges: ["Access Control", "CCTV & Monitoring", "Automation", "Remote Management"],
+    badges: ["Hikvision Ecosystem", "Access Control", "Network Cameras", "Commercial Displays"],
     features: [
+      { icon: "Camera", title: "Network Cameras", description: "Hikvision HD IP cameras with remote viewing and motion-triggered alerts, feeding into the same platform as access control and sensors." },
       { icon: "Lock", title: "Access Control", description: "Card, biometric, and app-based access control for doors, gates, and turnstiles." },
-      { icon: "Video", title: "CCTV & Video Monitoring", description: "HD IP cameras with remote viewing and motion-triggered alerts." },
-      { icon: "Settings", title: "Building Automation", description: "Automate lighting, HVAC, and power systems for efficiency and comfort." },
-      { icon: "Activity", title: "Centralized Monitoring", description: "Manage access, cameras, and alarms from a single dashboard across sites." },
+      { icon: "Thermometer", title: "Environmental Sensors", description: "Occupancy, temperature, and environmental sensors feed live conditions into one dashboard alongside security and access data." },
+      { icon: "Monitor", title: "Commercial Displays", description: "Digital signage, wayfinding, and reception displays as part of the same integrated ecosystem — not a separate system to manage." },
+      { icon: "Activity", title: "Centralized Monitoring", description: "Manage access, cameras, sensors, and alarms from a single dashboard across sites." },
       { icon: "ShieldCheck", title: "Intrusion & Fire Alarms", description: "Integrated alarm systems that notify security teams the moment something's wrong." },
-      { icon: "Smartphone", title: "Remote Management", description: "Grant access, view footage, and adjust settings remotely from a mobile app." },
     ],
     useCases: [
-      { title: "Corporate Campuses", description: "Manage access and surveillance across multiple buildings from one system." },
-      { title: "Warehouses & Depots", description: "Monitor perimeter security and control vehicle/staff access after hours." },
-      { title: "Retail Chains", description: "Standardize security systems across branches with central monitoring." },
+      { title: "Office Parks & Commercial Campuses", description: "Manage access, surveillance, and environmental monitoring across multiple buildings from one system." },
+      { title: "Retail Chains & Warehouses", description: "Standardize security and monitor perimeter access across branches and depots with central management." },
+      { title: "Gated Residential Developments", description: "One integrated system for estate access control, perimeter cameras, and visitor management." },
     ],
     relatedProducts: [
-      { name: "IP CCTV Camera Kits", description: "HD camera systems with NVR recording and remote viewing." },
+      { name: "Hikvision IP Camera Kits", description: "HD camera systems with NVR recording and remote viewing." },
       { name: "Access Control Readers", description: "Card and biometric readers for doors and gates." },
-      { name: "Building Automation Controllers", description: "Smart controllers for lighting, HVAC, and power scheduling." },
+      { name: "Commercial Display Panels", description: "Digital signage and wayfinding displays integrated into the same platform." },
     ],
     faqs: [
-      { question: "Can access control and CCTV be managed from one system?", answer: "Yes, we deploy integrated platforms that combine access control, CCTV, and alarms into a single dashboard." },
+      { question: "Can access control, cameras, and sensors be managed from one system?", answer: "Yes — we deploy Hikvision-based platforms that combine network cameras, access control, environmental sensors, and alarms into a single dashboard, rather than four disconnected systems." },
       { question: "Can I view camera footage remotely from my phone?", answer: "Yes, our systems include mobile apps for live viewing and footage playback from anywhere." },
-      { question: "Do you support multi-site deployments?", answer: "Yes, our smart building systems are built to manage multiple properties centrally, with per-site permissions." },
+      { question: "What kind of sensors can be integrated?", answer: "Occupancy, temperature, and general environmental sensors feed into the same dashboard as your cameras and access control, so you get one view of the building rather than separate tools." },
+      { question: "Do you support multi-site deployments?", answer: "Yes, our smart building systems are built to manage multiple properties centrally, with per-site permissions — office parks, retail chains, and gated residential estates included." },
+    ],
+    crossLinks: [
+      {
+        label: "Getsiman — Electrical & Power Solutions",
+        href: "/about",
+        description:
+          "Our electrical and backup power division sources cabling, distribution boards, and inverter systems for commercial installations — a natural pairing for the electrical work behind any smart building deployment.",
+      },
     ],
   },
   {
@@ -469,69 +483,40 @@ export const solutions: Solution[] = [
       { question: "Can we add room booking displays later?", answer: "Yes, room booking panels can be added to any meeting room setup at any time and integrate with your calendar system." },
     ],
   },
-  {
-    slug: "microsoft-teams",
-    name: "Microsoft Teams Integration",
-    shortDescription:
-      "Direct Routing and certified devices that bring calling, meetings, and telephony into Microsoft Teams.",
-    tagline:
-      "Direct Routing and certified devices that bring business calling, meetings, and telephony into Microsoft Teams.",
-    icon: "Video",
-    badges: ["Direct Routing", "Certified Devices", "PSTN Calling", "Single App"],
-    features: [
-      { icon: "Video", title: "Teams Direct Routing", description: "Connect your existing phone numbers to Teams so calls work natively inside the app." },
-      { icon: "Radio", title: "PSTN Calling", description: "Make and receive external calls from Teams without a separate phone system." },
-      { icon: "Monitor", title: "Certified Teams Devices", description: "Desk phones, headsets, and meeting room hardware certified for Microsoft Teams." },
-      { icon: "LayoutGrid", title: "Single App for Everything", description: "Chat, meetings, files, and phone calls all in the one app your team already uses." },
-      { icon: "Settings", title: "Admin Center Management", description: "Manage calling policies and numbers directly from the Microsoft Teams admin center." },
-      { icon: "Wrench", title: "Migration & Onboarding", description: "We handle number porting and configuration for a smooth move to Teams calling." },
-    ],
-    useCases: [
-      { title: "Microsoft 365 Businesses", description: "Add phone calling to an existing Microsoft 365 and Teams subscription." },
-      { title: "Remote-First Teams", description: "Give distributed staff one app for chat, meetings, and calling anywhere." },
-      { title: "Businesses Consolidating Tools", description: "Retire a separate phone system and unify communications inside Teams." },
-    ],
-    relatedProducts: [
-      { name: "Teams-Certified Desk Phones", description: "Handsets that run the native Teams calling app." },
-      { name: "Teams-Certified Headsets", description: "Headsets optimized for Teams calls and meetings." },
-      { name: "Direct Routing Setup", description: "Configuration service connecting your numbers to Teams via SIP trunking." },
-    ],
-    faqs: [
-      { question: "What is Direct Routing?", answer: "Direct Routing connects Microsoft Teams to the public phone network through a certified SIP trunk, letting you make and receive external calls inside Teams." },
-      { question: "Do we need a Microsoft 365 license that includes calling?", answer: "You'll need a Teams Phone-enabled Microsoft 365 license; we can advise on the right plan for your organization." },
-      { question: "Can we keep our existing business numbers?", answer: "Yes, we port your existing numbers into Teams Direct Routing with no disruption to service." },
-    ],
-  },
+  // TODO: confirm AWS Partner tier/competency status before adding any badge
+  // or certification language to this page — copy below deliberately makes
+  // no claims beyond "our AWS partnership".
   {
     slug: "aws-cloud-solutions",
     name: "AWS Cloud Solutions",
     shortDescription:
-      "Cloud hosting, migration, and managed AWS infrastructure for businesses moving off on-premise servers.",
+      "Migration and modernisation, AI productivity and CX, security and compliance, and day-to-day operations — built on our AWS partnership.",
     tagline:
-      "Cloud hosting, migration, and managed AWS infrastructure for businesses moving off on-premise servers.",
+      "Cloud migration, AI-driven productivity, security and compliance, and day-to-day operations — four pillars, all powered by our AWS partnership.",
     icon: "Cloud",
-    badges: ["Cloud Migration", "Managed Hosting", "Backup & DR", "Cost Optimization"],
+    badges: ["Migration & Modernisation", "AI Productivity & CX", "Security & Compliance", "Operations"],
     features: [
-      { icon: "Cloud", title: "Cloud Migration", description: "Move servers, applications, and storage from on-premise into AWS with minimal downtime." },
-      { icon: "Server", title: "Managed Hosting", description: "We manage your AWS environment — patching, scaling, and monitoring included." },
-      { icon: "HardDrive", title: "Backup & Disaster Recovery", description: "Automated backups and recovery plans keep your data safe and restorable." },
-      { icon: "Lock", title: "Cloud Security", description: "Identity management, encryption, and network security configured to best practice." },
-      { icon: "BarChart", title: "Cost Optimization", description: "Right-sizing and reserved capacity reviews to keep your AWS bill under control." },
-      { icon: "Activity", title: "24/7 Infrastructure Monitoring", description: "Proactive alerts on performance and availability across your cloud environment." },
+      { icon: "Cloud", title: "Workload Migration", description: "Move servers, applications, and storage from on-premise into AWS with minimal downtime." },
+      { icon: "Server", title: "Replatforming & Right-Sizing", description: "Replatform legacy systems and right-size infrastructure as you go — modernisation, not just a lift-and-shift." },
+      { icon: "Sparkles", title: "AI Productivity & CX", description: "Apply AI to customer experience and internal productivity — from support automation to workflow tools built on AWS's AI services." },
+      { icon: "Lock", title: "Security & Compliance", description: "Identity and access management, data protection, and configuration aligned with Zimbabwe's Cyber and Data Protection Act." },
+      { icon: "Activity", title: "Monitoring & Cost Management", description: "Proactive monitoring and reserved-capacity reviews keep performance visible and your AWS bill under control." },
+      { icon: "HardDrive", title: "Backup & Recovery", description: "Automated backups and recovery plans keep your data safe and restorable." },
     ],
     useCases: [
       { title: "Businesses Retiring On-Premise Servers", description: "Move off aging hardware into scalable, managed cloud infrastructure." },
-      { title: "Applications Needing Scale", description: "Handle traffic spikes with auto-scaling cloud infrastructure instead of fixed hardware." },
+      { title: "Customer Experience & Productivity Teams", description: "Apply AI-driven tools to support, chat, and internal workflows without building an in-house ML team." },
       { title: "Disaster Recovery Planning", description: "Keep a cloud-based recovery environment ready in case of an on-premise outage." },
     ],
     relatedProducts: [
       { name: "AWS Migration Assessment", description: "A scoped review of your current infrastructure and migration plan." },
       { name: "Managed AWS Support Plan", description: "Ongoing monitoring, patching, and support for your AWS environment." },
-      { name: "Cloud Backup Configuration", description: "Automated backup and disaster recovery setup on AWS." },
+      { name: "Cloud Security & Compliance Review", description: "Identity, access, and data protection review aligned with Zimbabwe's Cyber and Data Protection Act." },
     ],
     faqs: [
       { question: "Is our data safe moving to AWS?", answer: "Yes, AWS operates to enterprise-grade security and compliance standards, and we configure encryption, access control, and backups as part of every migration." },
       { question: "How long does a typical cloud migration take?", answer: "Most migrations take 2-8 weeks depending on the number of systems and complexity — we scope this during the assessment phase." },
+      { question: "Can you help us apply AI without building an in-house ML team?", answer: "Yes — we apply AWS's AI services to customer experience and internal productivity use cases, so you get the benefit without hiring a dedicated ML team." },
       { question: "Will you manage our AWS environment after migration?", answer: "Yes, our managed support plans handle ongoing monitoring, patching, and cost optimization after go-live." },
     ],
   },

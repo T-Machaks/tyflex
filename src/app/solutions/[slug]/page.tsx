@@ -7,6 +7,7 @@ import GlassCard from "@/components/ui/GlassCard";
 import GradientButton from "@/components/ui/GradientButton";
 import FadeIn from "@/components/motion/FadeIn";
 import SolutionIcon from "@/components/solutions/SolutionIcon";
+import BrandsBlock from "@/components/solutions/BrandsBlock";
 import FAQAccordion from "@/components/ui/FAQAccordion";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import { getSolutionBySlug, solutions } from "@/lib/data/solutions";
@@ -178,6 +179,11 @@ export default function SolutionPage({ params }: SolutionPageProps) {
           </div>
         </section>
 
+        {/* Brands we supply */}
+        {solution.brandGroups && solution.brandGroups.length > 0 && (
+          <BrandsBlock groups={solution.brandGroups} solutionName={solution.name} />
+        )}
+
         {/* FAQ */}
         <section className="py-20 border-t border-white/5 max-w-3xl mx-auto">
           <FadeIn>
@@ -189,13 +195,36 @@ export default function SolutionPage({ params }: SolutionPageProps) {
           <FAQAccordion faqs={solution.faqs} />
         </section>
 
+        {/* Cross-links to related solutions/pages */}
+        {solution.crossLinks && solution.crossLinks.length > 0 && (
+          <section className="py-8 border-t border-white/5">
+            <div className="grid sm:grid-cols-2 gap-6">
+              {solution.crossLinks.map((link) => (
+                <FadeIn key={link.href}>
+                  <Link href={link.href} className="block h-full">
+                    <GlassCard className="p-6 h-full">
+                      <h3 className="font-semibold mb-2 inline-flex items-center gap-1.5">
+                        {link.label}
+                        <ArrowRight className="h-4 w-4 text-brand-red" />
+                      </h3>
+                      <p className="text-sm text-gray-400 leading-relaxed">{link.description}</p>
+                    </GlassCard>
+                  </Link>
+                </FadeIn>
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* CTA */}
         <section className="py-8">
           <div className="p-10 md:p-12 rounded-2xl border border-white/5 bg-brand-card text-center">
-            <h3 className="text-2xl font-bold mb-3">Interested in {solution.name}?</h3>
-            <p className="text-gray-400 mb-8 max-w-md mx-auto">Get a tailored quote for your business needs.</p>
+            <h3 className="text-2xl font-bold mb-3">{solution.ctaHeading ?? `Interested in ${solution.name}?`}</h3>
+            <p className="text-gray-400 mb-8 max-w-md mx-auto">
+              {solution.ctaDescription ?? "Get a tailored quote for your business needs."}
+            </p>
             <GradientButton href="/get-quote" size="lg">
-              Get a Free Quote
+              {solution.ctaButtonLabel ?? "Get a Free Quote"}
             </GradientButton>
           </div>
         </section>
