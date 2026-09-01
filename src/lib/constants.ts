@@ -5,7 +5,9 @@ export const COMPANY = {
   phoneDisplay: "+263 867 717 4838",
   email: "info@tyflex.co.zw",
   address: "40 St Athans Drive, Bluffhill, Harare, Zimbabwe",
-  founded: 2009,
+  // Tyflex Investments (Pvt) Ltd registered in Zimbabwe — see the About
+  // page timeline (src/lib/data/business-units.ts) for the fuller history.
+  founded: 2016,
   url: "https://tyflex.co.zw",
 } as const;
 

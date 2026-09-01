@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 import FadeIn from "@/components/motion/FadeIn";
+import StatusBadge from "@/components/ui/StatusBadge";
+import YouTubeThumb from "@/components/about/YouTubeThumb";
 import type { TimelineMilestone } from "@/lib/data/business-units";
 
 interface TimelineProps {
@@ -22,24 +24,41 @@ export default function Timeline({ milestones }: TimelineProps) {
       />
 
       <div className="space-y-10">
-        {milestones.map((milestone, i) => (
-          <FadeIn key={`${milestone.year}-${milestone.title}`} delay={0.05 * i}>
-            <div className="relative">
-              {/* Dot */}
-              <span className="absolute -left-10 sm:-left-12 top-1.5 h-6 w-6 rounded-full bg-brand-black border-2 border-brand-red flex items-center justify-center">
-                <span className="h-2 w-2 rounded-full bg-brand-red animate-glow-pulse" />
-              </span>
+        {milestones.map((milestone, i) => {
+          const isLighter = Boolean(milestone.status);
+          return (
+            <FadeIn key={`${milestone.year}-${milestone.title}`} delay={0.05 * i}>
+              <div className={`relative ${isLighter ? "opacity-70" : ""}`}>
+                {/* Dot — muted for in-development/on-hold entries, no pulse glow */}
+                <span
+                  className={`absolute -left-10 sm:-left-12 top-1.5 h-6 w-6 rounded-full bg-brand-black border-2 flex items-center justify-center ${
+                    isLighter ? "border-white/20" : "border-brand-red"
+                  }`}
+                >
+                  <span className={`h-2 w-2 rounded-full ${isLighter ? "bg-white/30" : "bg-brand-red animate-glow-pulse"}`} />
+                </span>
 
-              <div className="flex flex-col sm:flex-row sm:items-baseline gap-1.5 sm:gap-4">
-                <span className="text-brand-red font-bold text-sm shrink-0 sm:w-16">{milestone.year}</span>
-                <div>
-                  <h3 className="font-semibold text-white mb-1">{milestone.title}</h3>
-                  <p className="text-sm text-gray-400 leading-relaxed">{milestone.description}</p>
+                <div className="flex flex-col sm:flex-row sm:items-baseline gap-1.5 sm:gap-4">
+                  <span className={`font-bold text-sm shrink-0 sm:w-16 ${isLighter ? "text-gray-500" : "text-brand-red"}`}>
+                    {milestone.year}
+                  </span>
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap mb-1">
+                      <h3 className="font-semibold text-white">{milestone.title}</h3>
+                      {milestone.status && <StatusBadge status={milestone.status} />}
+                    </div>
+                    <p className="text-sm text-gray-400 leading-relaxed">{milestone.description}</p>
+                    {milestone.videoEmbed && (
+                      <div className="mt-4 max-w-sm">
+                        <YouTubeThumb youtubeId={milestone.videoEmbed.youtubeId} label={milestone.videoEmbed.label} />
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          </FadeIn>
-        ))}
+            </FadeIn>
+          );
+        })}
       </div>
     </div>
   );

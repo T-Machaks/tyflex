@@ -1,6 +1,7 @@
 import { Compass, HeartHandshake, ShieldCheck, TrendingUp } from "lucide-react";
 import GlassCard from "@/components/ui/GlassCard";
 import GradientButton from "@/components/ui/GradientButton";
+import StatusBadge from "@/components/ui/StatusBadge";
 import FadeIn from "@/components/motion/FadeIn";
 import DynamicIcon from "@/components/ui/DynamicIcon";
 import Timeline from "@/components/about/Timeline";
@@ -10,8 +11,7 @@ import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
   title: "About Tyflex Investments | Zimbabwe Technology Group",
-  description:
-    "Tyflex Investments is a Harare-based technology group founded in 2009, spanning six business units across communications, retail, power, and enterprise software.",
+  description: `Tyflex Investments is a Harare-based technology group founded in ${COMPANY.founded}, spanning six business units across communications, retail, power, and enterprise software.`,
   path: "/about",
 });
 
@@ -123,9 +123,12 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {businessUnits.map((unit, i) => (
               <FadeIn key={unit.name} delay={0.05 * i}>
-                <GlassCard className="p-8 h-full flex flex-col">
-                  <div className="h-12 w-12 rounded-xl bg-brand-red/10 flex items-center justify-center mb-5">
-                    <DynamicIcon name={unit.icon} className="h-6 w-6 text-brand-red" />
+                <GlassCard className={`p-8 h-full flex flex-col ${unit.status ? "opacity-70" : ""}`}>
+                  <div className="flex items-start justify-between gap-3 mb-5">
+                    <div className="h-12 w-12 rounded-xl bg-brand-red/10 flex items-center justify-center">
+                      <DynamicIcon name={unit.icon} className="h-6 w-6 text-brand-red" />
+                    </div>
+                    {unit.status && <StatusBadge status={unit.status} />}
                   </div>
                   <h3 className="text-lg font-bold mb-1">{unit.name}</h3>
                   <p className="text-brand-red text-sm font-medium mb-3">{unit.tagline}</p>

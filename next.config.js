@@ -2,7 +2,11 @@
 const nextConfig = {
   // Deployed on AWS Amplify in full SSR mode — no static export, no basePath.
   images: {
-    remotePatterns: [],
+    remotePatterns: [
+      // YouTube's thumbnail CDN — used only for the click-to-load video
+      // thumbnail on the About page timeline (see YouTubeThumb.tsx).
+      { protocol: "https", hostname: "i.ytimg.com" },
+    ],
   },
   async redirects() {
     return [

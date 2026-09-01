@@ -72,14 +72,15 @@ export const caseStudies: CaseStudy[] = [
     challenge:
       "Finance, inventory, and payroll were managed in disconnected spreadsheets, leading to reconciliation delays and no real-time view of stock or costs.",
     solution:
-      "MacFlex implemented an integrated ERP covering financial management, inventory control, and payroll, migrating historical data from existing spreadsheets.",
+      "Our team implemented an integrated ERP covering financial management, inventory control, and payroll, migrating historical data from existing spreadsheets.",
     result:
       "Month-end reconciliation time dropped substantially, and leadership now has a live dashboard across finance, inventory, and production costs.",
     metric: "6 wks",
     metricLabel: "from kickoff to go-live",
     icon: "Database",
-    // ERP Software is no longer a standalone top-level solution — this
-    // implementation work still happens (via MacFlex), just not as a
-    // dedicated /solutions page to link to.
+    // ERP Software is no longer a standalone top-level solution, and
+    // MacFlex's focus has moved to imports/OEM relationships — this case
+    // study is kept as a legitimate past project, without a specific
+    // division attribution that's no longer accurate.
   },
 ];
