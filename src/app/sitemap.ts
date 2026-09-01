@@ -9,11 +9,6 @@ import { getAllPostsMeta } from "@/lib/blog";
  * dynamic detail page (solutions, webstore products, blog posts). Protected
  * app sections (/portal, /tracker, /accounts) and API routes are
  * intentionally excluded — see robots.ts.
- *
- * /projects is also excluded: it's a leftover page from the pre-rebuild
- * scaffold that predates this site's sitemap and was never part of any
- * stage's brief, so it's deliberately left out of both the sitemap and
- * primary site navigation rather than indexed as if it were current content.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = COMPANY.url;
@@ -30,6 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/resources/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
     { url: `${base}/resources/case-studies`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${base}/resources/docs`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${base}/projects`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${base}/partners`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${base}/careers`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
     { url: `${base}/support`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },

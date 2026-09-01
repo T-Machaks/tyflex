@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   Phone,
@@ -14,13 +15,17 @@ import {
   Users,
   BadgeCheck,
   Headphones,
+  ArrowRight,
 } from "lucide-react";
 import HeroShell from "@/components/ui/HeroShell";
 import GlassCard from "@/components/ui/GlassCard";
 import GradientButton from "@/components/ui/GradientButton";
+import DynamicIcon from "@/components/ui/DynamicIcon";
+import StatusBadge from "@/components/ui/StatusBadge";
 import FadeIn from "@/components/motion/FadeIn";
 import CountUp from "@/components/motion/CountUp";
 import TestimonialsCarousel from "@/components/home/TestimonialsCarousel";
+import { ventures } from "@/lib/data/ventures";
 
 const stats = [
   { value: 50, suffix: "+", decimals: 0, label: "Clients Served" },
@@ -314,6 +319,65 @@ export default function HomeClient() {
               </FadeIn>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Built by Tyflex — ventures teaser */}
+      <section className="py-24 border-t border-white/5">
+        <div className="max-w-7xl mx-auto px-6">
+          <FadeIn>
+            <div className="text-center mb-16">
+              <span className="inline-block px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-sm text-gray-300 mb-4">
+                Built by Tyflex
+              </span>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Platforms We Own and Operate</h2>
+              <p className="text-gray-400 max-w-xl mx-auto">
+                Beyond the solutions we sell, we build our own — developed
+                with support from our AWS partnership.
+              </p>
+            </div>
+          </FadeIn>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            {ventures.map((venture, i) => (
+              <FadeIn key={venture.slug} delay={0.1 * i}>
+                <Link href={`/projects#${venture.slug}`} className="block h-full">
+                  <GlassCard className="p-8 h-full flex flex-col">
+                    <div className="flex items-center gap-3 mb-3 flex-wrap">
+                      <div className="h-11 w-11 rounded-lg bg-brand-red/10 flex items-center justify-center shrink-0">
+                        <DynamicIcon name={venture.icon} className="h-5 w-5 text-brand-red" />
+                      </div>
+                      {venture.status && (
+                        <StatusBadge
+                          status={venture.status}
+                          label={
+                            venture.status === "launching-soon" && venture.launchDate
+                              ? `Launching ${venture.launchDate}`
+                              : undefined
+                          }
+                        />
+                      )}
+                    </div>
+                    <h3 className="font-bold text-lg mb-1">{venture.name}</h3>
+                    <p className="text-brand-red text-sm font-medium mb-3">{venture.tagline}</p>
+                    <p className="text-sm text-gray-400 leading-relaxed">{venture.description}</p>
+                  </GlassCard>
+                </Link>
+              </FadeIn>
+            ))}
+          </div>
+
+          <FadeIn delay={0.2}>
+            <div className="text-center mt-10">
+              <Link
+                href="/projects"
+                className="inline-flex items-center gap-1.5 text-sm text-gray-300 hover:text-white transition-colors"
+              >
+                See all our ventures
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </FadeIn>
         </div>
       </section>
 

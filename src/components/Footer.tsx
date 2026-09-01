@@ -18,6 +18,7 @@ const resources = [
 
 const company = [
   { name: "About Us", href: "/about" },
+  { name: "Our Ventures", href: "/projects" },
   { name: "Careers", href: "/careers" },
   { name: "Partners", href: "/partners" },
   { name: "Contact", href: "/contact" },
