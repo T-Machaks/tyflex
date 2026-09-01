@@ -58,6 +58,14 @@ export interface Solution {
   ctaDescription?: string;
   /** Overrides the CTA button label (default "Get a Free Quote") — e.g. "Talk to Us About Pricing" where no figures are published. */
   ctaButtonLabel?: string;
+  /**
+   * Keeps a solution out of the header's top-level Solutions dropdown while
+   * still fully live — reachable from the hub grid, footer, and sitemap.
+   * Used for 3CX, which overlaps with UCaaS & VoIP (3CX is also a brand
+   * under that page) and is better discovered via cross-link than a second
+   * top-level nav entry.
+   */
+  hideFromNavDropdown?: boolean;
 }
 
 export const solutions: Solution[] = [
@@ -98,6 +106,14 @@ export const solutions: Solution[] = [
       { label: "Platform vendors", brands: ["3CX", "Yeastar", "Epygi"] },
       { label: "Endpoints & gateways", brands: ["Fanvil", "Yealink", "AudioCodes"] },
     ],
+    crossLinks: [
+      {
+        label: "3CX Phone Systems",
+        href: "/solutions/3cx",
+        description:
+          "One of our platform vendors, in more depth — 3CX's all-in-one voice, video, and messaging platform, and our certified-partner status.",
+      },
+    ],
   },
   {
     slug: "3cx",
@@ -108,6 +124,11 @@ export const solutions: Solution[] = [
       "An all-in-one communications platform combining voice, video, and messaging — deployed the way that suits your business.",
     icon: "PhoneCall",
     badges: ["Cloud or On-Prem", "Video Meetings", "Live Chat", "Certified Partner"],
+    // Kept as a real page (certified-partner status + search value), but out
+    // of the top-level nav dropdown since it overlaps with UCaaS & VoIP —
+    // discoverable via the hub grid, footer, sitemap, and the cross-link
+    // from the UCaaS page instead. Confirmed with the client before changing.
+    hideFromNavDropdown: true,
     features: [
       { icon: "PhoneCall", title: "All-in-One Platform", description: "Voice calls, video meetings, and messaging in a single system — no juggling separate tools." },
       { icon: "Video", title: "Free Video Conferencing", description: "Host video meetings for up to 250 participants with screen sharing, at no extra cost." },
@@ -242,72 +263,6 @@ export const solutions: Solution[] = [
     ctaHeading: "Ready to move to Hardware-as-a-Service?",
     ctaDescription: "Every deployment is sized to your store count and hardware needs — no published pricing here. Talk to us and we'll put together a subscription (or an outright quote) that fits.",
     ctaButtonLabel: "Talk to Us About Pricing",
-  },
-  {
-    slug: "erp-software",
-    name: "ERP Software",
-    shortDescription:
-      "Unified business management — finance, HR, inventory, and operations in one integrated platform.",
-    tagline:
-      "Unified business management software connecting finance, HR, inventory, and operations in one platform built for African businesses.",
-    icon: "Database",
-    badges: ["Financial Mgmt", "HR & Payroll", "Inventory Control", "Custom Modules"],
-    features: [
-      { icon: "Receipt", title: "Financial Management", description: "General ledger, accounts payable/receivable, and reporting in one system." },
-      { icon: "Users", title: "HR & Payroll", description: "Employee records, leave, and payroll processing aligned to local regulations." },
-      { icon: "Boxes", title: "Inventory Control", description: "Multi-warehouse stock tracking with automatic reorder alerts." },
-      { icon: "Settings", title: "Custom Modules", description: "Extend the platform with modules tailored to your specific industry workflows." },
-      { icon: "BarChart", title: "Real-Time Reporting", description: "Dashboards give leadership a live view across finance, stock, and operations." },
-      { icon: "Lock", title: "Role-Based Access", description: "Granular permissions keep sensitive financial and HR data restricted appropriately." },
-    ],
-    useCases: [
-      { title: "Multi-Branch Retailers", description: "Consolidate financials and stock across branches into one source of truth." },
-      { title: "Manufacturers", description: "Track raw materials through to finished goods with integrated costing." },
-      { title: "Growing SMEs", description: "Replace disconnected spreadsheets with one system as the business scales." },
-    ],
-    relatedProducts: [
-      { name: "ERP Implementation Package", description: "Configuration, data migration, and training for your ERP rollout." },
-      { name: "Barcode Integration Add-On", description: "Connect warehouse scanning directly into ERP inventory records." },
-      { name: "Custom Reporting Module", description: "Tailored dashboards and exports built around your KPIs." },
-    ],
-    faqs: [
-      { question: "How long does an ERP implementation take?", answer: "Most implementations take 6-12 weeks depending on modules and data migration complexity — we scope this with you upfront." },
-      { question: "Can it replace our current accounting software?", answer: "Yes, the financial management module is built to fully replace standalone accounting software, with migration support included." },
-      { question: "Is training included for staff?", answer: "Yes, role-based training is included so finance, HR, and warehouse teams are each confident in the modules they use." },
-    ],
-  },
-  {
-    slug: "bulk-messaging",
-    name: "Bulk Messaging",
-    shortDescription:
-      "Reach thousands instantly with bulk SMS and WhatsApp. Smart scheduling, personalization, and analytics.",
-    tagline:
-      "Reach thousands of customers instantly with bulk SMS and WhatsApp messaging, powered by our OmniFlex platform.",
-    icon: "MessageSquare",
-    badges: ["Bulk SMS", "WhatsApp API", "Scheduled Sends", "Delivery Reports"],
-    features: [
-      { icon: "Mail", title: "Bulk SMS Campaigns", description: "Send personalized SMS campaigns to thousands of contacts in seconds." },
-      { icon: "Smartphone", title: "WhatsApp Business API", description: "Reach customers on WhatsApp with templated, verified business messaging." },
-      { icon: "Calendar", title: "Scheduled Delivery", description: "Queue campaigns for the optimal send time, including recurring messages." },
-      { icon: "BarChart", title: "Delivery Reports", description: "Track delivery, opens, and responses in real time from one dashboard." },
-      { icon: "Settings", title: "Contact Segmentation", description: "Target campaigns by customer group, location, or purchase history." },
-      { icon: "Lock", title: "Compliant & Secure", description: "Opt-out handling and secure contact storage built into every campaign." },
-    ],
-    useCases: [
-      { title: "Retail Promotions", description: "Announce sales and restocks directly to customers' phones for instant reach." },
-      { title: "Appointment Reminders", description: "Cut no-shows with automated SMS/WhatsApp reminders ahead of bookings." },
-      { title: "Banking & Utilities", description: "Send transactional alerts and notices at scale with reliable delivery." },
-    ],
-    relatedProducts: [
-      { name: "OmniFlex SMS Credits", description: "Prepaid bulk SMS bundles for ongoing campaign sending." },
-      { name: "WhatsApp API Onboarding", description: "Business verification and template setup for WhatsApp messaging." },
-      { name: "Campaign Management Add-On", description: "Advanced segmentation and automation tools for larger senders." },
-    ],
-    faqs: [
-      { question: "What's the difference between bulk SMS and WhatsApp messaging?", answer: "SMS reaches any phone with no app required; WhatsApp messaging offers richer media and higher engagement but requires recipients to have WhatsApp." },
-      { question: "Do I need approval to send WhatsApp campaigns?", answer: "Yes, WhatsApp Business API requires template approval — we handle that verification process as part of onboarding." },
-      { question: "Can I see who opened or responded to a campaign?", answer: "Yes, the dashboard shows delivery status and responses in real time for every campaign you send." },
-    ],
   },
   {
     slug: "sip-trunking",

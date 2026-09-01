@@ -29,6 +29,22 @@ const nextConfig = {
         destination: "/solutions",
         permanent: true,
       },
+      // ERP Software removed as a standalone solution — no direct successor,
+      // sends visitors to the solutions hub.
+      {
+        source: "/solutions/erp-software",
+        destination: "/solutions",
+        permanent: true,
+      },
+      // Bulk Messaging removed as a solution we sell — it's now Omniflex, a
+      // platform Tyflex owns and operates on its own dashboard. Redirects to
+      // its venture card rather than the hub, since there's a specific,
+      // relevant destination (not "we don't do this anymore").
+      {
+        source: "/solutions/bulk-messaging",
+        destination: "/projects#omniflex",
+        permanent: true,
+      },
     ];
   },
 };

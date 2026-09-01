@@ -7,8 +7,8 @@ import {
   Barcode,
   CreditCard,
   Network,
-  MessageSquare,
-  Database,
+  Cloud,
+  Building2,
   CheckCircle2,
   ShieldCheck,
   Users,
@@ -50,33 +50,33 @@ const solutionTabs = [
     name: "POS Systems",
     icon: CreditCard,
     description:
-      "Point-of-sale systems designed for retail, hospitality, and services. Fast, reliable, and integrated with your existing tools.",
-    features: ["Touch screen terminals", "Receipt printers", "Cash drawers", "Inventory sync"],
+      "Hardware-as-a-Service point-of-sale — terminals, scanners, and printers on a monthly subscription with no upfront cost. Outright purchase also available.",
+    features: ["Zero upfront cost", "Device, support & replacement included", "Touch screen terminals", "Offline mode"],
     href: "/solutions/pos-systems",
   },
   {
     name: "Networking",
     icon: Network,
     description:
-      "Enterprise networking infrastructure built for performance and security. From structured cabling to managed switches and firewalls.",
+      "Enterprise networking infrastructure built for performance and security. From structured cabling to managed switches, firewalls, and Hikvision infrastructure.",
     features: ["Structured cabling", "Managed switches", "Firewalls & security", "Wi-Fi coverage"],
     href: "/solutions/networking",
   },
   {
-    name: "Bulk Messaging",
-    icon: MessageSquare,
+    name: "AWS Cloud Solutions",
+    icon: Cloud,
     description:
-      "Reach thousands of customers instantly with bulk SMS and WhatsApp messaging. Smart scheduling, personalization, and delivery tracking.",
-    features: ["Bulk SMS campaigns", "WhatsApp Business API", "Scheduled delivery", "Delivery reports"],
-    href: "/solutions/bulk-messaging",
+      "Cloud migration, AI-driven productivity, security and compliance, and day-to-day operations — powered by our AWS partnership.",
+    features: ["Workload migration", "AI productivity & CX", "Security & compliance", "Monitoring & cost management"],
+    href: "/solutions/aws-cloud-solutions",
   },
   {
-    name: "ERP Software",
-    icon: Database,
+    name: "Smart Building Solutions",
+    icon: Building2,
     description:
-      "Unified business management software connecting finance, HR, inventory, and operations in one platform built for African businesses.",
-    features: ["Financial management", "HR & payroll", "Inventory control", "Custom modules"],
-    href: "/solutions/erp-software",
+      "Hikvision-powered network cameras, sensors, access control, and commercial displays — one integrated system for offices, retail, and warehouses.",
+    features: ["Network cameras", "Access control", "Environmental sensors", "Commercial displays"],
+    href: "/solutions/smart-building",
   },
 ];
 

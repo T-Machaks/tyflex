@@ -64,13 +64,15 @@ export default function CaseStudiesPage() {
                   </p>
                 </div>
 
-                <Link
-                  href={`/solutions/${study.solutionSlug}`}
-                  className="inline-flex items-center gap-1.5 text-sm text-brand-red hover:underline mt-auto"
-                >
-                  View the solution
-                  <ArrowRight className="h-3.5 w-3.5" />
-                </Link>
+                {study.solutionSlug && (
+                  <Link
+                    href={`/solutions/${study.solutionSlug}`}
+                    className="inline-flex items-center gap-1.5 text-sm text-brand-red hover:underline mt-auto"
+                  >
+                    View the solution
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                )}
               </GlassCard>
             </FadeIn>
           ))}

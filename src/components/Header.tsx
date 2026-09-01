@@ -14,6 +14,11 @@ const navLinks = [
   { label: "Contact Us", href: "/contact" },
 ];
 
+// Solutions marked hideFromNavDropdown stay fully live (hub grid, footer,
+// sitemap) but sit out of the top-level dropdown to avoid overlap with a
+// related solution already listed there (e.g. 3CX under UCaaS & VoIP).
+const dropdownSolutions = solutions.filter((s) => !s.hideFromNavDropdown);
+
 export default function Header() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -65,7 +70,7 @@ export default function Header() {
                 </Link>
                 <div className="border-t border-white/5 mb-2" />
                 <div className="grid grid-cols-2 gap-x-2 gap-y-0.5">
-                  {solutions.map((sol) => (
+                  {dropdownSolutions.map((sol) => (
                     <Link
                       key={sol.slug}
                       href={`/solutions/${sol.slug}`}
@@ -123,7 +128,7 @@ export default function Header() {
             Solutions
           </Link>
           <div className="max-h-64 overflow-y-auto">
-            {solutions.map((sol) => (
+            {dropdownSolutions.map((sol) => (
               <Link
                 key={sol.slug}
                 href={`/solutions/${sol.slug}`}

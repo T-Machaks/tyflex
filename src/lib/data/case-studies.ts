@@ -11,7 +11,8 @@ export interface CaseStudy {
   metric: string;
   metricLabel: string;
   icon: IconName;
-  solutionSlug: string;
+  /** Omitted when the underlying solution is no longer a standalone /solutions page (e.g. ERP, retired as a top-level solution). */
+  solutionSlug?: string;
 }
 
 export const caseStudies: CaseStudy[] = [
@@ -77,6 +78,8 @@ export const caseStudies: CaseStudy[] = [
     metric: "6 wks",
     metricLabel: "from kickoff to go-live",
     icon: "Database",
-    solutionSlug: "erp-software",
+    // ERP Software is no longer a standalone top-level solution — this
+    // implementation work still happens (via MacFlex), just not as a
+    // dedicated /solutions page to link to.
   },
 ];
