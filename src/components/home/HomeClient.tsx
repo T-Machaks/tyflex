@@ -23,8 +23,10 @@ import CountUp from "@/components/motion/CountUp";
 import TestimonialsCarousel from "@/components/home/TestimonialsCarousel";
 
 const stats = [
-  { value: 10, suffix: "+", decimals: 0, label: "Clients Served" },
-  { value: 10, suffix: "+", decimals: 0, label: "Years in Business" },
+  { value: 50, suffix: "+", decimals: 0, label: "Clients Served" },
+  // Registered 2016 — "10+" would overstate a decade that's exactly ten
+  // years in 2026, same reasoning as the "a decade" fix on Why Choose Tyflex below.
+  { value: 10, suffix: "", decimals: 0, label: "Years in Business" },
   { value: 99.9, suffix: "%", decimals: 1, label: "Uptime SLA" },
   { value: 24, suffix: "/7", decimals: 0, label: "Support Availability" },
 ];
@@ -85,7 +87,7 @@ const whyPoints = [
   "On-site installation and training across Zimbabwe",
   "24/7 technical support for enterprise clients",
   "Flexible payment plans and USD pricing",
-  "10+ years trusted by leading Zimbabwean businesses",
+  "A decade trusted by leading Zimbabwean businesses",
   "Single point of contact from consultation to support",
 ];
 
@@ -259,7 +261,7 @@ export default function HomeClient() {
           </FadeIn>
           <FadeIn delay={0.15}>
             <p className="text-gray-400 max-w-2xl mx-auto mb-12 leading-relaxed">
-              With over a decade of experience delivering technology solutions
+              With a decade of experience delivering technology solutions
               in Zimbabwe, we combine global enterprise products with deep
               local knowledge and support.
             </p>

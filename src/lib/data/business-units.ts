@@ -105,8 +105,8 @@ export const timeline: TimelineMilestone[] = [
   },
   {
     year: "2023",
-    title: "500+ Active Clients",
-    description: "Crossed 500 active clients and expanded the solutions catalog to 15 offerings across six divisions.",
+    title: "50+ Active Clients",
+    description: "Crossed 50 active clients and expanded the solutions catalog across six divisions.",
   },
   {
     year: "Today",
