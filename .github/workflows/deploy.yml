@@ -39,22 +39,29 @@ jobs:
             --instance-ids "$INSTANCE_ID" \
             --document-name AWS-RunShellScript \
             --comment "gha ${GITHUB_SHA::7}" \
-            --timeout-seconds 600 \
+            --timeout-seconds 900 \
             --parameters '{"commands":["/var/www/tyflex/redeploy.sh"]}' \
             --query Command.CommandId --output text)
           echo "SSM CommandId: $CMD_ID"
 
-          aws ssm wait command-executed \
-            --command-id "$CMD_ID" --instance-id "$INSTANCE_ID" && OK=1 || OK=0
+          # redeploy.sh does npm ci + next build on a t3.micro (~2-3 min), which
+          # outruns the built-in `ssm wait` waiter — poll manually instead.
+          STATUS=Pending
+          for i in $(seq 1 80); do
+            sleep 15
+            STATUS=$(aws ssm get-command-invocation \
+              --command-id "$CMD_ID" --instance-id "$INSTANCE_ID" \
+              --query Status --output text 2>/dev/null || echo Pending)
+            echo "[$i] $STATUS"
+            case "$STATUS" in Success|Failed|Cancelled|TimedOut) break ;; esac
+          done
 
           echo "----- STDOUT -----"
           aws ssm get-command-invocation --command-id "$CMD_ID" --instance-id "$INSTANCE_ID" \
-            --query StandardOutputContent --output text
+            --query StandardOutputContent --output text || true
           echo "----- STDERR -----"
           aws ssm get-command-invocation --command-id "$CMD_ID" --instance-id "$INSTANCE_ID" \
-            --query StandardErrorContent --output text
+            --query StandardErrorContent --output text || true
 
-          STATUS=$(aws ssm get-command-invocation --command-id "$CMD_ID" --instance-id "$INSTANCE_ID" \
-            --query Status --output text)
           echo "Final SSM status: $STATUS"
           test "$STATUS" = "Success"
