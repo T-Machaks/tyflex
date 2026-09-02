@@ -24,7 +24,11 @@ export interface Product {
   shortDescription: string;
   description: string;
   icon: IconName;
-  /** USD reference price — final pricing is confirmed on the quote. */
+  /**
+   * USD reference price. Currently NOT surfaced anywhere in the UI — catalog
+   * pricing is stubbed while ordering is inquiry-based (demo figures). Kept as
+   * reference data for when real pricing is wired back in.
+   */
   price: number;
   featured: boolean;
   specs: ProductSpec[];

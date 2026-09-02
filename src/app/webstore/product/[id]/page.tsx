@@ -36,6 +36,8 @@ export default function ProductPage({ params }: ProductPageProps) {
 
   const related = getRelatedProducts(product);
 
+  // Catalog pricing is stubbed for now (inquiry-based ordering), so the
+  // structured data omits an Offer/price rather than publish a placeholder.
   const productSchema = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -43,13 +45,6 @@ export default function ProductPage({ params }: ProductPageProps) {
     description: product.shortDescription,
     category: product.category,
     brand: { "@type": "Organization", name: COMPANY.name },
-    offers: {
-      "@type": "Offer",
-      priceCurrency: "USD",
-      price: product.price,
-      availability: "https://schema.org/InStock",
-      url: `${COMPANY.url}/webstore/product/${product.id}`,
-    },
   };
 
   const quoteHref = `/get-quote?product=${encodeURIComponent(product.name)}`;
@@ -102,7 +97,7 @@ export default function ProductPage({ params }: ProductPageProps) {
             </FadeIn>
             <FadeIn delay={0.2}>
               <div className="flex items-center gap-4 mb-8">
-                <span className="text-3xl font-bold text-white">${product.price.toLocaleString()}</span>
+                <span className="text-lg font-semibold text-gray-300">Pricing on request</span>
                 <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand-red/10 text-brand-red text-xs font-medium">
                   <Tag className="h-3.5 w-3.5" />
                   Request Quote — Inquiry Based

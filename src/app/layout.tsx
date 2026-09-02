@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import MaintenanceBanner from "@/components/MaintenanceBanner";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ChatWidget from "@/components/chat/ChatWidget";
@@ -130,8 +131,9 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationAndLocalBusinessSchema) }}
         />
+        <MaintenanceBanner />
         <Header />
-        <main>{children}</main>
+        <main className="pt-10">{children}</main>
         <Footer />
         <ChatWidget />
       </body>

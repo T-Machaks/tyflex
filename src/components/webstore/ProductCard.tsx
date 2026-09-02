@@ -29,7 +29,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           <h3 className="font-bold mb-1.5 leading-snug">{product.name}</h3>
           <p className="text-sm text-gray-400 leading-relaxed mb-4 flex-1">{product.shortDescription}</p>
           <div className="flex items-center justify-between gap-3 mt-auto pt-4 border-t border-white/5">
-            <span className="text-white font-semibold">${product.price.toLocaleString()}</span>
+            <span className="text-sm text-gray-400 font-medium">Pricing on request</span>
             <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-brand-red/10 text-brand-red text-[11px] font-medium whitespace-nowrap">
               <Tag className="h-3 w-3" />
               Request Quote

@@ -10,12 +10,12 @@ type CategoryFilter = "All" | ProductCategory;
 
 const categories: CategoryFilter[] = ["All", ...PRODUCT_CATEGORIES];
 
-type SortValue = "featured" | "price-asc" | "price-desc" | "name-asc";
+// Price sorts are omitted while catalog pricing is stubbed (inquiry-based
+// ordering; real prices are confirmed on the quote).
+type SortValue = "featured" | "name-asc";
 
 const sortOptions: { value: SortValue; label: string }[] = [
   { value: "featured", label: "Featured" },
-  { value: "price-asc", label: "Price: Low to High" },
-  { value: "price-desc", label: "Price: High to Low" },
   { value: "name-asc", label: "Name: A–Z" },
 ];
 
@@ -43,12 +43,6 @@ export default function WebstoreClient() {
 
     const sorted = [...list];
     switch (sort) {
-      case "price-asc":
-        sorted.sort((a, b) => a.price - b.price);
-        break;
-      case "price-desc":
-        sorted.sort((a, b) => b.price - a.price);
-        break;
       case "name-asc":
         sorted.sort((a, b) => a.name.localeCompare(b.name));
         break;
