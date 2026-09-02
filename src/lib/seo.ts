@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { COMPANY } from "@/lib/constants";
 
 interface SeoInput {
-  /** Full, page-specific title — already includes the "| Tyflex Investments" suffix where relevant. */
+  /** Full, page-specific title — already includes the "| Tyflex" suffix where relevant. */
   title: string;
   description: string;
   /** Path from the site root, e.g. "/about" or "/solutions/3cx". */

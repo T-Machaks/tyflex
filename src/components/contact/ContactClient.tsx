@@ -121,7 +121,7 @@ export default function ContactClient({ initialSubject }: ContactClientProps) {
         <FadeIn delay={0.3}>
           <div className="rounded-2xl overflow-hidden border border-white/10 h-64">
             <iframe
-              title="Tyflex Investments office location"
+              title="Tyflex office location"
               src={mapSrc}
               width="100%"
               height="100%"

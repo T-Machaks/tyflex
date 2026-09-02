@@ -4,9 +4,9 @@ import FadeIn from "@/components/motion/FadeIn";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "Documentation | Tyflex Investments",
+  title: "Documentation | Tyflex",
   description:
-    "Technical documentation and setup guides for Tyflex Investments products and solutions. New guides are being added regularly — check back soon.",
+    "Technical documentation and setup guides for Tyflex products and solutions. New guides are being added regularly — check back soon.",
   path: "/resources/docs",
 });
 

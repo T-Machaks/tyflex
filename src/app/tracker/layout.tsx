@@ -5,9 +5,9 @@ import AppShell from "@/components/app/AppShell";
 export const metadata: Metadata = {
   title: {
     template: "%s",
-    default: "Project Tracker | Tyflex Investments",
+    default: "Project Tracker | Tyflex",
   },
-  description: "Internal project tracking tool for Tyflex Investments.",
+  description: "Internal project tracking tool for Tyflex.",
   robots: { index: false, follow: false },
 };
 

@@ -8,9 +8,9 @@ import { caseStudies } from "@/lib/data/case-studies";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "Case Studies | Tyflex Investments",
+  title: "Case Studies | Tyflex",
   description:
-    "See how Tyflex Investments solutions have helped businesses across Zimbabwe modernize networking, communications, retail operations, and financial systems.",
+    "See how Tyflex solutions have helped businesses across Zimbabwe modernize networking, communications, retail operations, and financial systems.",
   path: "/resources/case-studies",
 });
 

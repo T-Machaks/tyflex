@@ -84,7 +84,7 @@ export interface TimelineMilestone {
 export const timeline: TimelineMilestone[] = [
   {
     year: "2016",
-    title: "Tyflex Investments Registered",
+    title: "Tyflex Registered",
     description:
       "Tyflex Investments (Pvt) Ltd registered in Zimbabwe, laying the foundation for enterprise technology services with FlexTech as our founding division.",
   },

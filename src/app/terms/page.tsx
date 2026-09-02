@@ -3,9 +3,9 @@ import { COMPANY } from "@/lib/constants";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "Terms of Service | Tyflex Investments",
+  title: "Terms of Service | Tyflex",
   description:
-    "Read the terms and conditions governing your use of the Tyflex Investments website, webstore, and client-facing services.",
+    "Read the terms and conditions governing your use of the Tyflex website, webstore, and client-facing services.",
   path: "/terms",
 });
 

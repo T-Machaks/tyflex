@@ -4,9 +4,9 @@ import WebstoreClient from "@/components/webstore/WebstoreClient";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "Webstore | Tyflex Investments",
+  title: "Webstore | Tyflex",
   description:
-    "Browse enterprise technology products from Tyflex Investments — phone systems, barcode scanners, label printers, networking gear, and POS hardware. Request a quote.",
+    "Browse enterprise technology products from Tyflex — phone systems, barcode scanners, label printers, networking gear, and POS hardware. Request a quote.",
   path: "/webstore",
 });
 

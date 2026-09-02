@@ -13,9 +13,9 @@ const inter = Inter({
   display: "swap",
 });
 
-const SITE_TITLE = "Tyflex Investments | Enterprise Technology Solutions in Zimbabwe";
+const SITE_TITLE = "Tyflex";
 const SITE_DESCRIPTION =
-  "Tyflex Investments helps Zimbabwean businesses grow with VoIP, 3CX, networking, barcode scanning, POS, ERP, printing, and business messaging solutions.";
+  "Tyflex helps Zimbabwean businesses grow with VoIP, 3CX, networking, barcode scanning, POS, ERP, printing, and business messaging solutions.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(COMPANY.url),
@@ -23,7 +23,10 @@ export const metadata: Metadata = {
   description: SITE_DESCRIPTION,
   alternates: { canonical: COMPANY.url },
   icons: {
-    icon: "/favicon.png",
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.png" },
+    ],
     apple: "/favicon.png",
   },
   openGraph: {

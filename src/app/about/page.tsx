@@ -10,8 +10,8 @@ import { COMPANY } from "@/lib/constants";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "About Tyflex Investments | Zimbabwe Technology Group",
-  description: `Tyflex Investments is a Harare-based technology group founded in ${COMPANY.founded}, spanning six business units across communications, retail, power, and enterprise software.`,
+  title: "About Tyflex | Zimbabwe Technology Group",
+  description: `Tyflex is a Harare-based technology group founded in ${COMPANY.founded}, spanning six business units across communications, retail, power, and enterprise software.`,
   path: "/about",
 });
 
@@ -49,7 +49,7 @@ export default function AboutPage() {
           </FadeIn>
           <FadeIn delay={0.05}>
             <p className="text-xl text-gray-400 leading-relaxed">
-              Tyflex Investments is a technology group based in Harare, Zimbabwe,
+              Tyflex is a technology group based in Harare, Zimbabwe,
               founded in {COMPANY.founded}. We operate six business units delivering
               enterprise technology, retail hardware, power solutions, messaging,
               and software to businesses across the region.

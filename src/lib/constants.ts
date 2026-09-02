@@ -1,5 +1,5 @@
 export const COMPANY = {
-  name: "Tyflex Investments",
+  name: "Tyflex",
   legalName: "Tyflex Investments (Pvt) Ltd",
   phone: "+2638677174838",
   phoneDisplay: "+263 867 717 4838",

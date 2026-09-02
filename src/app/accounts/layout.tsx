@@ -5,9 +5,9 @@ import AppShell from "@/components/app/AppShell";
 export const metadata: Metadata = {
   title: {
     template: "%s",
-    default: "Billing & Accounts | Tyflex Investments",
+    default: "Billing & Accounts | Tyflex",
   },
-  description: "Internal billing and invoicing tool for Tyflex Investments.",
+  description: "Internal billing and invoicing tool for Tyflex.",
   robots: { index: false, follow: false },
 };
 

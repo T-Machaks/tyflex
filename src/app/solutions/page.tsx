@@ -9,9 +9,9 @@ import { solutions } from "@/lib/data/solutions";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "Technology Solutions | Tyflex Investments",
+  title: "Technology Solutions | Tyflex",
   description:
-    "Explore Tyflex Investments' full range of technology solutions for Zimbabwean businesses — UCaaS, 3CX, networking, POS, ERP, cloud, and enterprise messaging.",
+    "Explore Tyflex' full range of technology solutions for Zimbabwean businesses — UCaaS, 3CX, networking, POS, ERP, cloud, and enterprise messaging.",
   path: "/solutions",
 });
 

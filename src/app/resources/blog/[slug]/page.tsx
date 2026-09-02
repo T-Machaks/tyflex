@@ -66,7 +66,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
     description: post.meta.description,
     datePublished: post.meta.date,
     author: { "@type": "Person", name: post.meta.author },
-    publisher: { "@type": "Organization", name: "Tyflex Investments" },
+    publisher: { "@type": "Organization", name: "Tyflex" },
   };
 
   return (

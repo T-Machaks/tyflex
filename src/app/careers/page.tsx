@@ -8,9 +8,9 @@ import { COMPANY } from "@/lib/constants";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "Careers at Tyflex Investments | Join Our Team in Harare",
+  title: "Careers at Tyflex | Join Our Team in Harare",
   description:
-    "Explore career opportunities at Tyflex Investments across engineering, sales, and support roles in Harare, Zimbabwe. See open positions and submit your CV today.",
+    "Explore career opportunities at Tyflex across engineering, sales, and support roles in Harare, Zimbabwe. See open positions and submit your CV today.",
   path: "/careers",
 });
 

@@ -7,9 +7,9 @@ import { BUSINESS_HOURS, COMPANY } from "@/lib/constants";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "Support | Tyflex Investments",
+  title: "Support | Tyflex",
   description:
-    "Get help with your Tyflex Investments products and installations — support channels, business hours, and answers to frequently asked questions.",
+    "Get help with your Tyflex products and installations — support channels, business hours, and answers to frequently asked questions.",
   path: "/support",
 });
 

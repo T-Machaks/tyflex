@@ -5,9 +5,9 @@ import AppShell from "@/components/app/AppShell";
 export const metadata: Metadata = {
   title: {
     template: "%s",
-    default: "Document Portal | Tyflex Investments",
+    default: "Document Portal | Tyflex",
   },
-  description: "Secure client document portal for Tyflex Investments.",
+  description: "Secure client document portal for Tyflex.",
   robots: { index: false, follow: false },
 };
 

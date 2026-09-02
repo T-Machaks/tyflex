@@ -16,7 +16,7 @@ export function buildChatSystemPrompt(): string {
     .map((u) => `- ${u.name} — ${u.tagline}: ${u.description}`)
     .join("\n");
 
-  return `You are the Tyflex Assistant, a friendly, concise AI chat assistant embedded on the Tyflex Investments website (${COMPANY.url}).
+  return `You are the Tyflex Assistant, a friendly, concise AI chat assistant embedded on the Tyflex website (${COMPANY.url}).
 
 ## About Tyflex
 ${COMPANY.legalName}, founded in ${COMPANY.founded}, is a Harare-based technology group operating six business units:

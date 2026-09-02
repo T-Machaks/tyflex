@@ -6,9 +6,9 @@ import { PARTNER_CATEGORIES, partners } from "@/lib/data/partners";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "Technology Partners | Tyflex Investments",
+  title: "Technology Partners | Tyflex",
   description:
-    "Tyflex Investments partners with 3CX, Microsoft, AWS, Ubiquiti, Fortinet, Zebra, and other leading technology brands to deliver enterprise solutions across Zimbabwe.",
+    "Tyflex partners with 3CX, Microsoft, AWS, Ubiquiti, Fortinet, Zebra, and other leading technology brands to deliver enterprise solutions across Zimbabwe.",
   path: "/partners",
 });
 

@@ -4,9 +4,9 @@ import { getAllCategories, getAllPostsMeta, getAllTags } from "@/lib/blog";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "Blog | Tyflex Investments Insights",
+  title: "Blog | Tyflex Insights",
   description:
-    "Insights, guides, and practical advice from the Tyflex Investments team on VoIP, networking, retail technology, business messaging, and cloud infrastructure.",
+    "Insights, guides, and practical advice from the Tyflex team on VoIP, networking, retail technology, business messaging, and cloud infrastructure.",
   path: "/resources/blog",
 });
 

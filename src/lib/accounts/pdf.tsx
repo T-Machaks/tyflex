@@ -63,7 +63,7 @@ const STATUS_COLORS: Record<string, string> = {
 function InvoicePdfDocument({ invoice }: { invoice: InvoiceWithClient }) {
   const { client } = invoice;
   return (
-    <Document title={`Tyflex Investments — ${invoice.invoiceNumber}`}>
+    <Document title={`Tyflex — ${invoice.invoiceNumber}`}>
       <Page size="A4" style={styles.page}>
         <View style={styles.headerRow}>
           <View>

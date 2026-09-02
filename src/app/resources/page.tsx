@@ -7,9 +7,9 @@ import { getAllPostsMeta } from "@/lib/blog";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "Resources & Insights | Tyflex Investments",
+  title: "Resources & Insights | Tyflex",
   description:
-    "Guides, case studies, and technical documentation to help Zimbabwean businesses get the most out of Tyflex Investments' technology solutions.",
+    "Guides, case studies, and technical documentation to help Zimbabwean businesses get the most out of Tyflex' technology solutions.",
   path: "/resources",
 });
 

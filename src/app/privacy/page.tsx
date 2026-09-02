@@ -3,9 +3,9 @@ import { COMPANY } from "@/lib/constants";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "Privacy Policy | Tyflex Investments",
+  title: "Privacy Policy | Tyflex",
   description:
-    "Read how Tyflex Investments collects, uses, stores, and protects your personal information when you use our website and services.",
+    "Read how Tyflex collects, uses, stores, and protects your personal information when you use our website and services.",
   path: "/privacy",
 });
 

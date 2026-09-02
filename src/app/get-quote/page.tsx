@@ -2,9 +2,9 @@ import GetQuoteClient from "@/components/get-quote/GetQuoteClient";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "Get a Free Quote | Tyflex Investments Zimbabwe",
+  title: "Get a Free Quote | Tyflex Zimbabwe",
   description:
-    "Request a tailored quote for VoIP, 3CX, networking, barcode scanning, POS, ERP, and other enterprise technology solutions from Tyflex Investments in Zimbabwe.",
+    "Request a tailored quote for VoIP, 3CX, networking, barcode scanning, POS, ERP, and other enterprise technology solutions from Tyflex in Zimbabwe.",
   path: "/get-quote",
 });
 

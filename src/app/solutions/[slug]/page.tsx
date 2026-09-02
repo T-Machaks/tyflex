@@ -25,7 +25,7 @@ export function generateMetadata({ params }: SolutionPageProps): Metadata {
   const solution = getSolutionBySlug(params.slug);
   if (!solution) return {};
   return buildMetadata({
-    title: `${solution.name} | Tyflex Investments`,
+    title: `${solution.name} | Tyflex`,
     description: solution.shortDescription,
     path: `/solutions/${solution.slug}`,
   });

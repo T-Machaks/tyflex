@@ -2,9 +2,9 @@ import ContactClient from "@/components/contact/ContactClient";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "Contact Tyflex Investments | Harare, Zimbabwe",
+  title: "Contact Tyflex | Harare, Zimbabwe",
   description:
-    "Reach the Tyflex Investments team in Bluffhill, Harare — phone, email, business hours, and a quick contact form for general enquiries and support requests.",
+    "Reach the Tyflex team in Bluffhill, Harare — phone, email, business hours, and a quick contact form for general enquiries and support requests.",
   path: "/contact",
 });
 

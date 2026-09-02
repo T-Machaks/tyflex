@@ -7,9 +7,9 @@ import { ventures } from "@/lib/data/ventures";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "Our Ventures | Built by Tyflex Investments",
+  title: "Our Ventures | Built by Tyflex",
   description:
-    "ADMA Digital, Omniflex, and Vekta — platforms Tyflex Investments has built and co-developed, with AWS support, to solve real problems for African businesses.",
+    "ADMA Digital, Omniflex, and Vekta — platforms Tyflex has built and co-developed, with AWS support, to solve real problems for African businesses.",
   path: "/projects",
 });
 
