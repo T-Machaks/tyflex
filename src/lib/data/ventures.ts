@@ -10,6 +10,11 @@ export interface Venture {
   highlights: string[];
   /** External site, when the venture has its own domain. */
   url?: string;
+  /**
+   * Short attribution line for platforms Tyflex co-developed rather than
+   * owns outright, e.g. "Developed with ADMA & Mediaserv".
+   */
+  partners?: string;
   /** Omitted entirely for ventures that are fully active/live. */
   status?: EntityStatus;
   /** Shown alongside a "launching-soon" status, e.g. "September 2026". */
@@ -17,8 +22,9 @@ export interface Venture {
 }
 
 /**
- * "Built by Tyflex" — platforms Tyflex owns and operates, distinct from the
- * solutions we sell to clients (see src/lib/data/solutions.ts). Single
+ * "Built by Tyflex" — platforms Tyflex has built or co-developed, distinct
+ * from the solutions we sell to clients (see src/lib/data/solutions.ts).
+ * Not all are Tyflex-owned: ADMA Digital is a partnership build. Single
  * source for both /projects and the homepage ventures teaser.
  *
  * Note: I couldn't verify vekta.co.zw or admadigital.co.zw's own copy
@@ -32,12 +38,14 @@ export const ventures: Venture[] = [
     name: "ADMA Digital",
     tagline: "Year-Round Agricultural Virtual Exhibition",
     description:
-      "A virtual exhibition platform for agriculture, open year-round rather than a single show — connecting suppliers, buyers, and exhibitors across the region in one place.",
+      "A virtual exhibition platform for agriculture, open year-round rather than a single show — connecting suppliers, buyers, and exhibitors across the region in one place. Tyflex developed the platform in partnership with ADMA (the Agricultural Dealers and Manufacturers Association) and Mediaserv; it is not a Tyflex-owned property.",
     icon: "Sprout",
     url: "https://admadigital.co.zw",
+    partners: "Developed with ADMA & Mediaserv",
     highlights: [
       "Virtual exhibitor booths, open year-round",
       "Connects agricultural suppliers with buyers",
+      "Built in partnership with ADMA & Mediaserv",
       "Being developed and improved with AWS support",
     ],
   },
@@ -46,12 +54,13 @@ export const ventures: Venture[] = [
     name: "Omniflex",
     tagline: "Bulk Messaging Platform",
     description:
-      "Tyflex's bulk messaging platform — bulk SMS and WhatsApp at scale. Launched in 2025 in partnership with Telerivet; as of September 1, 2026 it runs fully on its own dashboard, independent of Telerivet infrastructure. Bulk messaging hasn't left the business — it's moved from being a solution we sell to a platform we own.",
+      "Tyflex's bulk messaging platform. It began in 2025 on omniflex.telerivet.com; today it runs as a standalone product at omniflex.co.zw focused on bulk SMS and OTP, with single sign-on through to omniflex.telerivet.com for advanced features and additional channels. Tyflex remains an official Telerivet affiliate partner. Bulk messaging hasn't left the business — it's moved from being a solution we sell to a platform we own.",
     icon: "MessageSquare",
+    url: "https://omniflex.co.zw",
     highlights: [
-      "Bulk SMS campaigns with smart scheduling",
-      "WhatsApp Business API messaging",
-      "Now fully independent of Telerivet infrastructure",
+      "Standalone bulk SMS & OTP at omniflex.co.zw",
+      "Single sign-on to Telerivet for advanced features & channels",
+      "Official Telerivet affiliate partner",
       "Being developed and improved with AWS support",
     ],
   },

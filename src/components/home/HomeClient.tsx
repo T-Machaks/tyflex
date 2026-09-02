@@ -330,10 +330,10 @@ export default function HomeClient() {
               <span className="inline-block px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-sm text-gray-300 mb-4">
                 Built by Tyflex
               </span>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Platforms We Own and Operate</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Platforms We&apos;ve Built</h2>
               <p className="text-gray-400 max-w-xl mx-auto">
-                Beyond the solutions we sell, we build our own — developed
-                with support from our AWS partnership.
+                Beyond the solutions we sell, we build and co-develop
+                platforms — with support from our AWS partnership.
               </p>
             </div>
           </FadeIn>
@@ -360,6 +360,9 @@ export default function HomeClient() {
                     </div>
                     <h3 className="font-bold text-lg mb-1">{venture.name}</h3>
                     <p className="text-brand-red text-sm font-medium mb-3">{venture.tagline}</p>
+                    {venture.partners && (
+                      <p className="text-xs text-gray-500 mb-3 -mt-2">{venture.partners}</p>
+                    )}
                     <p className="text-sm text-gray-400 leading-relaxed">{venture.description}</p>
                   </GlassCard>
                 </Link>

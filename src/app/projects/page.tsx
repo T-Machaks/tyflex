@@ -9,7 +9,7 @@ import { buildMetadata } from "@/lib/seo";
 export const metadata = buildMetadata({
   title: "Our Ventures | Built by Tyflex Investments",
   description:
-    "ADMA Digital, Omniflex, and Vekta — platforms Tyflex Investments owns and operates, built with AWS support to solve real problems for African businesses.",
+    "ADMA Digital, Omniflex, and Vekta — platforms Tyflex Investments has built and co-developed, with AWS support, to solve real problems for African businesses.",
   path: "/projects",
 });
 
@@ -24,7 +24,7 @@ export default function ProjectsPage() {
           </FadeIn>
           <FadeIn delay={0.05}>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              Beyond the solutions we sell, we build and operate our own
+              Beyond the solutions we sell, we build and co-develop
               platforms — developed with support from our AWS partnership.
             </p>
           </FadeIn>
@@ -56,6 +56,9 @@ export default function ProjectsPage() {
                     )}
                   </div>
                   <p className="text-brand-red text-sm font-medium mb-4">{venture.tagline}</p>
+                  {venture.partners && (
+                    <p className="text-xs text-gray-500 mb-4 -mt-2">{venture.partners}</p>
+                  )}
                   <p className="text-gray-400 leading-relaxed mb-6 max-w-3xl">{venture.description}</p>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">

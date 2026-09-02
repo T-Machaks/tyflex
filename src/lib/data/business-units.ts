@@ -64,10 +64,10 @@ export const businessUnits: BusinessUnit[] = [
     name: "OmniFlex",
     tagline: "Business Messaging",
     description:
-      "Our bulk messaging platform, launched in partnership with Telerivet. As of September 1, 2026 it runs fully on its own dashboard, independent of Telerivet infrastructure.",
+      "Our bulk messaging platform. Standalone at omniflex.co.zw for bulk SMS and OTP, with single sign-on to omniflex.telerivet.com for advanced features and additional channels. Tyflex is an official Telerivet affiliate partner.",
     founded: 2025,
     icon: "MessageSquare",
-    focus: ["Bulk SMS Campaigns", "WhatsApp Business API", "Customer Engagement"],
+    focus: ["Bulk SMS Campaigns", "OTP & Transactional SMS", "Telerivet SSO for Advanced Channels"],
   },
 ];
 
@@ -124,13 +124,26 @@ export const timeline: TimelineMilestone[] = [
     year: "2025",
     title: "Omniflex Launches",
     description:
-      "Launched in partnership with Telerivet. As of September 1, 2026, Omniflex runs fully on its own dashboard, independent of Telerivet infrastructure.",
+      "Launched on omniflex.telerivet.com as an official Telerivet affiliate partner, bringing bulk SMS and WhatsApp messaging to market.",
+  },
+  {
+    year: "2026",
+    title: "Omniflex Goes Standalone",
+    description:
+      "Omniflex launches as a standalone product at omniflex.co.zw, focused on bulk SMS and OTP, with single sign-on through to omniflex.telerivet.com for advanced features and additional channels.",
   },
   {
     year: "2026",
     title: "AWS Partnership Concluded",
     description:
       "Tyflex concluded a partnership with AWS. Omniflex, ADMA Digital, and Vekta are all being developed and improved with AWS support.",
-    videoEmbed: { youtubeId: "EbnNNRx1wEY", label: "Tyflex at AWS Summit 2026, Johannesburg" },
+  },
+  {
+    year: "2026",
+    title: "Vekta Announced",
+    description:
+      "Vekta — Tyflex's digital commerce and fulfilment platform for Zimbabwe — announced ahead of its September 2026 launch and previewed at the AWS Summit in Johannesburg.",
+    status: "launching-soon",
+    videoEmbed: { youtubeId: "EbnNNRx1wEY", label: "Vekta at AWS Summit 2026, Johannesburg" },
   },
 ];
