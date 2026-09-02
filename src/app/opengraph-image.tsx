@@ -54,8 +54,32 @@ export default function OpengraphImage() {
           <span style={{ color: "white" }}>Tyflex</span>
           <span style={{ color: "#DC2626" }}>.</span>
         </div>
-        <div style={{ display: "flex", fontSize: 30, color: "#a3a3a3", marginTop: 18 }}>
-          Enterprise Technology Solutions in Zimbabwe
+        <div
+          style={{
+            display: "flex",
+            fontSize: 28,
+            color: "#a3a3a3",
+            marginTop: 16,
+            maxWidth: 860,
+            textAlign: "center",
+          }}
+        >
+          Technology that drives efficiency and growth
+        </div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            marginTop: 40,
+            padding: "18px 40px",
+            borderRadius: 999,
+            backgroundColor: "#DC2626",
+            color: "white",
+            fontSize: 30,
+            fontWeight: 600,
+          }}
+        >
+          Get a Free Quote  →
         </div>
       </div>
     ),

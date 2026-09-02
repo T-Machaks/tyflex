@@ -2,9 +2,9 @@ import HomeClient from "@/components/home/HomeClient";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "Tyflex",
+  title: "Tyflex — Unified Communications & Enterprise Tech",
   description:
-    "Tyflex delivers VoIP, 3CX, networking, barcode scanning, POS, ERP, and enterprise messaging solutions to businesses across Zimbabwe. Get a free quote today.",
+    "From unified communications to enterprise hardware, we deliver technology that drives efficiency and growth",
   path: "/",
 });
 

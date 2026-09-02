@@ -13,9 +13,9 @@ const inter = Inter({
   display: "swap",
 });
 
-const SITE_TITLE = "Tyflex";
+const SITE_TITLE = "Tyflex — Unified Communications & Enterprise Tech";
 const SITE_DESCRIPTION =
-  "Tyflex helps Zimbabwean businesses grow with VoIP, 3CX, networking, barcode scanning, POS, ERP, printing, and business messaging solutions.";
+  "From unified communications to enterprise hardware, we deliver technology that drives efficiency and growth";
 
 export const metadata: Metadata = {
   metadataBase: new URL(COMPANY.url),
