@@ -1,55 +1,60 @@
-name: Deploy to EC2
+name: Deploy to production
+
+# Auto-deploys on every push to main (and on manual dispatch).
+# Flow: GitHub OIDC -> assume AWS role tyflex-github-deploy -> ssm send-command
+# runs /var/www/tyflex/redeploy.sh on the EC2 box (git reset --hard origin/main,
+# npm ci, next build, pm2 restart). No SSH key, no stored AWS keys.
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  AWS_REGION: af-south-1
+  INSTANCE_ID: i-03381db4394d36f08
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          role-to-assume: arn:aws:iam::780344648244:role/tyflex-github-deploy
+          aws-region: ${{ env.AWS_REGION }}
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Trigger redeploy via SSM
+        run: |
+          set -euo pipefail
+          CMD_ID=$(aws ssm send-command \
+            --instance-ids "$INSTANCE_ID" \
+            --document-name AWS-RunShellScript \
+            --comment "gha ${GITHUB_SHA::7}" \
+            --timeout-seconds 600 \
+            --parameters '{"commands":["/var/www/tyflex/redeploy.sh"]}' \
+            --query Command.CommandId --output text)
+          echo "SSM CommandId: $CMD_ID"
 
-      - name: Build Next.js app
-        run: npm run build
+          aws ssm wait command-executed \
+            --command-id "$CMD_ID" --instance-id "$INSTANCE_ID" && OK=1 || OK=0
 
-      - name: Deploy to EC2
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ec2-user
-          key: ${{ secrets.EC2_SSH_KEY }}
-          script: |
-            set -e
+          echo "----- STDOUT -----"
+          aws ssm get-command-invocation --command-id "$CMD_ID" --instance-id "$INSTANCE_ID" \
+            --query StandardOutputContent --output text
+          echo "----- STDERR -----"
+          aws ssm get-command-invocation --command-id "$CMD_ID" --instance-id "$INSTANCE_ID" \
+            --query StandardErrorContent --output text
 
-            DEPLOY_DIR="/var/www/tyflex/website"
-            APP_NAME="tyflex-web"
-
-            # Clone repo if first deploy, otherwise pull
-            if [ ! -d "$DEPLOY_DIR/.git" ]; then
-              git clone https://github.com/T-Machaks/tyflex.git "$DEPLOY_DIR"
-            fi
-
-            cd "$DEPLOY_DIR"
-            git pull origin main
-
-            npm ci
-            npm run build
-
-            pm2 describe "$APP_NAME" > /dev/null 2>&1 \
-              && pm2 restart "$APP_NAME" \
-              || pm2 start npm --name "$APP_NAME" -- start
-
-            pm2 save
-            echo "Deploy complete"
+          STATUS=$(aws ssm get-command-invocation --command-id "$CMD_ID" --instance-id "$INSTANCE_ID" \
+            --query Status --output text)
+          echo "Final SSM status: $STATUS"
+          test "$STATUS" = "Success"
