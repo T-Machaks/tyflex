@@ -116,7 +116,7 @@ export default function Footer() {
 
         <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-gray-500">
-            &copy; {new Date().getFullYear()} {COMPANY.legalName}. All rights reserved.
+            &copy; {new Date().getFullYear()} {COMPANY.name}. All rights reserved.
           </p>
           <div className="flex gap-6 text-sm text-gray-500">
             <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
