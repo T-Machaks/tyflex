@@ -23,10 +23,7 @@ export const metadata: Metadata = {
   description: SITE_DESCRIPTION,
   alternates: { canonical: COMPANY.url },
   icons: {
-    icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/favicon.png" },
-    ],
+    icon: "/favicon.png",
     apple: "/favicon.png",
   },
   openGraph: {

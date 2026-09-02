@@ -1,3 +1,5 @@
+import { readFileSync } from "fs";
+import { join } from "path";
 import { ImageResponse } from "next/og";
 
 // No runtime override — this image is identical on every render, so it's
@@ -7,11 +9,15 @@ export const alt = "Tyflex";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+// The Tyflex "Ti" logomark (same asset as the favicon), inlined so
+// ImageResponse can draw it without a network fetch during static generation.
+const logoSrc = `data:image/png;base64,${readFileSync(
+  join(process.cwd(), "public", "favicon.png")
+).toString("base64")}`;
+
 // Default social-share image for every page that doesn't define its own —
 // Next.js falls back to this for both og:image and (absent a twitter-image)
 // twitter:image, so this is the one branded image the whole site shares.
-// Built entirely from vector/text primitives (no embedded raster) so it
-// renders reliably during static generation.
 export default function OpengraphImage() {
   return new ImageResponse(
     (
@@ -33,17 +39,16 @@ export default function OpengraphImage() {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            width: 176,
-            height: 176,
-            borderRadius: 40,
-            background: "linear-gradient(135deg, #DC2626, #7f1d1d)",
+            width: 200,
+            height: 200,
+            borderRadius: 44,
+            backgroundColor: "#ffffff",
             marginBottom: 44,
-            boxShadow: "0 20px 60px rgba(220,38,38,0.35)",
+            boxShadow: "0 20px 60px rgba(0,0,0,0.45)",
           }}
         >
-          <div style={{ display: "flex", color: "white", fontSize: 92, fontWeight: 700, letterSpacing: -2 }}>
-            Ti
-          </div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={logoSrc} alt="" width={150} height={150} />
         </div>
         <div style={{ display: "flex", fontSize: 104, fontWeight: 700, letterSpacing: -3 }}>
           <span style={{ color: "white" }}>Tyflex</span>
