@@ -15,7 +15,7 @@ export const hikvisionCatalog: Product[] = [
     description: "18.5\" 1366*768, HDMI/VGA input, view angle:178°/178°, plastic casing, ERP level A,VESA, base bracket included",
     icon: "Monitor",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "SOHO Monitor IPS Panel" },
       { label: "Model", value: "DS-D5019S0-1P0(O-STD)" },
@@ -117,7 +117,7 @@ export const hikvisionCatalog: Product[] = [
     description: "27 inch FHD 100Hz IPS Monitor with Speaker，HDMI+VGA，V stand",
     icon: "Monitor",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "SOHO Monitor IPS Panel" },
       { label: "Model", value: "DS-D5027F3-2P2S(O-STD)(EU)" },
@@ -168,7 +168,7 @@ export const hikvisionCatalog: Product[] = [
     description: "32'', VA, HDMI/VGA input, speaker included, Brightness 300nits, Contrast ratio 4000:1, Response time 8ms,",
     icon: "Monitor",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "CCTV Monitor 1080P Series" },
       { label: "Model", value: "DS-D5032F3-1V0S(European standard)" },
@@ -185,7 +185,7 @@ export const hikvisionCatalog: Product[] = [
     description: "43 inch FHD 60Hz VA Monitor",
     icon: "Monitor",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "CCTV Monitor 1080P Series" },
       { label: "Model", value: "DS-D5043F3-1V0S(O-STD)(EU)" },
@@ -219,7 +219,7 @@ export const hikvisionCatalog: Product[] = [
     description: "Ultra HD 3840 ×2160 @60 Hz. Wide viewing angle: Horizontal 178°, Vertical 178°. Ultra-thin device body with ultra-thin border for 3 sides. Multiple interfaces: HDMI,USB 2.0 Build-in speaker, Audio 10W*2. Low blue light design for eye care. 3D noise reduction. Support VESA wall mount.",
     icon: "Monitor",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "CCTV Monitor 4k Series" },
       { label: "Model", value: "DS-D5043U3-1V0S(O-STD)(EU)" },
@@ -238,7 +238,7 @@ export const hikvisionCatalog: Product[] = [
     description: "4K (3840 ×2160) resolution, providing a wider view and more fine detail VA technology, Wide view angle: Horizontal 178°, Vertical 178° Ultra-thin device body with ultra-thin border for 3 sides 3D noise reduction Multiple inputs: HDMI, USB",
     icon: "Monitor",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "CCTV Monitor 4k Series" },
       { label: "Model", value: "DS-D5050U3-1V0S(O-STD)(EU)" },
@@ -255,7 +255,7 @@ export const hikvisionCatalog: Product[] = [
     description: "Ultra HD 3840 ×2160 @60 Hz. Wide viewing angle: Horizontal 178°, Vertical 178°. Ultra-thin device body with ultra-thin border for 3 sides. Multiple interfaces: HDMI，USB Build-in speaker, Audio 10W*2. Low blue light design for eye care. 3D noise reduction. Support VESA wall mount",
     icon: "Monitor",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "CCTV Monitor 4k Series" },
       { label: "Model", value: "DS-D5055U3-1V0S(O-STD)" },
@@ -376,7 +376,7 @@ export const hikvisionCatalog: Product[] = [
     description: "L2, Unmanaged, 5 Gigabit RJ45 ports, desktop plastic switch",
     icon: "Network",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "Unmanaged Desktop Plastic" },
       { label: "Model", value: "DS-3E0505D-O(O-STD)" },
@@ -393,7 +393,7 @@ export const hikvisionCatalog: Product[] = [
     description: "L2, Unmanaged, 8 Gigabit RJ45 ports, desktop plastic switch",
     icon: "Network",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "Unmanaged Desktop Plastic" },
       { label: "Model", value: "DS-3E0508D-O(O-STD)" },
@@ -869,7 +869,7 @@ export const hikvisionCatalog: Product[] = [
     description: "L2, Smart Managed, 8 Gigabit PoE ports, 4 Gigabit SFP ports, 802.3af/at/bt, port 1-4 support Hi-PoE 90w, power budget ≤300w( based on power supply, power supply unit not included ), -40°C to 75°C, HPP Cloud managed, VLAN, STP/RSTP /ERPS, DHCP Snooping, ACL, IP&MAC filter based on port, SNMP V1/V2C, Max. 300 meter PoE transmission, DIN rail, IP40",
     icon: "Network",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "Managed L2 Gigabit Ethernet Switch （Wider temperature）" },
       { label: "Model", value: "DS-3T1512HP-SI-8P4F(O-STD)/No Power unit" },
@@ -971,7 +971,7 @@ export const hikvisionCatalog: Product[] = [
     description: "AC1200M Dual-band WiFi5 wireless router, 5GHz: 867Mbps + 2.4GHz 300Mbps, 3 × Gigabit LAN ports, 1 × Gigabit WAN port, 4 × 5-dBi antennas, Hik-Connect App",
     icon: "Network",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "Wi-Fi 5 Router Series" },
       { label: "Model", value: "DS-3WR12GC(O-STD)/EU" },
@@ -1056,7 +1056,7 @@ export const hikvisionCatalog: Product[] = [
     description: "AX1800M Dual-band WiFi 6 wireless router, 5GHz: 1201Mbps + 2.4GHz 574Mbps, 3 × 1000 Mbps LAN ports, 1 × 1000 Mbps WAN port, 5 × high gain antennas, Hik-Connect, Hik-partner Pro App",
     icon: "Network",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "Wi-Fi 6 Router Series" },
       { label: "Model", value: "DS-3WR18X(O-STD)/EU" },
@@ -1090,7 +1090,7 @@ export const hikvisionCatalog: Product[] = [
     description: "4G LTE Wi-Fi Router, Max 4G speed: DL:150Mbps; UL:50Mbps Wi-Fi speed: 2.4GHz:300Mbps 4G Cartgory LTE CAT.4 Support FDD LTE,TDD-LTE,WCDMA",
     icon: "Network",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "Wireless 4G Router" },
       { label: "Model", value: "DS-3WR4G3N(O-STD)/EU" },
@@ -1108,7 +1108,7 @@ export const hikvisionCatalog: Product[] = [
     description: "4G LTE Wi-Fi Router, Max 4G speed: DL:150Mbps; UL:50Mbps Wi-Fi speed: 2.4GHz:300Mbps ; 5GHz:867Mbps 4G Cartgory LTE CAT.4 Support FDD LTE,TDD-LTE,WCDMA",
     icon: "Network",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "Wireless 4G Router" },
       { label: "Model", value: "DS-3WR4G12C(O-STD)/EU" },
@@ -1177,7 +1177,7 @@ export const hikvisionCatalog: Product[] = [
     description: "AC1200M Dual-band WiFi5 Mesh Wi-Fi Router, 5GHz: 867Mbps + 2.4GHz 300Mbps, 3 × Gigabit LAN ports, 1 × Gigabit WAN port, Hik-Connect, Hik-partner Pro App,Hikvision Mesh, 2 pcs",
     icon: "Network",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "Whole-home Mesh Wi-Fi System" },
       { label: "Model", value: "DS-3WRM12GC/2(O-STD)/EU" },
@@ -1211,7 +1211,7 @@ export const hikvisionCatalog: Product[] = [
     description: "AX300 Wi-Fi 6 Nano USB Adapter, Speed up to 286Mbps.Compatible with Windows 7/10/11, Linux",
     icon: "Network",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "Wi-Fi Adapter" },
       { label: "Model", value: "DS-3WRU3X(0-STD)" },
@@ -1228,7 +1228,7 @@ export const hikvisionCatalog: Product[] = [
     description: "AX300 Wi-Fi 6 High Gain USB Adapter, Speed up to 286Mbps.Compatible with Windows 7/10/11, Linux",
     icon: "Network",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "Wi-Fi Adapter" },
       { label: "Model", value: "DS-3WRU3X-H(0-STD)" },
@@ -1245,7 +1245,7 @@ export const hikvisionCatalog: Product[] = [
     description: "AX900 Wi-Fi 6 Nano USB Adapter, Speed up to 886Mbps.Compatible with Windows 7/10/11, Linux",
     icon: "Network",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "Wi-Fi Adapter" },
       { label: "Model", value: "DS-3WRU9X(O-STD)" },
@@ -1262,7 +1262,7 @@ export const hikvisionCatalog: Product[] = [
     description: "AX900 Wi-Fi 6 High Gain USB Adapter, Speed up to 886Mbps.Compatible with Windows 7/10/11, Linux",
     icon: "Network",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "Wi-Fi Adapter" },
       { label: "Model", value: "DS-3WRU9X-H" },
@@ -1483,7 +1483,7 @@ export const hikvisionCatalog: Product[] = [
     description: "Outdoor 5GHz wireless bridge Kit, Max.distance 3km, 2×2 MIMO antenna with 867Mbps thoughput, 8dBi gain, 802.11n, Angle H: 50°, 2 100Mbps RJ45 ports, support Standard PoE input&Output, Support Web, iVMS-4200, HCP, HPP Tested Throughput at different distance: PTP: 40Mbps/3KM, 90Mbps/1KM, 90Mbps/500M PTMP(1 to 4): 30Mbps/3KM",
     icon: "Network",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "Outdoor Wireless Bridge 3KM Kit" },
       { label: "Model", value: "DS-3WF3000-EI-5AC/P(O-STD)" },
@@ -1521,7 +1521,7 @@ export const hikvisionCatalog: Product[] = [
     description: "Outdoor 5GHz wireless bridge CPE, Max.distance 5km, 2×2 MIMO antenna with 867Mbps thoughput, 9dBi gain, output power 22dBm, 802.11a/n/ac, Angle H: 35°, 2 × 10/100 Mbps RJ45 ports, support Standard PoE input&Output",
     icon: "Network",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "Outdoor Wireless Bridge 5KM Kit" },
       { label: "Model", value: "DS-3WF02-5AC/D(O-STD)" },
@@ -1538,7 +1538,7 @@ export const hikvisionCatalog: Product[] = [
     description: "Outdoor 5GHz wireless bridge CPE, Max.distance 5km, 2×2 MIMO antenna with 867Mbps thoughput, 9dBi gain, output power 22dBm, 802.11a/n/ac, Angle H: 35°, 1 Gigabit RJ45, 1 Gigabit RJ45 with passive PoE input, TDMA, DFS, TPC, Smart Managed",
     icon: "Network",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "Outdoor Wireless Bridge 5KM" },
       { label: "Model", value: "DS-3WF02C-5AC/O(O-STD)V3" },
@@ -1610,7 +1610,7 @@ export const hikvisionCatalog: Product[] = [
     description: "UTP CAT 5E, 305 meters,Core diameter: 0.5mm,OFC,CM,gray",
     icon: "Plug",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "CAT 5E Network Cable (Support flame resistant)" },
       { label: "Model", value: "DS-1LN5E-S(O-STD)" },
@@ -1626,7 +1626,7 @@ export const hikvisionCatalog: Product[] = [
     description: "UTP CAT 5E, 305 meters,Core diameter: 0.45mm,OFC,CMX,gray",
     icon: "Plug",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "CAT 5E Network Cable (Support flame resistant)" },
       { label: "Model", value: "DS-1LN5E-E/E(O-STD)" },
@@ -1676,7 +1676,7 @@ export const hikvisionCatalog: Product[] = [
     description: "UTP CAT 6, 305 meters,Core diameter: 0.565mm,OFC,CM,orange",
     icon: "Plug",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "CAT 6 Network Cable (Support flame resistant)" },
       { label: "Model", value: "DS-1LN6-UU(O-STD)" },
@@ -2218,7 +2218,7 @@ export const hikvisionCatalog: Product[] = [
     description: "TVI convert to UTP transmission with extend cable, passive, flat Push Interface; supports power and audio transmission",
     icon: "Plug",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "TVI Video Balun" },
       { label: "Model", value: "DS-1H18-A(O-STD)" },
@@ -2553,7 +2553,7 @@ export const hikvisionCatalog: Product[] = [
     description: "12V/1A/ch,8ch,60W,European standard",
     icon: "Network",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "Multi-channel SMPS" },
       { label: "Model", value: "DS-2FA1205-C8(EUR)(O-STD)" },
@@ -2570,7 +2570,7 @@ export const hikvisionCatalog: Product[] = [
     description: "12V/1A/ch,16ch,120W,European standard",
     icon: "Network",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "Multi-channel SMPS" },
       { label: "Model", value: "DS-2FA1208-C16(EUR)(Africa)" },
@@ -2587,7 +2587,7 @@ export const hikvisionCatalog: Product[] = [
     description: "600VA/360W,12V/7Ah Battery x1",
     icon: "Network",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "UPS" },
       { label: "Model", value: "DS-UPS600/SA" },
@@ -2604,7 +2604,7 @@ export const hikvisionCatalog: Product[] = [
     description: "1000VA/600W,12V/9Ah Battery x1",
     icon: "Network",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "UPS" },
       { label: "Model", value: "DS-UPS1000/SA" },
@@ -2621,7 +2621,7 @@ export const hikvisionCatalog: Product[] = [
     description: "2000VA/1200W, 12 V/9 Ah Battery x 2",
     icon: "Network",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "UPS" },
       { label: "Model", value: "DS-UPS2000/SA" },
@@ -2638,7 +2638,7 @@ export const hikvisionCatalog: Product[] = [
     description: "3000VA/1800W, 12 V/9 Ah Battery x 4",
     icon: "Network",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "UPS" },
       { label: "Model", value: "DS-UPS3000/SA" },
@@ -2655,7 +2655,7 @@ export const hikvisionCatalog: Product[] = [
     description: "4U, 600*450*281mm Load bearing: 40kg (Fan and shelf need to order separately）",
     icon: "Network",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "Wall-mount Cabinet,4U" },
       { label: "Model", value: "DS-XS6404-S/B(O-STD)/Overseas" },
@@ -2673,7 +2673,7 @@ export const hikvisionCatalog: Product[] = [
     description: "6U, 600*450*368mm Load bearing: 40kg (Fan and shelf need to order separately）",
     icon: "Network",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "Wall-mount Cabinet,6U" },
       { label: "Model", value: "DS-XS6406-S/B(O-STD)/Overseas" },
@@ -3338,7 +3338,7 @@ export const hikvisionCatalog: Product[] = [
     description: "TX1310nm/1.25G, RX1550nm/1.25G, LC, single mode and single fiber, 20km, 0～70℃, SFP, should work with HK-SFP-1.25G-20-1550 as a pair",
     icon: "Network",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "SFP Module" },
       { label: "Model", value: "HK-SFP-1.25G-20-1310" },
@@ -3354,7 +3354,7 @@ export const hikvisionCatalog: Product[] = [
     description: "TX1550nm/1.25G, RX1310nm/1.25G, LC, single mode and single fiber, 20km, 0～70℃, SFP, should work with HK-SFP-1.25G-20-1310 as a pair",
     icon: "Network",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "SFP Module" },
       { label: "Model", value: "HK-SFP-1.25G-20-1550" },
@@ -3660,7 +3660,7 @@ export const hikvisionCatalog: Product[] = [
     description: "98\", 4K, Android 13, memory 8GB, build-in 128GB storage, 45 points infrared touch, Type-C*2,VGA input*1,DP input*1, HDMI input *3, HDMI output*1, Dual wifi, Buletooth 5.1, industrial screen protection. Built-in 8 MP camera with AI function, and 8 microphone arrays",
     icon: "Monitor",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "Conference& Education Flat Panel" },
       { label: "Model", value: "DS-D5C98RB/B" },
@@ -3728,7 +3728,7 @@ export const hikvisionCatalog: Product[] = [
     description: "Mobile Bracket, suitable for 55-75\"",
     icon: "Monitor",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "Mobile Bracket" },
       { label: "Model", value: "DS-D5ABKY2-S" },
@@ -3745,7 +3745,7 @@ export const hikvisionCatalog: Product[] = [
     description: "Mobile Bracket, suitable for 75-86\"",
     icon: "Monitor",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "Mobile Bracket" },
       { label: "Model", value: "DS-D5ABKY2-M" },
@@ -3762,7 +3762,7 @@ export const hikvisionCatalog: Product[] = [
     description: "Mobile Bracket, suitable for 86-98\"",
     icon: "Monitor",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "Mobile Bracket" },
       { label: "Model", value: "DS-D5ABKY2-B" },
@@ -3778,7 +3778,7 @@ export const hikvisionCatalog: Product[] = [
     description: "i5-12th , 8GB memory, 256GB SSD, WIFI6, default build-in Win 11",
     icon: "Monitor",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "OPS Module (Built-in Win 12)" },
       { label: "Model", value: "DS-D5AC12T5-8S2" },
@@ -3828,7 +3828,7 @@ export const hikvisionCatalog: Product[] = [
     description: "Wireless dongle,4K, Type-C, NFC, 2.4G/5G, available for D5B/C/D Series & D5C series, Black",
     icon: "Monitor",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "Wireless Dongle" },
       { label: "Model", value: "DS-D5SC3B-B" },
@@ -3879,7 +3879,7 @@ export const hikvisionCatalog: Product[] = [
     description: "1080P Resolution, 120° Wide Angle, 4-Mic Array, HD Speaker, Smart Noise Reduction, Echo Suppression",
     icon: "Monitor",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "Video Conference" },
       { label: "Model", value: "DS-UVC-X12" },
@@ -4015,7 +4015,7 @@ export const hikvisionCatalog: Product[] = [
     description: "All-in-one E&E manager with leftward/rightward capture unit, supplement lights, barrier gate, LCD, intercom, etc. , easy to install. ANPR camera: 4 MP, 2688 × 1520, CMOS, 1/3\", 25fps, 3.1-6mm lens LCD Screen: 21.5 inch, 1080p, 1500cd/m², supports QR code and advertisement display Barrier Boom Pole: 3m octagonal pole Rising Speed: 0.9S(Default) Adjustable 0.9S, 1.2S, 2S Falling Speed: 3S(Default) Adjustable 1.5S, 2S, 3S MCBF: 5,000,000 Supplement Light: 9 high-performance LEDs Radar: 79G Hz (60G Hz remarks), Beam width:Vertical 12°, Horizintal 34°, relay output Smart Recognition: ANPR, vehicle…",
     icon: "ScanLine",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "All-in-one E&E manager" },
       { label: "Model", value: "DS-TMC407-EHL/3m str/R/TCG400" },
@@ -4038,7 +4038,7 @@ export const hikvisionCatalog: Product[] = [
     description: "All-in-one E&E manager with leftward/rightward capture unit, supplement lights, barrier gate, LCD, intercom, etc. , easy to install. ANPR camera: 4 MP, 2688 × 1520, CMOS, 1/3\", 25fps, 3.1-6mm lens LCD Screen: 21.5 inch, 1080p, 1500cd/m², supports QR code and advertisement display Barrier Boom Pole: 3m octagonal pole Rising Speed: 0.9S(Default) Adjustable 0.9S, 1.2S, 2S Falling Speed: 3S(Default) Adjustable 1.5S, 2S, 3S MCBF: 5,000,000 Supplement Light: 9 high-performance LEDs Radar: 79G Hz (60G Hz remarks), Beam width:Vertical 12°, Horizintal 34°, relay output Smart Recognition: ANPR, vehicle…",
     icon: "ScanLine",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "All-in-one E&E manager" },
       { label: "Model", value: "DS-TMC407-EHR/3m str/R/TCG400" },
@@ -4107,7 +4107,7 @@ export const hikvisionCatalog: Product[] = [
     description: "All-in-one E&E manager with leftward/rightward capture unit, supplement lights, barrier gate, LCD, intercom, etc. , easy to install. ANPR camera: 4 MP, 2688 × 1520, CMOS, 1/3\", 25fps, 3.1-6mm lens LCD Screen: 21.5 inch, 1080p, 1500cd/m², supports QR code and advertisement display Barrier Boom Pole: 4m octagonal pole Rising Speed: 1.5S(Default) Adjustable 1.5S, 2S, 2.5S Falling Speed: 3.5S(Default) Adjustable 2.5S, 3S, 3.5S MCBF: 5,000,000 Supplement Light: 9 high-performance LEDs Radar: 79G Hz (60G Hz remarks), Beam width:Vertical 12°, Horizintal 34°, relay output Smart Recognition: ANPR,…",
     icon: "ScanLine",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "All-in-one E&E manager" },
       { label: "Model", value: "DS-TMC407-EHL/2+2m/R/TCG400" },
@@ -4130,7 +4130,7 @@ export const hikvisionCatalog: Product[] = [
     description: "All-in-one E&E manager with leftward/rightward capture unit, supplement lights, barrier gate, LCD, intercom, etc. , easy to install. ANPR camera: 4 MP, 2688 × 1520, CMOS, 1/3\", 25fps, 3.1-6mm lens LCD Screen: 21.5 inch, 1080p, 1500cd/m², supports QR code and advertisement display Barrier Boom Pole: 4m octagonal pole Rising Speed: 1.5S(Default) Adjustable 1.5S, 2S, 2.5S Falling Speed: 3.5S(Default) Adjustable 2.5S, 3S, 3.5S MCBF: 5,000,000 Supplement Light: 9 high-performance LEDs Radar: 79G Hz (60G Hz remarks), Beam width:Vertical 12°, Horizintal 34°, relay output Smart Recognition: ANPR,…",
     icon: "ScanLine",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "All-in-one E&E manager" },
       { label: "Model", value: "DS-TMC407-EHR/2+2m/R/TCG400" },
@@ -4152,7 +4152,7 @@ export const hikvisionCatalog: Product[] = [
     description: "Transmitting frequency: 79GHz Working mode: Anti-fall Radar Beam width: Vertical 10°, Horizontal 38°, relay output Trigger distance: 0.3 to 6m (adjustable) Response Time: 50ms Detection target: Vehicle Power Supply: 9 to 32 VDC Installation Mode: Installed on the side of the barrier gate",
     icon: "ScanLine",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "Anti-fall Radar" },
       { label: "Model", value: "DS-TMG034(Fall Radar)" },
@@ -4175,7 +4175,7 @@ export const hikvisionCatalog: Product[] = [
     description: "Transmitting frequency: 79GHz Working mode: Trigger Radar Beam width: Vertical 10°, Horizontal 38°, relay output Trigger distance: 0.3 to 6m (adjustable) Response Time: 50ms Detection target: Vehicle Power Supply: 9 to 32 VDC",
     icon: "ScanLine",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "Capture-trigger radar" },
       { label: "Model", value: "DS-TMG035(Trigger Radar)" },
@@ -4511,7 +4511,7 @@ export const hikvisionCatalog: Product[] = [
     description: "Motor: DC brushless motor Barrier Boom: 3m light pole, right by default, direction switchable Rising Speed: 1.8 S Falling Speed: 1.8 S MCBF: 5,000,000 Power Supply: 220 VAC Protect Level: IP54 Working Temperature: -30 °C to 70 °C (-22 °F to 158 °F) Barrier Housing Material: SGCC Barrier Housing Door Color: Orange red Barrier Housing Color: Iron gray",
     icon: "ScanLine",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "42 Series Barrier Gates" },
       { label: "Model", value: "DS-TMG420/A/B(3m/24V light)" },
@@ -4534,7 +4534,7 @@ export const hikvisionCatalog: Product[] = [
     description: "Motor: DC brushless motor Barrier Boom: 4m light pole, right by default, direction switchable Rising Speed: 2.5 S Falling Speed: 2.5 S MCBF: 5,000,000 Power Supply: 220 VAC Protect Level: IP54 Working Temperature: -30 °C to 70 °C (-22 °F to 158 °F) Barrier Housing Material: SGCC Barrier Housing Door Color: Orange red Barrier Housing Color: Iron gray",
     icon: "ScanLine",
     price: 0,
-    featured: false,
+    featured: true,
     specs: [
       { label: "Type", value: "42 Series Barrier Gates" },
       { label: "Model", value: "DS-TMG420/A/B(4m/24V light)" },

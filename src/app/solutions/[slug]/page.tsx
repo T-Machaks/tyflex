@@ -11,6 +11,7 @@ import BrandsBlock from "@/components/solutions/BrandsBlock";
 import FAQAccordion from "@/components/ui/FAQAccordion";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import { getSolutionBySlug, solutions } from "@/lib/data/solutions";
+import { getProductById } from "@/lib/data/products";
 import { buildMetadata } from "@/lib/seo";
 
 interface SolutionPageProps {
@@ -157,7 +158,9 @@ export default function SolutionPage({ params }: SolutionPageProps) {
           </FadeIn>
           <div className="grid sm:grid-cols-3 gap-6">
             {solution.relatedProducts.map((p, i) => {
-              const href = p.productId ? `/webstore/product/${p.productId}` : "/webstore";
+              // Only deep-link when the referenced catalog item still exists.
+              const linkedProduct = p.productId ? getProductById(p.productId) : undefined;
+              const href = linkedProduct ? `/webstore/product/${p.productId}` : "/webstore";
               return (
                 <FadeIn key={p.name} delay={0.05 * i}>
                   <Link href={href} className="block h-full">
@@ -168,7 +171,7 @@ export default function SolutionPage({ params }: SolutionPageProps) {
                       <h3 className="font-semibold mb-2">{p.name}</h3>
                       <p className="text-sm text-gray-400 leading-relaxed mb-4">{p.description}</p>
                       <span className="text-sm text-brand-red inline-flex items-center gap-1">
-                        {p.productId ? "View in Webstore" : "Browse Webstore"}
+                        {linkedProduct ? "View in Webstore" : "Browse Webstore"}
                         <ArrowRight className="h-3.5 w-3.5" />
                       </span>
                     </GlassCard>
