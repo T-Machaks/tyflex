@@ -23,3 +23,6 @@ dev-server.log
 # Loose vendor price lists at repo root
 *Price List*.pdf
 *Pricing*.pdf
+
+# Raw AWS Partner Ready Content kit — processed briefs live in public/resources/aws/
+/AWS/
