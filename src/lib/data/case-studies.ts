@@ -40,11 +40,11 @@ export const caseStudies: CaseStudy[] = [
     challenge:
       "The administration department at Sally Mugabe Central Hospital ran on years of added-on network cabling — undocumented runs, failing links and no reliable record of what was installed where — making faults slow to trace and safe upgrades hard to plan.",
     solution:
-      "Tyflex is carrying out a phased structured-cabling upgrade of the administration department: surveying and labelling existing infrastructure, replacing end-of-life runs with certified cabling and managed switching, and recording every drop in an asset register so cabling and network hardware can be tracked, traced and replaced on a planned schedule rather than only after a failure.",
+      "Tyflex carried out a phased structured-cabling upgrade of the administration department: surveying and labelling the existing infrastructure, replacing end-of-life runs with certified cabling and managed switching, and recording every drop in an asset register so cabling and network hardware can be tracked, traced and replaced on a planned schedule rather than only after a failure.",
     result:
-      "Work is progressing office by office with admin staff kept working throughout. Completed areas now have documented, tested cabling and a live asset record, giving hospital IT a clear picture of what is installed and what is due for replacement next.",
-    metric: "In progress",
-    metricLabel: "phased admin-department upgrade — no interruption to the desk",
+      "The upgrade was completed office by office with admin staff kept working throughout. Every drop is now documented and tested, and hospital IT has a live asset record showing what is installed and what is due for replacement next.",
+    metric: "Complete",
+    metricLabel: "admin department re-cabled — no interruption to the desk",
     icon: "Network",
     solutionSlug: "networking",
   },
