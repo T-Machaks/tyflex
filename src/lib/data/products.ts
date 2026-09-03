@@ -1,10 +1,13 @@
 import type { IconName } from "@/lib/icon-map";
+import { hikvisionCatalog } from "@/lib/data/products-hikvision-catalog";
 
 export const PRODUCT_CATEGORIES = [
   "Phone Systems",
   "Barcode Scanners",
   "Label Printers",
   "Networking",
+  "Displays",
+  "Entrance Control",
   "POS",
   "3CX Licenses",
   "Accessories",
@@ -40,7 +43,7 @@ export interface Product {
   datasheet?: string;
 }
 
-export const products: Product[] = [
+const coreProducts: Product[] = [
   // Phone Systems
   {
     id: "yealink-t54w-ip-desk-phone",
@@ -684,6 +687,13 @@ export const products: Product[] = [
     ],
   },
 ];
+
+/**
+ * Full catalogue = the hand-curated core products above, then the Hikvision
+ * partner catalogue generated from the pricelist
+ * (src/lib/data/products-hikvision-catalog.ts). All inquiry-based — no pricing.
+ */
+export const products: Product[] = [...coreProducts, ...hikvisionCatalog];
 
 export function getProductById(id: string): Product | undefined {
   return products.find((p) => p.id === id);
