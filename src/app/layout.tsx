@@ -17,10 +17,27 @@ const SITE_TITLE = "Tyflex — Unified Communications & Enterprise Tech";
 const SITE_DESCRIPTION =
   "From unified communications to enterprise hardware, we deliver technology that drives efficiency and growth";
 
+const PRIORITY_TOPICS = [
+  "TSC label printers",
+  "Printronix line-matrix printers",
+  "TallyGenicom printers",
+  "Urovo mobility devices",
+  "AWS cloud migration",
+  "3CX phone systems",
+  "Yeastar PBX",
+  "Fanvil IP phones",
+  "Yealink IP phones",
+  "Hikvision video security",
+  "barcode and label printing",
+  "enterprise mobility devices",
+  "unified communications Zimbabwe",
+];
+
 export const metadata: Metadata = {
   metadataBase: new URL(COMPANY.url),
   title: { default: SITE_TITLE, template: "%s" },
   description: SITE_DESCRIPTION,
+  keywords: PRIORITY_TOPICS,
   alternates: { canonical: COMPANY.url },
   icons: {
     icon: "/favicon.png",
@@ -84,6 +101,19 @@ const organizationAndLocalBusinessSchema = {
       foundingDate: String(COMPANY.founded),
       email: COMPANY.email,
       telephone: COMPANY.phone,
+      knowsAbout: PRIORITY_TOPICS,
+      brand: [
+        "TSC",
+        "Printronix",
+        "TallyGenicom",
+        "Urovo",
+        "AWS",
+        "3CX",
+        "Yeastar",
+        "Fanvil",
+        "Yealink",
+        "Hikvision",
+      ].map((name) => ({ "@type": "Brand", name })),
       address: {
         "@type": "PostalAddress",
         streetAddress: "40 St Athans Drive, Bluffhill",

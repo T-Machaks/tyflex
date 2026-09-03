@@ -10,6 +10,7 @@ import ProductCard from "@/components/webstore/ProductCard";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import { COMPANY } from "@/lib/constants";
 import { getProductById, getRelatedProducts, products } from "@/lib/data/products";
+import { brandSlugForProductBrand } from "@/lib/data/brands";
 import { buildMetadata } from "@/lib/seo";
 
 interface ProductPageProps {
@@ -23,10 +24,22 @@ export function generateStaticParams() {
 export function generateMetadata({ params }: ProductPageProps): Metadata {
   const product = getProductById(params.id);
   if (!product) return {};
+  const title = product.brand
+    ? `${product.name} — ${product.brand} ${product.category} | Tyflex Zimbabwe`
+    : `${product.name} | Tyflex Webstore`;
+  const description = `${product.brand ? `${product.brand} ` : ""}${product.name} — ${product.shortDescription} Supplied and supported by Tyflex in Zimbabwe; pricing on request.`;
   return buildMetadata({
-    title: `${product.name} | Tyflex Webstore`,
-    description: product.shortDescription,
+    title,
+    description,
     path: `/webstore/product/${product.id}`,
+    keywords: product.brand
+      ? [
+          `${product.brand} Zimbabwe`,
+          `${product.brand} ${product.category} Zimbabwe`,
+          `${product.name}`,
+          `${product.category} Zimbabwe`,
+        ]
+      : undefined,
   });
 }
 
@@ -44,7 +57,10 @@ export default function ProductPage({ params }: ProductPageProps) {
     name: product.name,
     description: product.shortDescription,
     category: product.category,
-    brand: { "@type": "Organization", name: product.brand ?? COMPANY.name },
+    sku: product.id,
+    mpn: product.id,
+    brand: { "@type": "Brand", name: product.brand ?? COMPANY.name },
+    ...(product.image ? { image: `${COMPANY.url}${product.image}` } : {}),
   };
 
   const quoteHref = `/get-quote?product=${encodeURIComponent(product.name)}`;
@@ -94,11 +110,19 @@ export default function ProductPage({ params }: ProductPageProps) {
           {/* Info */}
           <div>
             <FadeIn delay={0.1}>
-              {product.brand && (
-                <span className="block text-xs font-semibold uppercase tracking-wider text-brand-red mb-2">
-                  {product.brand}
-                </span>
-              )}
+              {product.brand &&
+                (brandSlugForProductBrand(product.brand) ? (
+                  <Link
+                    href={`/brands/${brandSlugForProductBrand(product.brand)}`}
+                    className="inline-block text-xs font-semibold uppercase tracking-wider text-brand-red mb-2 hover:underline"
+                  >
+                    {product.brand} &rarr;
+                  </Link>
+                ) : (
+                  <span className="block text-xs font-semibold uppercase tracking-wider text-brand-red mb-2">
+                    {product.brand}
+                  </span>
+                ))}
               <h1 className="text-3xl md:text-4xl font-bold mb-4">{product.name}</h1>
             </FadeIn>
             <FadeIn delay={0.15}>

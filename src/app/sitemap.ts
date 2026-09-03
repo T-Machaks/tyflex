@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { COMPANY } from "@/lib/constants";
 import { solutions } from "@/lib/data/solutions";
 import { awsSolutions } from "@/lib/data/aws-solutions";
+import { brands } from "@/lib/data/brands";
 import { products } from "@/lib/data/products";
 import { getAllPostsMeta } from "@/lib/blog";
 
@@ -19,6 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/`, lastModified: now, changeFrequency: "weekly", priority: 1 },
     { url: `${base}/solutions`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     { url: `${base}/webstore`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${base}/brands`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: `${base}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${base}/contact`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${base}/get-quote`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
@@ -48,6 +50,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
+  const brandRoutes: MetadataRoute.Sitemap = brands.map((b) => ({
+    url: `${base}/brands/${b.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.9,
+  }));
+
   const productRoutes: MetadataRoute.Sitemap = products.map((p) => ({
     url: `${base}/webstore/product/${p.id}`,
     lastModified: now,
@@ -62,5 +71,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.5,
   }));
 
-  return [...staticRoutes, ...solutionRoutes, ...awsSolutionRoutes, ...productRoutes, ...blogRoutes];
+  return [
+    ...staticRoutes,
+    ...solutionRoutes,
+    ...awsSolutionRoutes,
+    ...brandRoutes,
+    ...productRoutes,
+    ...blogRoutes,
+  ];
 }

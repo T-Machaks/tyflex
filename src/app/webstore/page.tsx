@@ -1,3 +1,4 @@
+import Link from "next/link";
 import GradientHeading from "@/components/ui/GradientHeading";
 import FadeIn from "@/components/motion/FadeIn";
 import WebstoreClient from "@/components/webstore/WebstoreClient";
@@ -6,8 +7,16 @@ import { buildMetadata } from "@/lib/seo";
 export const metadata = buildMetadata({
   title: "Webstore | Tyflex",
   description:
-    "Browse enterprise technology products from Tyflex — phone systems, barcode scanners, label printers, networking gear, and POS hardware. Request a quote.",
+    "Browse enterprise technology from Tyflex in Zimbabwe — Hikvision cameras and switches, TSC and Printronix label printers, Yealink and Fanvil IP phones, Yeastar PBX and 3CX. Request a quote.",
   path: "/webstore",
+  keywords: [
+    "enterprise technology Zimbabwe",
+    "Hikvision Zimbabwe",
+    "label printer Zimbabwe",
+    "IP phone Zimbabwe",
+    "barcode printing Zimbabwe",
+    "VoIP hardware Zimbabwe",
+  ],
 });
 
 export default function WebstorePage() {
@@ -30,6 +39,15 @@ export default function WebstorePage() {
               Browse and request pricing on enterprise technology products.
               From VoIP phones to barcode scanners, sourced and supported
               across Zimbabwe.
+            </p>
+          </FadeIn>
+          <FadeIn delay={0.2}>
+            <p className="mt-4 text-sm text-gray-500">
+              Prefer to shop by brand?{" "}
+              <Link href="/brands" className="text-brand-red hover:underline">
+                See all brands we supply
+              </Link>
+              .
             </p>
           </FadeIn>
         </div>

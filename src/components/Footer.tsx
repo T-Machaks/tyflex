@@ -5,9 +5,12 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { COMPANY, isProtectedPath } from "@/lib/constants";
 import { solutions as allSolutions } from "@/lib/data/solutions";
+import { brands as allBrands } from "@/lib/data/brands";
 
 // Footer shows a curated subset — the full list lives at /solutions.
 const footerSolutions = allSolutions.slice(0, 6);
+// Priority brands for internal linking / SEO — full list at /brands.
+const footerBrands = allBrands.slice(0, 7);
 
 const resources = [
   { name: "Blog", href: "/resources/blog" },
@@ -33,7 +36,7 @@ export default function Footer() {
   return (
     <footer className="bg-brand-black border-t border-white/5 pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-10 mb-12">
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center gap-3">
@@ -76,6 +79,27 @@ export default function Footer() {
               <li>
                 <Link href="/solutions" className="text-brand-red hover:text-white text-sm font-medium transition-colors">
                   View All Solutions &rarr;
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Brands */}
+          <div>
+            <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
+              Brands
+            </h4>
+            <ul className="space-y-2">
+              {footerBrands.map((b) => (
+                <li key={b.slug}>
+                  <Link href={`/brands/${b.slug}`} className="text-gray-400 hover:text-white text-sm transition-colors">
+                    {b.name}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link href="/brands" className="text-brand-red hover:text-white text-sm font-medium transition-colors">
+                  All Brands &rarr;
                 </Link>
               </li>
             </ul>

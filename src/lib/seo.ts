@@ -9,6 +9,8 @@ interface SeoInput {
   path: string;
   /** Set true for utility pages (password reset, etc.) that shouldn't be indexed. */
   noIndex?: boolean;
+  /** Optional keyword list — used on brand/product pages that target specific search terms. */
+  keywords?: string[];
 }
 
 /**
@@ -19,12 +21,13 @@ interface SeoInput {
  * twitter-image, doubles as the Twitter Card image too), so callers only
  * need to supply text.
  */
-export function buildMetadata({ title, description, path, noIndex }: SeoInput): Metadata {
+export function buildMetadata({ title, description, path, noIndex, keywords }: SeoInput): Metadata {
   const url = `${COMPANY.url}${path}`;
 
   return {
     title,
     description,
+    ...(keywords && keywords.length ? { keywords } : {}),
     alternates: { canonical: url },
     openGraph: {
       title,
