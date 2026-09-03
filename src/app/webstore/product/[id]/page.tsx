@@ -85,11 +85,6 @@ export default function ProductPage({ params }: ProductPageProps) {
               ) : (
                 <DynamicIcon name={product.icon} className="h-24 w-24 text-brand-red/30" strokeWidth={1} />
               )}
-              {product.featured && (
-                <span className="absolute top-4 right-4 px-3 py-1 rounded-full bg-brand-red text-xs font-medium text-white">
-                  Featured
-                </span>
-              )}
               <span className="absolute top-4 left-4 px-3 py-1 rounded-full bg-black/40 backdrop-blur-sm border border-white/10 text-xs text-gray-200">
                 {product.category}
               </span>

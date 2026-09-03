@@ -24,11 +24,6 @@ export default function ProductCard({ product }: ProductCardProps) {
           ) : (
             <DynamicIcon name={product.icon} className="h-14 w-14 text-brand-red/40" strokeWidth={1.25} />
           )}
-          {product.featured && (
-            <span className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-brand-red text-[11px] font-medium text-white">
-              Featured
-            </span>
-          )}
           <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-sm border border-white/10 text-[11px] text-gray-200">
             {product.category}
           </span>
