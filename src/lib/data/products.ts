@@ -1,10 +1,12 @@
 import type { IconName } from "@/lib/icon-map";
 import { hikvisionCatalog } from "@/lib/data/products-hikvision-catalog";
+import { printerProducts } from "@/lib/data/products-printers";
 
 export const PRODUCT_CATEGORIES = [
   "Networking",
   "Displays",
   "Entrance Control",
+  "Printers",
   "Accessories",
 ] as const;
 
@@ -233,7 +235,11 @@ const curatedProducts: Product[] = [
  * partner catalogue generated from the pricelist
  * (src/lib/data/products-hikvision-catalog.ts). All inquiry-based — no pricing.
  */
-export const products: Product[] = [...curatedProducts, ...hikvisionCatalog];
+export const products: Product[] = [
+  ...curatedProducts,
+  ...printerProducts,
+  ...hikvisionCatalog,
+];
 
 export function getProductById(id: string): Product | undefined {
   return products.find((p) => p.id === id);
