@@ -10,7 +10,7 @@ import { buildMetadata } from "@/lib/seo";
 export const metadata = buildMetadata({
   title: "Case Studies | Tyflex",
   description:
-    "See how Tyflex solutions have helped businesses across Zimbabwe modernize networking, communications, retail operations, and financial systems.",
+    "How Tyflex has helped organisations across Zimbabwe modernise networking and communications — from a national legal-advice call centre to structured cabling in a major referral hospital.",
   path: "/resources/case-studies",
 });
 

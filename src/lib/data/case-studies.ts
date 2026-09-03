@@ -17,70 +17,35 @@ export interface CaseStudy {
 
 export const caseStudies: CaseStudy[] = [
   {
-    slug: "harare-logistics-group-networking",
-    client: "Harare Logistics Group",
-    industry: "Logistics & Warehousing",
-    title: "Re-cabling a Three-Depot Warehouse Network Without a Day of Downtime",
+    slug: "legal-resources-foundation-call-centre",
+    client: "Legal Resources Foundation",
+    industry: "Legal Aid / NGO",
+    title: "A National Legal-Advice Call Centre Reaching All Ten Provinces",
     challenge:
-      "Aging, undocumented cabling across three depots meant frequent outages and no visibility into where faults were occurring, slowing down picking and dispatch.",
+      "The Legal Resources Foundation runs advice offices across Zimbabwe, but callers seeking legal help had no single number to reach and provincial offices could not see or share call load. Reaching people in every province through one service meant replacing scattered analogue lines with a system the Foundation's own staff could run.",
     solution:
-      "FlexTech re-cabled all three sites with structured Cat6 cabling and managed switches, then rolled out handheld barcode scanning across every depot.",
+      "Tyflex designed and installed a centralised call centre on 3CX, tying the Foundation's provincial offices into shared inbound queues with call routing, recording for quality and training, and reporting on volumes and response times. Tyflex continues to maintain the platform and support the Foundation's team.",
     result:
-      "All three depots were migrated in phased overnight windows with zero disruption to daytime operations, and IT now has full visibility into network health across every site.",
-    metric: "0",
-    metricLabel: "days of downtime during migration",
-    icon: "Network",
-    solutionSlug: "networking",
-  },
-  {
-    slug: "zimbank-retail-division-3cx",
-    client: "Zimbank Retail Division",
-    industry: "Financial Services",
-    title: "Cutting Branch Phone Costs in Half with a 3CX Rollout",
-    challenge:
-      "Each branch ran its own analog phone lines with no call routing between them, making it impossible to run a shared call center or track call volumes.",
-    solution:
-      "vFlex deployed a centralized 3CX system across every branch, with shared call queues, call recording, and a unified call center for customer support.",
-    result:
-      "Branch phone costs dropped significantly within the first year, and the new call center now handles support requests from every branch through one system.",
-    metric: "50%+",
-    metricLabel: "reduction in monthly phone costs",
+      "Advice calls from anywhere in the country now land in one queue and are answered by the next available officer, wherever they are based. Supervisors can see call volumes across all ten provinces from a single dashboard, and Tyflex keeps the system running under an ongoing support agreement.",
+    metric: "10",
+    metricLabel: "provinces served from one call-centre platform",
     icon: "PhoneCall",
     solutionSlug: "3cx",
   },
   {
-    slug: "cranborne-retail-group-pos",
-    client: "Cranborne Retail Group",
-    industry: "Retail",
-    title: "Standardizing POS Across a Growing Retail Chain",
+    slug: "sally-mugabe-central-hospital-cabling",
+    client: "Sally Mugabe Central Hospital",
+    industry: "Healthcare",
+    title: "Re-Cabling a Working Referral Hospital, Ward by Ward",
     challenge:
-      "Different stores ran different till systems, making it impossible to see consolidated sales or stock data across the group.",
+      "Sally Mugabe Central Hospital is one of Zimbabwe's largest referral hospitals and cannot go offline. Decades of added-on network cabling had left undocumented runs, failing links and no reliable record of what was installed where — making faults slow to trace and safe upgrades hard to plan.",
     solution:
-      "FlexPOS installed matching POS terminals, receipt printers, and barcode scanners across every store, with inventory synced centrally in real time.",
+      "Tyflex is carrying out a phased structured-cabling upgrade across the hospital: surveying and labelling existing infrastructure, replacing end-of-life runs with certified cabling and managed switching, and recording every drop in an asset register so cabling and network hardware can be tracked, traced and replaced on a planned schedule rather than only after a failure.",
     result:
-      "Management now has live, consolidated sales and stock visibility across all locations, and new stores can be onboarded with a standard hardware kit in days.",
-    metric: "100%",
-    metricLabel: "of stores on one unified system",
-    icon: "CreditCard",
-    solutionSlug: "pos-systems",
-  },
-  {
-    slug: "bluffhill-manufacturing-erp",
-    client: "Bluffhill Manufacturing",
-    industry: "Manufacturing",
-    title: "Replacing Spreadsheets with a Single ERP System",
-    challenge:
-      "Finance, inventory, and payroll were managed in disconnected spreadsheets, leading to reconciliation delays and no real-time view of stock or costs.",
-    solution:
-      "Our team implemented an integrated ERP covering financial management, inventory control, and payroll, migrating historical data from existing spreadsheets.",
-    result:
-      "Month-end reconciliation time dropped substantially, and leadership now has a live dashboard across finance, inventory, and production costs.",
-    metric: "6 wks",
-    metricLabel: "from kickoff to go-live",
-    icon: "Database",
-    // ERP Software is no longer a standalone top-level solution, and
-    // MacFlex's focus has moved to imports/OEM relationships — this case
-    // study is kept as a legitimate past project, without a specific
-    // division attribution that's no longer accurate.
+      "Work is progressing area by area with clinical operations kept running throughout. Completed zones now have documented, tested cabling and a live asset record, giving hospital IT a clear picture of what is installed and what is due for replacement next.",
+    metric: "In progress",
+    metricLabel: "phased upgrade — clinical operations kept online throughout",
+    icon: "Network",
+    solutionSlug: "networking",
   },
 ];

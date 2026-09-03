@@ -24,7 +24,6 @@ import DynamicIcon from "@/components/ui/DynamicIcon";
 import StatusBadge from "@/components/ui/StatusBadge";
 import FadeIn from "@/components/motion/FadeIn";
 import CountUp from "@/components/motion/CountUp";
-import TestimonialsCarousel from "@/components/home/TestimonialsCarousel";
 import { ventures } from "@/lib/data/ventures";
 
 const stats = [
@@ -380,27 +379,6 @@ export default function HomeClient() {
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
-          </FadeIn>
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section className="py-24 border-t border-white/5">
-        <div className="max-w-7xl mx-auto px-6">
-          <FadeIn>
-            <div className="text-center mb-16">
-              <span className="inline-block px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-sm text-gray-300 mb-4">
-                Testimonials
-              </span>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">What Our Clients Say</h2>
-              <p className="text-gray-400 max-w-xl mx-auto">
-                Businesses across Zimbabwe trust Tyflex to keep their
-                operations running.
-              </p>
-            </div>
-          </FadeIn>
-          <FadeIn delay={0.1}>
-            <TestimonialsCarousel />
           </FadeIn>
         </div>
       </section>

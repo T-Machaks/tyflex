@@ -5,6 +5,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import { ArrowLeft, ArrowRight, Calendar, Clock, User } from "lucide-react";
 import FadeIn from "@/components/motion/FadeIn";
 import DynamicIcon from "@/components/ui/DynamicIcon";
+import YouTubeThumb from "@/components/about/YouTubeThumb";
 import BlogCard from "@/components/resources/BlogCard";
 import GradientButton from "@/components/ui/GradientButton";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
@@ -50,6 +51,11 @@ const mdxComponents = {
   strong: (props: React.HTMLAttributes<HTMLElement>) => <strong className="text-white font-semibold" {...props} />,
   a: (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
     <a className="text-brand-red hover:underline" {...props} />
+  ),
+  YouTube: ({ youtubeId, label }: { youtubeId: string; label: string }) => (
+    <div className="my-8">
+      <YouTubeThumb youtubeId={youtubeId} label={label} />
+    </div>
   ),
 };
 
@@ -118,9 +124,24 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
         </FadeIn>
 
         <FadeIn delay={0.2}>
-          <div className="h-48 rounded-2xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/5 flex items-center justify-center mb-10">
-            <DynamicIcon name={post.meta.icon} className="h-16 w-16 text-brand-red/30" strokeWidth={1} />
-          </div>
+          {post.meta.gallery && post.meta.gallery.length > 0 ? (
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-10">
+              {post.meta.gallery.map((src) => (
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img
+                  key={src}
+                  src={src}
+                  alt=""
+                  loading="lazy"
+                  className="aspect-[4/3] w-full rounded-xl object-cover border border-white/5 bg-white/5"
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="h-48 rounded-2xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/5 flex items-center justify-center mb-10">
+              <DynamicIcon name={post.meta.icon} className="h-16 w-16 text-brand-red/30" strokeWidth={1} />
+            </div>
+          )}
         </FadeIn>
 
         <FadeIn delay={0.25}>

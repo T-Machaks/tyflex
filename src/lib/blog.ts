@@ -16,6 +16,8 @@ export interface BlogPostMeta {
   tags: string[];
   icon: IconName;
   readingTime: string;
+  /** Optional photo gallery — public paths, rendered as a grid on the post. */
+  gallery?: string[];
 }
 
 export interface BlogPost {
@@ -40,6 +42,7 @@ function readPostFile(filename: string): BlogPost {
       tags: data.tags ?? [],
       icon: (data.icon ?? "FileText") as IconName,
       readingTime: readingTime(content).text,
+      gallery: Array.isArray(data.gallery) ? (data.gallery as string[]) : undefined,
     },
   };
 }
