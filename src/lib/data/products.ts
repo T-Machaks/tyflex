@@ -60,7 +60,7 @@ const curatedProducts: Product[] = [
       "A pocket-sized way to bring Wi-Fi 6 to machines that shipped without it. The DS-3WRU9X plugs into a single USB port and delivers AX900 dual-band throughput of up to 886 Mbps, with driver support for Windows 7/10/11 and Linux.",
     icon: "Wifi",
     price: 0,
-    featured: true,
+    featured: false,
     specs: [
       { label: "Wireless standard", value: "Wi-Fi 6 (802.11ax), dual-band" },
       { label: "Max throughput", value: "Up to 886 Mbps" },
@@ -82,7 +82,7 @@ const curatedProducts: Product[] = [
       "Keeps a small rack, reception desk or POS lane running through outages and voltage swings. Built-in AVR corrects a wide 140–290 VAC input window without draining the battery, and the sealed lead-acid pack transfers in under 10 ms.",
     icon: "Battery",
     price: 0,
-    featured: true,
+    featured: false,
     specs: [
       { label: "Capacity", value: "1000 VA / 600 W" },
       { label: "Topology", value: "Line-interactive with AVR" },
@@ -106,7 +106,7 @@ const curatedProducts: Product[] = [
       "A 3000 VA line-interactive UPS for the main comms rack. An LCD panel reports input/output voltage, battery capacity and load level; four sealed lead-acid batteries recharge to 90% in 6–8 hours, and the wide input window rides out unstable mains without switching to battery.",
     icon: "Battery",
     price: 0,
-    featured: true,
+    featured: false,
     specs: [
       { label: "Capacity", value: "3000 VA / 1800 W" },
       { label: "Topology", value: "Line-interactive with AVR" },
@@ -235,15 +235,19 @@ const curatedProducts: Product[] = [
 ];
 
 /**
- * Full catalogue = the hand-curated core products above, then the Hikvision
- * partner catalogue generated from the pricelist
- * (src/lib/data/products-hikvision-catalog.ts). All inquiry-based — no pricing.
+ * Full catalogue = the hand-curated core products above, then the printer,
+ * Truenav/TSC and generated Hikvision sets. All inquiry-based — no pricing.
+ *
+ * A few models (DS-3WRU9X, DS-UPS1000/SA, DS-UPS3000/SA) appear in both the
+ * curated list and the generated Hikvision pricelist — the curated entry wins,
+ * so the generated duplicates are filtered out here by id.
  */
+const curatedIds = new Set(curatedProducts.map((p) => p.id));
 export const products: Product[] = [
   ...curatedProducts,
   ...printerProducts,
   ...truenavTscProducts,
-  ...hikvisionCatalog,
+  ...hikvisionCatalog.filter((p) => !curatedIds.has(p.id)),
 ];
 
 export function getProductById(id: string): Product | undefined {
