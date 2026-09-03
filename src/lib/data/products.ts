@@ -1,12 +1,16 @@
 import type { IconName } from "@/lib/icon-map";
 import { hikvisionCatalog } from "@/lib/data/products-hikvision-catalog";
 import { printerProducts } from "@/lib/data/products-printers";
+import { truenavTscProducts } from "@/lib/data/products-truenav-tsc";
 
 export const PRODUCT_CATEGORIES = [
   "Networking",
   "Displays",
   "Entrance Control",
   "Printers",
+  "Phone Systems",
+  "3CX Licenses",
+  "Headsets & Audio",
   "Accessories",
 ] as const;
 
@@ -238,6 +242,7 @@ const curatedProducts: Product[] = [
 export const products: Product[] = [
   ...curatedProducts,
   ...printerProducts,
+  ...truenavTscProducts,
   ...hikvisionCatalog,
 ];
 
