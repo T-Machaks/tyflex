@@ -19,3 +19,7 @@ tsconfig.tsbuildinfo
 dev3100.*
 dev-3100.*
 dev-server.log
+
+# Loose vendor price lists at repo root
+*Price List*.pdf
+*Pricing*.pdf
