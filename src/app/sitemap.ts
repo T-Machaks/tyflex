@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { COMPANY } from "@/lib/constants";
 import { solutions } from "@/lib/data/solutions";
+import { awsSolutions } from "@/lib/data/aws-solutions";
 import { products } from "@/lib/data/products";
 import { getAllPostsMeta } from "@/lib/blog";
 
@@ -40,6 +41,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
+  const awsSolutionRoutes: MetadataRoute.Sitemap = awsSolutions.map((s) => ({
+    url: `${base}/solutions/aws-cloud-solutions/${s.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
+
   const productRoutes: MetadataRoute.Sitemap = products.map((p) => ({
     url: `${base}/webstore/product/${p.id}`,
     lastModified: now,
@@ -54,5 +62,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.5,
   }));
 
-  return [...staticRoutes, ...solutionRoutes, ...productRoutes, ...blogRoutes];
+  return [...staticRoutes, ...solutionRoutes, ...awsSolutionRoutes, ...productRoutes, ...blogRoutes];
 }

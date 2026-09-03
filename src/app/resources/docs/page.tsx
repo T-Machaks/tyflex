@@ -1,8 +1,10 @@
-import { FileText, Download } from "lucide-react";
+import Link from "next/link";
+import { FileText, Download, Cloud } from "lucide-react";
 import GradientButton from "@/components/ui/GradientButton";
 import GlassCard from "@/components/ui/GlassCard";
 import FadeIn from "@/components/motion/FadeIn";
 import { products } from "@/lib/data/products";
+import { awsSolutions } from "@/lib/data/aws-solutions";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
@@ -39,6 +41,44 @@ export default function DocsPage() {
             </p>
           </FadeIn>
         </div>
+
+        <FadeIn>
+          <section className="mb-14">
+            <h2 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-brand-red mb-5">
+              <Cloud className="h-4 w-4" />
+              AWS solution briefs
+            </h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {awsSolutions.map((s) => (
+                <a
+                  key={s.slug}
+                  href={s.brief}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group block"
+                >
+                  <GlassCard className="h-full p-5 flex gap-4 items-start">
+                    <div className="h-11 w-11 shrink-0 rounded-xl bg-brand-red/10 flex items-center justify-center">
+                      <FileText className="h-5 w-5 text-brand-red" />
+                    </div>
+                    <div className="min-w-0">
+                      <h3 className="font-semibold leading-snug mb-1 group-hover:text-white">{s.name}</h3>
+                      <p className="text-xs text-gray-500 mb-2">{s.theme}</p>
+                      <span className="inline-flex items-center gap-1.5 text-xs text-brand-red">
+                        <Download className="h-3.5 w-3.5" />
+                        Download PDF
+                      </span>
+                    </div>
+                  </GlassCard>
+                </a>
+              ))}
+            </div>
+            <p className="mt-4 text-xs text-gray-600">
+              Full implementation guides for these solutions are available to evaluators —{" "}
+              <Link href="/contact" className="text-brand-red hover:underline">request access</Link>.
+            </p>
+          </section>
+        </FadeIn>
 
         {groups.map(([brand, items], gi) => (
           <FadeIn key={brand} delay={0.05 * gi}>

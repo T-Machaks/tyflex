@@ -10,8 +10,10 @@ import SolutionIcon from "@/components/solutions/SolutionIcon";
 import BrandsBlock from "@/components/solutions/BrandsBlock";
 import FAQAccordion from "@/components/ui/FAQAccordion";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
+import AwsPartnerBadge from "@/components/solutions/AwsPartnerBadge";
 import { getSolutionBySlug, solutions } from "@/lib/data/solutions";
 import { getProductById } from "@/lib/data/products";
+import { awsSolutions, awsThemes } from "@/lib/data/aws-solutions";
 import { buildMetadata } from "@/lib/seo";
 
 interface SolutionPageProps {
@@ -98,6 +100,60 @@ export default function SolutionPage({ params }: SolutionPageProps) {
       </HeroShell>
 
       <div className="max-w-7xl mx-auto px-6">
+        {/* AWS Cloud Solutions: partner badge + the eight solutions */}
+        {solution.slug === "aws-cloud-solutions" && (
+          <section className="py-16 border-b border-white/5">
+            <FadeIn>
+              <div className="flex flex-col items-center text-center gap-4 mb-14">
+                <AwsPartnerBadge />
+                <h2 className="text-3xl font-bold">The eight AWS SMB solutions</h2>
+                <p className="text-gray-400 max-w-2xl">
+                  Four themes, two solutions each — each one scoped, deployed and supported by Tyflex
+                  as your AWS partner.
+                </p>
+              </div>
+            </FadeIn>
+            <div className="space-y-12">
+              {awsThemes.map((theme, ti) => (
+                <FadeIn key={theme.name} delay={0.05 * ti}>
+                  <div>
+                    <div className="flex items-center gap-3 mb-5">
+                      <SolutionIcon name={theme.icon} className="h-5 w-5 text-brand-red" />
+                      <h3 className="text-xl font-bold">{theme.name}</h3>
+                    </div>
+                    <p className="text-sm text-gray-500 mb-6 max-w-2xl">{theme.blurb}</p>
+                    <div className="grid sm:grid-cols-2 gap-6">
+                      {theme.slugs
+                        .map((slug) => awsSolutions.find((a) => a.slug === slug))
+                        .filter((a): a is NonNullable<typeof a> => Boolean(a))
+                        .map((a) => (
+                          <Link key={a.slug} href={`/solutions/aws-cloud-solutions/${a.slug}`} className="block h-full">
+                            <GlassCard className="p-6 h-full">
+                              <div className="flex items-start justify-between gap-3 mb-3">
+                                <div className="h-11 w-11 rounded-lg bg-brand-red/10 flex items-center justify-center shrink-0">
+                                  <SolutionIcon name={a.icon} className="h-5 w-5 text-brand-red" />
+                                </div>
+                                <span className="text-[11px] font-medium text-[#ffb454] text-right leading-tight">
+                                  {a.awsService}
+                                </span>
+                              </div>
+                              <h4 className="font-semibold mb-2">{a.name}</h4>
+                              <p className="text-sm text-gray-400 leading-relaxed mb-4">{a.tagline}</p>
+                              <span className="text-sm text-brand-red inline-flex items-center gap-1">
+                                Explore
+                                <ArrowRight className="h-3.5 w-3.5" />
+                              </span>
+                            </GlassCard>
+                          </Link>
+                        ))}
+                    </div>
+                  </div>
+                </FadeIn>
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* Features */}
         <section className="py-20">
           <FadeIn>

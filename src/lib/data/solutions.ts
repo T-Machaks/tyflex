@@ -70,6 +70,40 @@ export interface Solution {
 
 export const solutions: Solution[] = [
   {
+    slug: "aws-cloud-solutions",
+    name: "AWS Cloud Solutions",
+    shortDescription:
+      "Migration and modernisation, AI productivity and CX, security and compliance, and day-to-day operations — built on our AWS partnership.",
+    tagline:
+      "Cloud migration, AI-driven productivity, security and compliance, and day-to-day operations — four pillars, all powered by our AWS partnership.",
+    icon: "Cloud",
+    badges: ["Migration & Modernisation", "AI Productivity & CX", "Security & Compliance", "Operations"],
+    features: [
+      { icon: "Cloud", title: "Workload Migration", description: "Move servers, applications, and storage from on-premise into AWS with minimal downtime." },
+      { icon: "Server", title: "Replatforming & Right-Sizing", description: "Replatform legacy systems and right-size infrastructure as you go — modernisation, not just a lift-and-shift." },
+      { icon: "Sparkles", title: "AI Productivity & CX", description: "Apply AI to customer experience and internal productivity — from support automation to workflow tools built on AWS's AI services." },
+      { icon: "Lock", title: "Security & Compliance", description: "Identity and access management, data protection, and configuration aligned with Zimbabwe's Cyber and Data Protection Act." },
+      { icon: "Activity", title: "Monitoring & Cost Management", description: "Proactive monitoring and reserved-capacity reviews keep performance visible and your AWS bill under control." },
+      { icon: "HardDrive", title: "Backup & Recovery", description: "Automated backups and recovery plans keep your data safe and restorable." },
+    ],
+    useCases: [
+      { title: "Businesses Retiring On-Premise Servers", description: "Move off aging hardware into scalable, managed cloud infrastructure." },
+      { title: "Customer Experience & Productivity Teams", description: "Apply AI-driven tools to support, chat, and internal workflows without building an in-house ML team." },
+      { title: "Disaster Recovery Planning", description: "Keep a cloud-based recovery environment ready in case of an on-premise outage." },
+    ],
+    relatedProducts: [
+      { name: "AWS Migration Assessment", description: "A scoped review of your current infrastructure and migration plan." },
+      { name: "Managed AWS Support Plan", description: "Ongoing monitoring, patching, and support for your AWS environment." },
+      { name: "Cloud Security & Compliance Review", description: "Identity, access, and data protection review aligned with Zimbabwe's Cyber and Data Protection Act." },
+    ],
+    faqs: [
+      { question: "Is our data safe moving to AWS?", answer: "Yes, AWS operates to enterprise-grade security and compliance standards, and we configure encryption, access control, and backups as part of every migration." },
+      { question: "How long does a typical cloud migration take?", answer: "Most migrations take 2-8 weeks depending on the number of systems and complexity — we scope this during the assessment phase." },
+      { question: "Can you help us apply AI without building an in-house ML team?", answer: "Yes — we apply AWS's AI services to customer experience and internal productivity use cases, so you get the benefit without hiring a dedicated ML team." },
+      { question: "Will you manage our AWS environment after migration?", answer: "Yes, our managed support plans handle ongoing monitoring, patching, and cost optimization after go-live." },
+    ],
+  },
+  {
     slug: "ucaas",
     name: "UCaaS & VoIP",
     shortDescription:
@@ -441,40 +475,6 @@ export const solutions: Solution[] = [
   // TODO: confirm AWS Partner tier/competency status before adding any badge
   // or certification language to this page — copy below deliberately makes
   // no claims beyond "our AWS partnership".
-  {
-    slug: "aws-cloud-solutions",
-    name: "AWS Cloud Solutions",
-    shortDescription:
-      "Migration and modernisation, AI productivity and CX, security and compliance, and day-to-day operations — built on our AWS partnership.",
-    tagline:
-      "Cloud migration, AI-driven productivity, security and compliance, and day-to-day operations — four pillars, all powered by our AWS partnership.",
-    icon: "Cloud",
-    badges: ["Migration & Modernisation", "AI Productivity & CX", "Security & Compliance", "Operations"],
-    features: [
-      { icon: "Cloud", title: "Workload Migration", description: "Move servers, applications, and storage from on-premise into AWS with minimal downtime." },
-      { icon: "Server", title: "Replatforming & Right-Sizing", description: "Replatform legacy systems and right-size infrastructure as you go — modernisation, not just a lift-and-shift." },
-      { icon: "Sparkles", title: "AI Productivity & CX", description: "Apply AI to customer experience and internal productivity — from support automation to workflow tools built on AWS's AI services." },
-      { icon: "Lock", title: "Security & Compliance", description: "Identity and access management, data protection, and configuration aligned with Zimbabwe's Cyber and Data Protection Act." },
-      { icon: "Activity", title: "Monitoring & Cost Management", description: "Proactive monitoring and reserved-capacity reviews keep performance visible and your AWS bill under control." },
-      { icon: "HardDrive", title: "Backup & Recovery", description: "Automated backups and recovery plans keep your data safe and restorable." },
-    ],
-    useCases: [
-      { title: "Businesses Retiring On-Premise Servers", description: "Move off aging hardware into scalable, managed cloud infrastructure." },
-      { title: "Customer Experience & Productivity Teams", description: "Apply AI-driven tools to support, chat, and internal workflows without building an in-house ML team." },
-      { title: "Disaster Recovery Planning", description: "Keep a cloud-based recovery environment ready in case of an on-premise outage." },
-    ],
-    relatedProducts: [
-      { name: "AWS Migration Assessment", description: "A scoped review of your current infrastructure and migration plan." },
-      { name: "Managed AWS Support Plan", description: "Ongoing monitoring, patching, and support for your AWS environment." },
-      { name: "Cloud Security & Compliance Review", description: "Identity, access, and data protection review aligned with Zimbabwe's Cyber and Data Protection Act." },
-    ],
-    faqs: [
-      { question: "Is our data safe moving to AWS?", answer: "Yes, AWS operates to enterprise-grade security and compliance standards, and we configure encryption, access control, and backups as part of every migration." },
-      { question: "How long does a typical cloud migration take?", answer: "Most migrations take 2-8 weeks depending on the number of systems and complexity — we scope this during the assessment phase." },
-      { question: "Can you help us apply AI without building an in-house ML team?", answer: "Yes — we apply AWS's AI services to customer experience and internal productivity use cases, so you get the benefit without hiring a dedicated ML team." },
-      { question: "Will you manage our AWS environment after migration?", answer: "Yes, our managed support plans handle ongoing monitoring, patching, and cost optimization after go-live." },
-    ],
-  },
 ];
 
 export function getSolutionBySlug(slug: string): Solution | undefined {
