@@ -1,13 +1,39 @@
 import { SESClient, SendEmailCommand, SendRawEmailCommand } from "@aws-sdk/client-ses";
 import { COMPANY } from "@/lib/constants";
 
-const REGION = process.env.AWS_REGION;
-const FROM_EMAIL = process.env.SES_FROM_EMAIL || `no-reply@tyflex.co.zw`;
-const TO_EMAIL = process.env.SES_TO_EMAIL || COMPANY.email;
+// ── Transport selection ──────────────────────────────────────────────────────
+// Two transports are supported. Microsoft Graph (Exchange Online) is preferred
+// when its four env vars are all present; otherwise AWS SES is used; otherwise
+// (no transport configured) email is logged to the console in non-production
+// and a hard error is thrown in production.
 
+const REGION = process.env.AWS_REGION;
+
+/** Microsoft Graph app-only credentials (Azure AD app registration with the
+ * `Mail.Send` application permission granted admin consent). GRAPH_SENDER is
+ * the mailbox the message is sent as/from — a real licensed or shared mailbox
+ * in the tenant, e.g. no-reply@tyflex.co.zw. */
+const GRAPH_TENANT_ID = process.env.GRAPH_TENANT_ID;
+const GRAPH_CLIENT_ID = process.env.GRAPH_CLIENT_ID;
+const GRAPH_CLIENT_SECRET = process.env.GRAPH_CLIENT_SECRET;
+const GRAPH_SENDER = process.env.GRAPH_SENDER;
+
+const isGraphConfigured = Boolean(
+  GRAPH_TENANT_ID && GRAPH_CLIENT_ID && GRAPH_CLIENT_SECRET && GRAPH_SENDER
+);
 const isSesConfigured = Boolean(REGION);
 
-const sesClient = isSesConfigured ? new SESClient({ region: REGION }) : null;
+/** From address: the Graph mailbox when Graph is on, else the SES sending identity. */
+const FROM_EMAIL = GRAPH_SENDER || process.env.SES_FROM_EMAIL || `no-reply@tyflex.co.zw`;
+/** Business inbox that receives lead notifications. Transport-independent. */
+const TO_EMAIL = process.env.SES_TO_EMAIL || COMPANY.email;
+
+const sesClient = !isGraphConfigured && isSesConfigured ? new SESClient({ region: REGION }) : null;
+
+const NO_TRANSPORT_ERROR =
+  "No email transport configured — set GRAPH_TENANT_ID, GRAPH_CLIENT_ID, " +
+  "GRAPH_CLIENT_SECRET and GRAPH_SENDER (Microsoft Graph), or AWS_REGION with " +
+  "a verified SES_FROM_EMAIL (AWS SES).";
 
 interface SendMailInput {
   subject: string;
@@ -20,54 +46,6 @@ interface SendMailInput {
   to?: string;
 }
 
-/**
- * Sends a notification email via AWS SES.
- *
- * In production this requires:
- *  - AWS_REGION set
- *  - SES_FROM_EMAIL verified as a sending identity (or its domain verified) in SES
- *  - IAM permissions for ses:SendEmail on the runtime role (Amplify SSR compute role)
- *
- * Locally / in any non-production environment without AWS_REGION configured, this
- * logs the email to the console instead of sending, so forms remain testable without
- * live AWS credentials. In production, a real send failure is thrown to the caller —
- * we never want to tell a user "sent" when it wasn't.
- */
-export async function sendMail({ subject, html, text, replyTo, to }: SendMailInput): Promise<void> {
-  const recipient = to || TO_EMAIL;
-
-  if (!sesClient) {
-    if (process.env.NODE_ENV === "production") {
-      throw new Error(
-        "SES is not configured — set AWS_REGION, SES_FROM_EMAIL, and SES_TO_EMAIL in the environment."
-      );
-    }
-    // Local/dev fallback: no live AWS credentials — log instead of sending.
-    console.log("\n[dev] SES not configured — logging email instead of sending:");
-    console.log(`  To: ${recipient}`);
-    console.log(`  From: ${FROM_EMAIL}`);
-    console.log(`  Reply-To: ${replyTo ?? "(none)"}`);
-    console.log(`  Subject: ${subject}`);
-    console.log(`  ---\n${text}\n  ---\n`);
-    return;
-  }
-
-  const command = new SendEmailCommand({
-    Source: FROM_EMAIL,
-    Destination: { ToAddresses: [recipient] },
-    ReplyToAddresses: replyTo ? [replyTo] : undefined,
-    Message: {
-      Subject: { Data: subject, Charset: "UTF-8" },
-      Body: {
-        Html: { Data: html, Charset: "UTF-8" },
-        Text: { Data: text, Charset: "UTF-8" },
-      },
-    },
-  });
-
-  await sesClient.send(command);
-}
-
 interface SendMailWithAttachmentInput extends SendMailInput {
   attachment: {
     filename: string;
@@ -76,12 +54,160 @@ interface SendMailWithAttachmentInput extends SendMailInput {
   };
 }
 
+function devLog(
+  label: string,
+  { to, replyTo, subject, text, attachment }: {
+    to: string;
+    replyTo?: string;
+    subject: string;
+    text: string;
+    attachment?: { filename: string; content: Buffer };
+  }
+): void {
+  console.log(`\n[dev] ${label} — logging email instead of sending:`);
+  console.log(`  To: ${to}`);
+  console.log(`  From: ${FROM_EMAIL}`);
+  console.log(`  Reply-To: ${replyTo ?? "(none)"}`);
+  console.log(`  Subject: ${subject}`);
+  if (attachment) console.log(`  Attachment: ${attachment.filename} (${attachment.content.length} bytes)`);
+  console.log(`  ---\n${text}\n  ---\n`);
+}
+
+// ── Microsoft Graph transport ────────────────────────────────────────────────
+
+let graphToken: { value: string; expiresAt: number } | null = null;
+
+async function getGraphToken(): Promise<string> {
+  if (graphToken && Date.now() < graphToken.expiresAt) return graphToken.value;
+
+  const res = await fetch(
+    `https://login.microsoftonline.com/${GRAPH_TENANT_ID}/oauth2/v2.0/token`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({
+        client_id: GRAPH_CLIENT_ID!,
+        client_secret: GRAPH_CLIENT_SECRET!,
+        scope: "https://graph.microsoft.com/.default",
+        grant_type: "client_credentials",
+      }),
+    }
+  );
+
+  if (!res.ok) {
+    throw new Error(`Graph token request failed (${res.status}): ${await res.text()}`);
+  }
+
+  const json = (await res.json()) as { access_token: string; expires_in: number };
+  // Refresh a minute early to avoid using a token that expires mid-request.
+  graphToken = { value: json.access_token, expiresAt: Date.now() + (json.expires_in - 60) * 1000 };
+  return graphToken.value;
+}
+
+async function graphSendMail({
+  subject,
+  html,
+  to,
+  replyTo,
+  attachment,
+}: {
+  subject: string;
+  html: string;
+  to: string;
+  replyTo?: string;
+  attachment?: { filename: string; contentType: string; content: Buffer };
+}): Promise<void> {
+  const token = await getGraphToken();
+
+  const message: Record<string, unknown> = {
+    subject,
+    body: { contentType: "HTML", content: html },
+    toRecipients: [{ emailAddress: { address: to } }],
+  };
+  if (replyTo) message.replyTo = [{ emailAddress: { address: replyTo } }];
+  if (attachment) {
+    message.attachments = [
+      {
+        "@odata.type": "#microsoft.graph.fileAttachment",
+        name: attachment.filename,
+        contentType: attachment.contentType,
+        contentBytes: attachment.content.toString("base64"),
+      },
+    ];
+  }
+
+  const res = await fetch(
+    `https://graph.microsoft.com/v1.0/users/${encodeURIComponent(GRAPH_SENDER!)}/sendMail`,
+    {
+      method: "POST",
+      headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+      // saveToSentItems:false keeps a transactional sender's mailbox clean; flip
+      // to true if you want an audit trail in the mailbox's Sent Items.
+      body: JSON.stringify({ message, saveToSentItems: false }),
+    }
+  );
+
+  // A successful sendMail returns 202 Accepted with an empty body.
+  if (!res.ok) {
+    throw new Error(`Graph sendMail failed (${res.status}): ${await res.text()}`);
+  }
+}
+
+// ── Public API ───────────────────────────────────────────────────────────────
+
 /**
- * Sends an email with a single binary attachment (invoice PDFs) via SES's
- * SendRawEmailCommand. SES's simple SendEmailCommand has no attachment
- * support, so this builds the MIME multipart payload by hand rather than
- * pull in a full mail-builder library (e.g. nodemailer) for one use case —
- * SES is still the only email transport in the app.
+ * Sends a notification email via Microsoft Graph or AWS SES (whichever is
+ * configured — see "Transport selection" above).
+ *
+ * Microsoft Graph requires:
+ *  - GRAPH_TENANT_ID, GRAPH_CLIENT_ID, GRAPH_CLIENT_SECRET
+ *  - GRAPH_SENDER — a real mailbox in the tenant
+ *  - the app registration holding the `Mail.Send` application permission with admin consent
+ *
+ * AWS SES requires:
+ *  - AWS_REGION set
+ *  - SES_FROM_EMAIL verified as a sending identity (or its domain verified)
+ *  - ses:SendEmail on the runtime role / credentials
+ *
+ * With neither configured, this logs the email in non-production and throws in
+ * production — we never tell a user "sent" when it wasn't.
+ */
+export async function sendMail({ subject, html, text, replyTo, to }: SendMailInput): Promise<void> {
+  const recipient = to || TO_EMAIL;
+
+  if (isGraphConfigured) {
+    await graphSendMail({ subject, html, to: recipient, replyTo });
+    return;
+  }
+
+  if (!sesClient) {
+    if (process.env.NODE_ENV === "production") throw new Error(NO_TRANSPORT_ERROR);
+    devLog("No email transport configured", { to: recipient, replyTo, subject, text });
+    return;
+  }
+
+  await sesClient.send(
+    new SendEmailCommand({
+      Source: FROM_EMAIL,
+      Destination: { ToAddresses: [recipient] },
+      ReplyToAddresses: replyTo ? [replyTo] : undefined,
+      Message: {
+        Subject: { Data: subject, Charset: "UTF-8" },
+        Body: {
+          Html: { Data: html, Charset: "UTF-8" },
+          Text: { Data: text, Charset: "UTF-8" },
+        },
+      },
+    })
+  );
+}
+
+/**
+ * Sends an email with a single binary attachment (invoice PDFs).
+ *
+ * Microsoft Graph carries the attachment natively in the message JSON. SES has
+ * no attachment support on its simple SendEmail API, so the SES path builds the
+ * MIME multipart payload by hand rather than pull in a full mail-builder library.
  */
 export async function sendMailWithAttachment({
   subject,
@@ -93,19 +219,14 @@ export async function sendMailWithAttachment({
 }: SendMailWithAttachmentInput): Promise<void> {
   const recipient = to || TO_EMAIL;
 
+  if (isGraphConfigured) {
+    await graphSendMail({ subject, html, to: recipient, replyTo, attachment });
+    return;
+  }
+
   if (!sesClient) {
-    if (process.env.NODE_ENV === "production") {
-      throw new Error(
-        "SES is not configured — set AWS_REGION, SES_FROM_EMAIL, and SES_TO_EMAIL in the environment."
-      );
-    }
-    console.log("\n[dev] SES not configured — logging email instead of sending:");
-    console.log(`  To: ${recipient}`);
-    console.log(`  From: ${FROM_EMAIL}`);
-    console.log(`  Reply-To: ${replyTo ?? "(none)"}`);
-    console.log(`  Subject: ${subject}`);
-    console.log(`  Attachment: ${attachment.filename} (${attachment.content.length} bytes)`);
-    console.log(`  ---\n${text}\n  ---\n`);
+    if (process.env.NODE_ENV === "production") throw new Error(NO_TRANSPORT_ERROR);
+    devLog("No email transport configured", { to: recipient, replyTo, subject, text, attachment });
     return;
   }
 
