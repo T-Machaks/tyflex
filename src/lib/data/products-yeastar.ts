@@ -9,6 +9,7 @@ export const yeastarProducts: Product[] = [
     name: "Yeastar S20 VoIP PBX",
     category: "Phone Systems",
     brand: "Yeastar",
+    datasheet: "/datasheets/voip/yeastar-s-series.pdf",
     shortDescription:
       "Compact IP PBX for up to 20 users / 10 concurrent calls, with 2 module slots for analogue or GSM lines.",
     description:
@@ -28,6 +29,7 @@ export const yeastarProducts: Product[] = [
     name: "Yeastar S412 VoIP PBX",
     category: "Phone Systems",
     brand: "Yeastar",
+    datasheet: "/datasheets/voip/yeastar-s-series.pdf",
     shortDescription:
       "IP PBX with 8 built-in FXS ports for 8 SIP + 12 analogue users, 8 concurrent calls and 4 module slots.",
     description:
@@ -48,6 +50,7 @@ export const yeastarProducts: Product[] = [
     name: "Yeastar P520 IP PBX",
     category: "Phone Systems",
     brand: "Yeastar",
+    datasheet: "/datasheets/voip/yeastar-p-series.pdf",
     shortDescription:
       "Yeastar P-Series PBX for up to 20 users / 10 concurrent calls, with 2 module slots — unified communications for small teams.",
     description:
@@ -67,6 +70,7 @@ export const yeastarProducts: Product[] = [
     name: "Yeastar P550 IP PBX",
     category: "Phone Systems",
     brand: "Yeastar",
+    datasheet: "/datasheets/voip/yeastar-p-series.pdf",
     shortDescription:
       "Yeastar P-Series PBX for up to 50 users / 25 concurrent calls, with 4 module slots.",
     description:
@@ -86,6 +90,7 @@ export const yeastarProducts: Product[] = [
     name: "Yeastar P560 IP PBX",
     category: "Phone Systems",
     brand: "Yeastar",
+    datasheet: "/datasheets/voip/yeastar-p-series.pdf",
     shortDescription:
       "Yeastar P-Series PBX for up to 100 users / 30 concurrent calls, with 4 module slots and expansion support.",
     description:
@@ -105,6 +110,7 @@ export const yeastarProducts: Product[] = [
     name: "Yeastar P570 IP PBX",
     category: "Phone Systems",
     brand: "Yeastar",
+    datasheet: "/datasheets/voip/yeastar-p-series.pdf",
     shortDescription:
       "Yeastar P-Series flagship PBX for up to 300 users / 60 concurrent calls, with 8 module slots and expansion support.",
     description:
@@ -126,6 +132,7 @@ export const yeastarProducts: Product[] = [
     name: "Yeastar P-Series Standard Plan",
     category: "Phone Systems",
     brand: "Yeastar",
+    datasheet: "/datasheets/voip/yeastar-p-series.pdf",
     shortDescription:
       "Subscription plan adding call-queue, ring-group, LDAP and Linkus mobile/desktop features to a P-Series PBX (P520–P570).",
     description:
@@ -144,6 +151,7 @@ export const yeastarProducts: Product[] = [
     name: "Yeastar P-Series Enterprise Plan",
     category: "Phone Systems",
     brand: "Yeastar",
+    datasheet: "/datasheets/voip/yeastar-p-series.pdf",
     shortDescription:
       "Adds call centre, CRM integration, Microsoft Teams, hot-desking and more to a P-Series PBX (P520–P570).",
     description:
@@ -162,6 +170,7 @@ export const yeastarProducts: Product[] = [
     name: "Yeastar P-Series Ultimate Plan",
     category: "Phone Systems",
     brand: "Yeastar",
+    datasheet: "/datasheets/voip/yeastar-p-series.pdf",
     shortDescription:
       "Top subscription tier — adds advanced call centre, video conferencing, PMS integration and Linkus SDK to a P-Series PBX.",
     description:
@@ -286,6 +295,7 @@ export const yeastarProducts: Product[] = [
     name: "Yeastar 2-Channel LTE / GSM-to-SIP Gateway",
     category: "Phone Systems",
     brand: "Yeastar",
+    datasheet: "/datasheets/voip/yeastar-tg-series.pdf",
     shortDescription: "2 mobile channels to SIP — bridge GSM/LTE SIM lines into an IP PBX for backup or cost routing.",
     description:
       "A Yeastar mobile gateway with 2 GSM/LTE channels — terminates SIM cards and presents them to an IP PBX as SIP trunks.",
@@ -302,6 +312,7 @@ export const yeastarProducts: Product[] = [
     name: "Yeastar 4-Channel LTE / GSM-to-SIP Gateway",
     category: "Phone Systems",
     brand: "Yeastar",
+    datasheet: "/datasheets/voip/yeastar-tg-series.pdf",
     shortDescription: "4 mobile channels to SIP — bridge GSM/LTE SIM lines into an IP PBX.",
     description:
       "A Yeastar mobile gateway with 4 GSM/LTE channels — terminates SIM cards and presents them to an IP PBX as SIP trunks.",
@@ -318,6 +329,7 @@ export const yeastarProducts: Product[] = [
     name: "Yeastar 8-Channel LTE / GSM-to-SIP Gateway",
     category: "Phone Systems",
     brand: "Yeastar",
+    datasheet: "/datasheets/voip/yeastar-tg-series.pdf",
     shortDescription: "8 mobile channels to SIP — bridge GSM/LTE SIM lines into an IP PBX.",
     description:
       "A Yeastar mobile gateway with 8 GSM/LTE channels — terminates SIM cards and presents them to an IP PBX as SIP trunks.",
@@ -334,6 +346,7 @@ export const yeastarProducts: Product[] = [
     name: "Yeastar 4-Port FXS Gateway",
     category: "Phone Systems",
     brand: "Yeastar",
+    datasheet: "/datasheets/voip/yeastar-ta-series.pdf",
     shortDescription: "Connects 4 analogue phones or fax machines to an IP PBX or SIP service over the network.",
     description:
       "A Yeastar analogue VoIP gateway with 4 FXS ports — brings legacy phones, fax and door phones onto a SIP/IP-PBX system.",
@@ -347,6 +360,7 @@ export const yeastarProducts: Product[] = [
     name: "Yeastar 8-Port FXS Gateway",
     category: "Phone Systems",
     brand: "Yeastar",
+    datasheet: "/datasheets/voip/yeastar-ta-series.pdf",
     shortDescription: "Connects 8 analogue phones or fax machines to an IP PBX or SIP service.",
     description:
       "A Yeastar analogue VoIP gateway with 8 FXS ports — brings legacy phones and fax onto a SIP/IP-PBX system.",
@@ -360,6 +374,7 @@ export const yeastarProducts: Product[] = [
     name: "Yeastar 16-Port FXS Gateway",
     category: "Phone Systems",
     brand: "Yeastar",
+    datasheet: "/datasheets/voip/yeastar-ta-series.pdf",
     shortDescription: "Connects 16 analogue phones or fax machines to an IP PBX or SIP service.",
     description:
       "A Yeastar analogue VoIP gateway with 16 FXS ports for larger legacy-phone estates on a SIP/IP-PBX system.",
@@ -373,6 +388,7 @@ export const yeastarProducts: Product[] = [
     name: "Yeastar 24-Port FXS Gateway",
     category: "Phone Systems",
     brand: "Yeastar",
+    datasheet: "/datasheets/voip/yeastar-ta-series.pdf",
     shortDescription: "Connects 24 analogue phones or fax machines to an IP PBX or SIP service.",
     description: "A Yeastar analogue VoIP gateway with 24 FXS ports for high-density legacy-phone connectivity.",
     icon: "Network",
@@ -385,6 +401,7 @@ export const yeastarProducts: Product[] = [
     name: "Yeastar 32-Port FXS Gateway",
     category: "Phone Systems",
     brand: "Yeastar",
+    datasheet: "/datasheets/voip/yeastar-ta-series.pdf",
     shortDescription: "Connects 32 analogue phones or fax machines to an IP PBX or SIP service.",
     description: "A Yeastar analogue VoIP gateway with 32 FXS ports for the largest legacy-phone estates.",
     icon: "Network",
@@ -397,6 +414,7 @@ export const yeastarProducts: Product[] = [
     name: "Yeastar 4-Port FXO Gateway",
     category: "Phone Systems",
     brand: "Yeastar",
+    datasheet: "/datasheets/voip/yeastar-ta-series.pdf",
     shortDescription: "Brings 4 analogue PSTN lines into an IP PBX or SIP service over the network.",
     description:
       "A Yeastar analogue VoIP gateway with 4 FXO ports — terminates analogue exchange lines and presents them as SIP trunks.",
@@ -410,6 +428,7 @@ export const yeastarProducts: Product[] = [
     name: "Yeastar 8-Port FXO Gateway",
     category: "Phone Systems",
     brand: "Yeastar",
+    datasheet: "/datasheets/voip/yeastar-ta-series.pdf",
     shortDescription: "Brings 8 analogue PSTN lines into an IP PBX or SIP service.",
     description:
       "A Yeastar analogue VoIP gateway with 8 FXO ports — terminates analogue exchange lines and presents them as SIP trunks.",
@@ -423,6 +442,7 @@ export const yeastarProducts: Product[] = [
     name: "Yeastar 16-Port FXO Gateway",
     category: "Phone Systems",
     brand: "Yeastar",
+    datasheet: "/datasheets/voip/yeastar-ta-series.pdf",
     shortDescription: "Brings 16 analogue PSTN lines into an IP PBX or SIP service.",
     description:
       "A Yeastar analogue VoIP gateway with 16 FXO ports for high-density analogue-line termination.",
@@ -464,6 +484,8 @@ export const yeastarProducts: Product[] = [
     name: "Fanvil X210 Enterprise IP Phone",
     category: "Phone Systems",
     brand: "Fanvil",
+    image: "/webstore/voip/fanvil-x210.png",
+    datasheet: "/datasheets/voip/fanvil-x210.pdf",
     shortDescription:
       "Gigabit PoE colour-screen executive phone with a second DSS display and a built-in operator console.",
     description:
