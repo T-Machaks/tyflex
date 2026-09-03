@@ -94,6 +94,12 @@ export const awsSolutions: AwsSolution[] = [
       "Help customers and staff get answers faster — reduce repetitive work and free your team for higher-value tasks.",
     intro:
       "Amazon Quick gives customers and employees fast, self-service access to answers so they aren't waiting in a queue for routine questions. Chatbots handle common queries and simple tasks automatically, so everyday operations run smoother. Start with one focused use case — customer FAQs or internal helpdesk — and expand as you see value. Tyflex designs, implements and helps run it on AWS, so you get the benefit without a large technical team.",
+    problem: [
+      "Customers and staff wait in a queue for answers that are the same every time",
+      "Teams lose hours to repetitive questions instead of higher-value work",
+      "Inconsistent answers depending on who picks up the request",
+      "No easy way to start small — every option looks like a big platform project",
+    ],
     deliver: [
       "One focused Amazon Quick use case live first — customer FAQs or internal helpdesk — while your existing channels keep running",
       "Self-service answers on demand for customers and employees, in plain language",
@@ -123,6 +129,12 @@ export const awsSolutions: AwsSolution[] = [
       "A fast, seamless, always-on site that turns first-time visitors into loyal customers — launch in minutes, scale as you grow.",
     intro:
       "Your website can be your greatest competitive advantage. With the right hosting behind it, you get faster pages, smoother journeys and the reliability customers expect. Launch or upgrade in minutes with pre-configured blueprints, then scale as the business grows — no hardware, no rebuilds. Built-in enterprise-grade security keeps customer data safe without the complexity, and predictable pricing means you can invest in the experience without budget surprises.",
+    problem: [
+      "Slow pages and occasional downtime cost you visitors and trust",
+      "Scaling for a traffic spike means over-provisioning hardware you rarely use",
+      "Security and TLS upkeep sit with a small team already stretched thin",
+      "Unpredictable hosting bills make it hard to invest in the experience",
+    ],
     deliver: [
       "Launch or migrate your site onto AWS using pre-configured blueprints — days, not a rebuild",
       "Faster page loads and smoother performance, with downtime cut significantly",
@@ -204,6 +216,12 @@ export const awsSolutions: AwsSolution[] = [
       "Move production databases to managed AWS databases with near-zero downtime, validated record by record.",
     intro:
       "More uptime, safer data and more time for growth. When you move databases from aging on-premises systems to managed AWS databases, the business keeps running while data is copied and kept in sync in the background. Every record is checked, so you move ahead with confidence — without a large IT team. Tyflex guides each step, from planning through go-live and beyond, so you spend less time on patching, backups and firefighting.",
+    problem: [
+      "Aging on-premises database servers that are expensive to patch and keep alive",
+      "Backups, tuning and firefighting eat the time that should go to new features",
+      "Fear of downtime and no clear rollback keeps the migration on the shelf",
+      "Licensing costs that climb every renewal",
+    ],
     deliver: [
       "Priority databases moved while the business keeps running, data synced in the background",
       "Validated migration — records checked so nothing is lost",
