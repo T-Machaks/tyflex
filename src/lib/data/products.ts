@@ -2,6 +2,7 @@ import type { IconName } from "@/lib/icon-map";
 import { hikvisionCatalog } from "@/lib/data/products-hikvision-catalog";
 import { printerProducts } from "@/lib/data/products-printers";
 import { truenavTscProducts } from "@/lib/data/products-truenav-tsc";
+import { yeastarProducts } from "@/lib/data/products-yeastar";
 
 export const PRODUCT_CATEGORIES = [
   "Networking",
@@ -247,6 +248,7 @@ export const products: Product[] = [
   ...curatedProducts,
   ...printerProducts,
   ...truenavTscProducts,
+  ...yeastarProducts,
   ...hikvisionCatalog.filter((p) => !curatedIds.has(p.id)),
 ];
 
