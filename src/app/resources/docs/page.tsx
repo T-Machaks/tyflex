@@ -1,14 +1,28 @@
-import { FileText } from "lucide-react";
+import { FileText, Download } from "lucide-react";
 import GradientButton from "@/components/ui/GradientButton";
+import GlassCard from "@/components/ui/GlassCard";
 import FadeIn from "@/components/motion/FadeIn";
+import { products } from "@/lib/data/products";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "Documentation | Tyflex",
+  title: "Datasheets & Documentation | Tyflex",
   description:
-    "Technical documentation and setup guides for Tyflex products and solutions. New guides are being added regularly — check back soon.",
+    "Download product datasheets for hardware Tyflex supplies — Hikvision switches, PoE switches, UPS units, SFP modules and more. Pricing on request.",
   path: "/resources/docs",
 });
+
+const withDatasheets = products.filter((p) => p.datasheet);
+
+// Group by brand (unbranded items fall under "Tyflex").
+const groups = Array.from(
+  withDatasheets.reduce((map, p) => {
+    const key = p.brand ?? "Tyflex";
+    if (!map.has(key)) map.set(key, []);
+    map.get(key)!.push(p);
+    return map;
+  }, new Map<string, typeof withDatasheets>())
+);
 
 export default function DocsPage() {
   return (
@@ -16,25 +30,59 @@ export default function DocsPage() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
           <FadeIn>
-            <h1 className="text-4xl md:text-6xl font-bold mb-4">Documentation</h1>
+            <h1 className="text-4xl md:text-6xl font-bold mb-4">Datasheets &amp; Documentation</h1>
           </FadeIn>
           <FadeIn delay={0.05}>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              Technical documentation, setup guides, and references for our products.
+              Technical datasheets for hardware we supply. Every item is
+              inquiry-based — request a quote for current pricing and stock.
             </p>
           </FadeIn>
         </div>
 
+        {groups.map(([brand, items], gi) => (
+          <FadeIn key={brand} delay={0.05 * gi}>
+            <section className="mb-14">
+              <h2 className="text-sm font-semibold uppercase tracking-wider text-brand-red mb-5">
+                {brand}
+              </h2>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                {items.map((p) => (
+                  <a
+                    key={p.id}
+                    href={p.datasheet}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group block"
+                  >
+                    <GlassCard className="h-full p-5 flex gap-4 items-start">
+                      <div className="h-11 w-11 shrink-0 rounded-xl bg-brand-red/10 flex items-center justify-center">
+                        <FileText className="h-5 w-5 text-brand-red" />
+                      </div>
+                      <div className="min-w-0">
+                        <h3 className="font-semibold leading-snug mb-1 group-hover:text-white">
+                          {p.name}
+                        </h3>
+                        <p className="text-xs text-gray-500 mb-2">{p.category}</p>
+                        <span className="inline-flex items-center gap-1.5 text-xs text-brand-red">
+                          <Download className="h-3.5 w-3.5" />
+                          Download PDF
+                        </span>
+                      </div>
+                    </GlassCard>
+                  </a>
+                ))}
+              </div>
+            </section>
+          </FadeIn>
+        ))}
+
         <FadeIn delay={0.1}>
-          <div className="text-center py-20 rounded-2xl bg-brand-card border border-white/5">
-            <div className="h-14 w-14 rounded-2xl bg-brand-red/10 flex items-center justify-center mx-auto mb-6">
-              <FileText className="h-7 w-7 text-brand-red" />
-            </div>
-            <h2 className="text-2xl font-bold mb-3">Documentation Is Being Prepared</h2>
-            <p className="text-gray-400 max-w-md mx-auto mb-8">
-              Per-product setup guides are on the way. In the meantime, our
-              support team can walk you through configuration, troubleshooting,
-              or anything else you need.
+          <div className="text-center py-12 rounded-2xl bg-brand-card border border-white/5">
+            <h2 className="text-xl font-bold mb-3">Need a datasheet you don&apos;t see here?</h2>
+            <p className="text-gray-400 max-w-md mx-auto mb-6 text-sm">
+              We can supply full manufacturer documentation and configuration
+              guidance for anything in our catalogue.
             </p>
             <GradientButton href="/support" size="lg">
               Visit Support

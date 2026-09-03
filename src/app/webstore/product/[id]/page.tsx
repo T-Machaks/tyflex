@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight, Tag } from "lucide-react";
+import { ArrowLeft, ArrowRight, FileText, Tag } from "lucide-react";
 import GlassCard from "@/components/ui/GlassCard";
 import GradientButton from "@/components/ui/GradientButton";
 import DynamicIcon from "@/components/ui/DynamicIcon";
@@ -44,7 +44,7 @@ export default function ProductPage({ params }: ProductPageProps) {
     name: product.name,
     description: product.shortDescription,
     category: product.category,
-    brand: { "@type": "Organization", name: COMPANY.name },
+    brand: { "@type": "Organization", name: product.brand ?? COMPANY.name },
   };
 
   const quoteHref = `/get-quote?product=${encodeURIComponent(product.name)}`;
@@ -72,10 +72,19 @@ export default function ProductPage({ params }: ProductPageProps) {
         </FadeIn>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
-          {/* Image placeholder */}
+          {/* Image */}
           <FadeIn>
-            <div className="relative h-80 lg:h-full min-h-[320px] rounded-2xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/5 flex items-center justify-center">
-              <DynamicIcon name={product.icon} className="h-24 w-24 text-brand-red/30" strokeWidth={1} />
+            <div className="relative h-80 lg:h-full min-h-[320px] rounded-2xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/5 flex items-center justify-center overflow-hidden">
+              {product.image ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="h-full w-full object-contain bg-white p-8"
+                />
+              ) : (
+                <DynamicIcon name={product.icon} className="h-24 w-24 text-brand-red/30" strokeWidth={1} />
+              )}
               {product.featured && (
                 <span className="absolute top-4 right-4 px-3 py-1 rounded-full bg-brand-red text-xs font-medium text-white">
                   Featured
@@ -90,6 +99,11 @@ export default function ProductPage({ params }: ProductPageProps) {
           {/* Info */}
           <div>
             <FadeIn delay={0.1}>
+              {product.brand && (
+                <span className="block text-xs font-semibold uppercase tracking-wider text-brand-red mb-2">
+                  {product.brand}
+                </span>
+              )}
               <h1 className="text-3xl md:text-4xl font-bold mb-4">{product.name}</h1>
             </FadeIn>
             <FadeIn delay={0.15}>
@@ -132,6 +146,17 @@ export default function ProductPage({ params }: ProductPageProps) {
                 No cart, no checkout — our team confirms availability and final
                 pricing directly with you.
               </p>
+              {product.datasheet && (
+                <a
+                  href={product.datasheet}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-sm text-brand-red hover:underline mt-4"
+                >
+                  <FileText className="h-4 w-4" />
+                  Download datasheet (PDF)
+                </a>
+              )}
             </FadeIn>
           </div>
         </div>

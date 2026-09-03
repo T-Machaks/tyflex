@@ -27,8 +27,8 @@ const sections = [
     icon: TrendingUp,
   },
   {
-    name: "Documentation",
-    description: "Technical documentation, setup guides, and where to go for product support.",
+    name: "Datasheets",
+    description: "Download product datasheets for the hardware we supply — switches, PoE, UPS, SFP and more.",
     href: "/resources/docs",
     icon: FileText,
   },

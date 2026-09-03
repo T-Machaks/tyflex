@@ -11,3 +11,11 @@ out/
 
 # TypeScript incremental build cache — machine-specific, not deploy input.
 tsconfig.tsbuildinfo
+
+# Vendor source material (datasheets/pricelists/pictures) — processed
+# assets live in public/; the raw dump is not a deploy input.
+/Webstore/
+
+dev3100.*
+dev-3100.*
+dev-server.log
