@@ -5,6 +5,7 @@ import MaintenanceBanner from "@/components/MaintenanceBanner";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ChatWidget from "@/components/chat/ChatWidget";
+import AppProviders from "@/components/providers/AppProviders";
 import { COMPANY, BUSINESS_HOURS } from "@/lib/constants";
 
 const inter = Inter({
@@ -161,11 +162,13 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationAndLocalBusinessSchema) }}
         />
-        <MaintenanceBanner />
-        <Header />
-        <main className="pt-10">{children}</main>
-        <Footer />
-        <ChatWidget />
+        <AppProviders>
+          <MaintenanceBanner />
+          <Header />
+          <main className="pt-10">{children}</main>
+          <Footer />
+          <ChatWidget />
+        </AppProviders>
       </body>
     </html>
   );

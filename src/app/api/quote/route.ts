@@ -25,8 +25,12 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const { firstName, lastName, email, phone, company, companySize, industry, timeline, solutions, message } =
+  const { firstName, lastName, email, phone, company, companySize, industry, timeline, solutions, items, message } =
     parsed.data;
+
+  const productLines = items.map(
+    (it) => `${it.quantity} x ${it.brand ? `${it.brand} ` : ""}${it.name}`
+  );
 
   const rows: [string, string][] = [
     ["Name", `${firstName} ${lastName}`],
@@ -37,12 +41,17 @@ export async function POST(request: NextRequest) {
     ["Industry", industry],
     ["Timeline", timeline],
     ["Solutions Interested In", solutions.length ? solutions.join(", ") : "—"],
+    ["Products Requested", productLines.length ? productLines.join("\n") : "—"],
     ["Message", message || "—"],
   ];
 
+  const subjectSuffix = productLines.length
+    ? ` — ${productLines.length} product${productLines.length === 1 ? "" : "s"}`
+    : "";
+
   try {
     await sendMail({
-      subject: `[Tyflex Website] New quote request from ${firstName} ${lastName} (${company})`,
+      subject: `[Tyflex Website] New quote request from ${firstName} ${lastName} (${company})${subjectSuffix}`,
       html: `<h2 style="font-family:sans-serif;">New quote request</h2>${renderKeyValueHtml(rows)}`,
       text: `New quote request\n\n${renderKeyValueText(rows)}`,
       replyTo: email,

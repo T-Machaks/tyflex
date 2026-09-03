@@ -2,12 +2,13 @@
 
 import { useState, type FormEvent } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { AlertCircle, CheckCircle2, CheckSquare, Loader2, Send, Square } from "lucide-react";
+import { AlertCircle, CheckCircle2, CheckSquare, Loader2, Minus, Plus, Send, Square, Trash2 } from "lucide-react";
 import GlassCard from "@/components/ui/GlassCard";
 import FadeIn from "@/components/motion/FadeIn";
 import { inputClass, selectOptionClass } from "@/lib/form-styles";
 import { COMPANY_SIZES, INDUSTRIES, TIMELINES, HONEYPOT_FIELD } from "@/lib/validation";
 import { solutions } from "@/lib/data/solutions";
+import { useQuoteCart } from "@/lib/quote-cart/QuoteCartContext";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
@@ -23,6 +24,7 @@ interface GetQuoteClientProps {
 }
 
 export default function GetQuoteClient({ initialProduct }: GetQuoteClientProps) {
+  const { items, hydrated, setQuantity, remove, clear } = useQuoteCart();
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
   const [selectedSolutions, setSelectedSolutions] = useState<string[]>([]);
@@ -50,6 +52,7 @@ export default function GetQuoteClient({ initialProduct }: GetQuoteClientProps) 
       industry: data.industry,
       timeline: data.timeline,
       solutions: selectedSolutions,
+      items: items.map((it) => ({ name: it.name, brand: it.brand ?? "", quantity: it.quantity })),
       message: data.message,
       [HONEYPOT_FIELD]: data[HONEYPOT_FIELD],
     };
@@ -72,6 +75,7 @@ export default function GetQuoteClient({ initialProduct }: GetQuoteClientProps) 
       form.reset();
       setSelectedSolutions([]);
       setMessage("");
+      clear();
     } catch {
       setErrorMsg("Network error — please check your connection and try again.");
       setStatus("error");
@@ -163,6 +167,65 @@ export default function GetQuoteClient({ initialProduct }: GetQuoteClientProps) 
                   <div className="flex items-start gap-3 p-4 rounded-lg bg-red-500/10 border border-red-500/20 text-sm text-red-300">
                     <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" />
                     <span>{errorMsg}</span>
+                  </div>
+                )}
+
+                {hydrated && items.length > 0 && (
+                  <div className="rounded-lg border border-white/10 bg-white/5 p-4">
+                    <div className="flex items-center justify-between mb-3">
+                      <p className="text-sm font-medium text-gray-300">
+                        Products in your request{" "}
+                        <span className="text-gray-500">({items.length})</span>
+                      </p>
+                      <button
+                        type="button"
+                        onClick={clear}
+                        className="text-xs text-gray-500 hover:text-gray-300"
+                      >
+                        Clear
+                      </button>
+                    </div>
+                    <ul className="space-y-2">
+                      {items.map((it) => (
+                        <li key={it.id} className="flex items-center gap-3 text-sm">
+                          <span className="min-w-0 flex-1 truncate text-gray-200">
+                            {it.brand ? <span className="text-brand-red">{it.brand} </span> : null}
+                            {it.name}
+                          </span>
+                          <div className="inline-flex items-center rounded-lg border border-white/10 shrink-0">
+                            <button
+                              type="button"
+                              onClick={() => setQuantity(it.id, it.quantity - 1)}
+                              aria-label={`Decrease quantity of ${it.name}`}
+                              className="h-7 w-7 flex items-center justify-center text-gray-400 hover:text-white"
+                            >
+                              <Minus className="h-3.5 w-3.5" />
+                            </button>
+                            <span className="w-7 text-center tabular-nums">{it.quantity}</span>
+                            <button
+                              type="button"
+                              onClick={() => setQuantity(it.id, it.quantity + 1)}
+                              aria-label={`Increase quantity of ${it.name}`}
+                              className="h-7 w-7 flex items-center justify-center text-gray-400 hover:text-white"
+                            >
+                              <Plus className="h-3.5 w-3.5" />
+                            </button>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => remove(it.id)}
+                            aria-label={`Remove ${it.name}`}
+                            className="h-7 w-7 flex items-center justify-center text-gray-500 hover:text-red-400 shrink-0"
+                          >
+                            <Trash2 className="h-3.5 w-3.5" />
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                    <p className="mt-3 text-xs text-gray-500">
+                      We&apos;ll quote every product listed here. Add more from the{" "}
+                      <a href="/webstore" className="text-brand-red hover:underline">webstore</a>.
+                    </p>
                   </div>
                 )}
 

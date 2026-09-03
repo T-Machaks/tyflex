@@ -4,7 +4,7 @@ import { buildMetadata } from "@/lib/seo";
 export const metadata = buildMetadata({
   title: "Get a Free Quote | Tyflex Zimbabwe",
   description:
-    "Request a tailored quote for VoIP, 3CX, networking, barcode scanning, POS, ERP, and other enterprise technology solutions from Tyflex in Zimbabwe.",
+    "Request a tailored quote from Tyflex in Zimbabwe — add multiple products from the webstore to one request, or tell us about a VoIP, 3CX, networking, barcode or AWS project.",
   path: "/get-quote",
 });
 

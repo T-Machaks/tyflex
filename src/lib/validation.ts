@@ -33,6 +33,13 @@ export const TIMELINES = [
   "Just exploring",
 ] as const;
 
+/** A single line on a quote request built from the webstore cart. */
+export const quoteItemSchema = z.object({
+  name: z.string().trim().min(1).max(200),
+  brand: z.string().trim().max(80).optional().or(z.literal("")),
+  quantity: z.coerce.number().int().min(1).max(9999).default(1),
+});
+
 export const quoteSchema = z.object({
   firstName: z.string().trim().min(1, "First name is required").max(80),
   lastName: z.string().trim().min(1, "Last name is required").max(80),
@@ -43,6 +50,7 @@ export const quoteSchema = z.object({
   industry: z.string().trim().min(1, "Please select an industry"),
   timeline: z.string().trim().min(1, "Please select a timeline"),
   solutions: z.array(z.string()).default([]),
+  items: z.array(quoteItemSchema).max(100).default([]),
   message: z.string().trim().max(4000).optional().or(z.literal("")),
 });
 

@@ -6,6 +6,7 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { solutions } from "@/lib/data/solutions";
 import { isProtectedPath } from "@/lib/constants";
+import QuoteCartButton from "@/components/webstore/QuoteCartButton";
 
 const navLinks = [
   { label: "Webstore", href: "/webstore" },
@@ -93,6 +94,7 @@ export default function Header() {
               {link.label}
             </Link>
           ))}
+          <QuoteCartButton />
           <Link
             href="/get-quote"
             className="px-5 py-2.5 bg-brand-red hover:bg-brand-red-dark text-white text-sm font-medium rounded-lg transition-colors"
@@ -150,6 +152,7 @@ export default function Header() {
               {link.label}
             </Link>
           ))}
+          <QuoteCartButton variant="row" onActivate={() => setMobileOpen(false)} />
           <Link
             href="/get-quote"
             className="block w-full text-center px-5 py-2.5 bg-brand-red text-white rounded-lg mt-2"

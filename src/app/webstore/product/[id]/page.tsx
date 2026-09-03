@@ -7,6 +7,7 @@ import GradientButton from "@/components/ui/GradientButton";
 import DynamicIcon from "@/components/ui/DynamicIcon";
 import FadeIn from "@/components/motion/FadeIn";
 import ProductCard from "@/components/webstore/ProductCard";
+import AddToQuoteButton from "@/components/webstore/AddToQuoteButton";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import { COMPANY } from "@/lib/constants";
 import { getProductById, getRelatedProducts, products } from "@/lib/data/products";
@@ -154,16 +155,30 @@ export default function ProductPage({ params }: ProductPageProps) {
 
             <FadeIn delay={0.3}>
               <div className="flex flex-col sm:flex-row gap-4">
-                <GradientButton href={quoteHref} size="lg">
-                  Request a Quote
-                </GradientButton>
+                <AddToQuoteButton
+                  product={{
+                    id: product.id,
+                    name: product.name,
+                    brand: product.brand,
+                    category: product.category,
+                  }}
+                  variant="detail"
+                  openOnAdd
+                />
                 <GradientButton href="/contact" variant="secondary" size="lg">
                   Ask a Question
                 </GradientButton>
               </div>
               <p className="text-xs text-gray-500 mt-3">
-                No cart, no checkout — our team confirms availability and final
-                pricing directly with you.
+                Add several products, then{" "}
+                <Link href="/get-quote" className="text-brand-red hover:underline">
+                  request one quote for all of them
+                </Link>
+                . Or{" "}
+                <Link href={quoteHref} className="text-brand-red hover:underline">
+                  ask about just this item
+                </Link>
+                . No checkout — our team confirms availability and pricing with you.
               </p>
               {product.datasheet && (
                 <a
