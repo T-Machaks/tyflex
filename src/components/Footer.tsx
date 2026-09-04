@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { Linkedin, MessageCircle } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { COMPANY, isProtectedPath } from "@/lib/constants";
 import { solutions as allSolutions } from "@/lib/data/solutions";
@@ -58,18 +59,28 @@ export default function Footer() {
             </p>
             <div className="mt-6 text-sm text-gray-500 space-y-1">
               <p>{COMPANY.phoneDisplay}</p>
-              <p>
-                <a
-                  href={COMPANY.whatsapp}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-white transition-colors"
-                >
-                  WhatsApp us
-                </a>
-              </p>
               <p>{COMPANY.email}</p>
               <p>{COMPANY.address}</p>
+            </div>
+            <div className="mt-5 flex items-center gap-3">
+              <a
+                href={COMPANY.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Tyflex on LinkedIn"
+                className="h-9 w-9 flex items-center justify-center rounded-lg border border-white/10 text-gray-400 hover:text-white hover:border-brand-red/40 transition-colors"
+              >
+                <Linkedin className="h-4 w-4" />
+              </a>
+              <a
+                href={COMPANY.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Chat with Tyflex on WhatsApp"
+                className="h-9 w-9 flex items-center justify-center rounded-lg border border-white/10 text-gray-400 hover:text-white hover:border-brand-red/40 transition-colors"
+              >
+                <MessageCircle className="h-4 w-4" />
+              </a>
             </div>
           </div>
 

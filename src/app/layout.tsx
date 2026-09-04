@@ -102,6 +102,7 @@ const organizationAndLocalBusinessSchema = {
       foundingDate: String(COMPANY.founded),
       email: COMPANY.email,
       telephone: COMPANY.phone,
+      sameAs: [COMPANY.linkedin],
       knowsAbout: PRIORITY_TOPICS,
       brand: [
         "TSC",
