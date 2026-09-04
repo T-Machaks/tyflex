@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Linkedin, MessageCircle } from "lucide-react";
+import { Facebook, Linkedin, MapPin, MessageCircle } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { COMPANY, isProtectedPath } from "@/lib/constants";
 import { solutions as allSolutions } from "@/lib/data/solutions";
@@ -63,24 +63,23 @@ export default function Footer() {
               <p>{COMPANY.address}</p>
             </div>
             <div className="mt-5 flex items-center gap-3">
-              <a
-                href={COMPANY.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Tyflex on LinkedIn"
-                className="h-9 w-9 flex items-center justify-center rounded-lg border border-white/10 text-gray-400 hover:text-white hover:border-brand-red/40 transition-colors"
-              >
-                <Linkedin className="h-4 w-4" />
-              </a>
-              <a
-                href={COMPANY.whatsapp}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Chat with Tyflex on WhatsApp"
-                className="h-9 w-9 flex items-center justify-center rounded-lg border border-white/10 text-gray-400 hover:text-white hover:border-brand-red/40 transition-colors"
-              >
-                <MessageCircle className="h-4 w-4" />
-              </a>
+              {[
+                { href: COMPANY.linkedin, label: "Tyflex on LinkedIn", Icon: Linkedin },
+                { href: COMPANY.facebook, label: "Tyflex on Facebook", Icon: Facebook },
+                { href: COMPANY.whatsapp, label: "Chat with Tyflex on WhatsApp", Icon: MessageCircle },
+                { href: COMPANY.google, label: "Tyflex on Google", Icon: MapPin },
+              ].map(({ href, label, Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="h-9 w-9 flex items-center justify-center rounded-lg border border-white/10 text-gray-400 hover:text-white hover:border-brand-red/40 transition-colors"
+                >
+                  <Icon className="h-4 w-4" />
+                </a>
+              ))}
             </div>
           </div>
 
