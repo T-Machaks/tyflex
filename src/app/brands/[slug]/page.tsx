@@ -104,8 +104,19 @@ export default function BrandPage({ params }: Props) {
           </div>
         </FadeIn>
         <FadeIn delay={0.1}>
-          <p className="text-gray-300 text-lg leading-relaxed max-w-3xl mb-6">{brand.tagline}</p>
+          <p className="text-gray-300 text-lg leading-relaxed max-w-3xl mb-4">{brand.tagline}</p>
         </FadeIn>
+        {brand.seeAlso && (
+          <FadeIn delay={0.12}>
+            <Link
+              href={brand.seeAlso.href}
+              className="inline-flex items-center gap-1.5 text-sm text-brand-red hover:underline mb-6"
+            >
+              {brand.seeAlso.label}
+              <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          </FadeIn>
+        )}
         <FadeIn delay={0.15}>
           <div className="flex flex-col sm:flex-row gap-4 mb-14">
             <GradientButton href={primaryCta.href} size="lg">
@@ -174,7 +185,18 @@ export default function BrandPage({ params }: Props) {
                 We supply {brand.name} hardware and consumables to order. Tell us
                 the model or the job and we&apos;ll quote availability and lead time.
               </p>
-              <GradientButton href={primaryCta.href}>{primaryCta.label}</GradientButton>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <GradientButton href={primaryCta.href}>{primaryCta.label}</GradientButton>
+                {brand.seeAlso && (
+                  <Link
+                    href={brand.seeAlso.href}
+                    className="inline-flex items-center gap-1.5 text-sm text-brand-red hover:underline"
+                  >
+                    {brand.seeAlso.label}
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                )}
+              </div>
             </section>
           </FadeIn>
         )}

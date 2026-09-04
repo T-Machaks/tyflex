@@ -24,6 +24,8 @@ export interface Brand {
   productBrandKeys: string[];
   /** Related /solutions slugs surfaced as cross-links. */
   solutionSlugs: string[];
+  /** Optional "see also" link shown under the tagline (e.g. a brand that was merged/renamed). */
+  seeAlso?: { label: string; href: string };
   /** Points the primary CTA at the AWS hub instead of /get-quote. */
   awsHub?: boolean;
   faqs: { question: string; answer: string }[];
@@ -127,42 +129,58 @@ export const brands: Brand[] = [
   {
     slug: "tallygenicom",
     name: "TallyGenicom",
-    category: "Line-Matrix & Serial-Matrix Printing",
-    tagline: "Rugged impact printers for logistics, manufacturing and back-office multipart forms.",
+    category: "Line-Matrix & Laser Printing — Now Printronix",
+    tagline:
+      "TallyGenicom is now Printronix. Order from Tyflex and you get genuine dual-branded Printronix / TallyGenicom hardware, parts and supplies — fully backward compatible with your existing TallyGenicom fleet.",
+    seeAlso: { label: "See Printronix", href: "/brands/printronix" },
     intro: [
-      "TallyGenicom builds line-matrix and serial-matrix impact printers for environments where laser and inkjet do not last — warehouses, factory floors, weighbridges and ERP print rooms that still run carbon-copy forms.",
-      "Tyflex supplies TallyGenicom hardware and consumables on request and integrates them into existing host and ERP print streams.",
+      "If you're looking for TallyGenicom printers, you're in the right place. TallyGenicom was formed in 2003 when Tally and GENICOM, two names in industrial printing, joined forces. In 2009 Printronix acquired TallyGenicom and took over all of the line matrix and laser printer products, parts, ribbons and consumables. The standalone TallyGenicom brand has since been discontinued — the products carry the Printronix name.",
+      "Order TallyGenicom from Tyflex and you receive a dual-branded Printronix / TallyGenicom product. The printers, parts and supplies are marked under both names, so you can be confident you are getting the genuine successor to the TallyGenicom line you know.",
+      "Already running TallyGenicom printers? During configuration you choose either TallyGenicom or Printronix settings, so a new unit slots straight into your current environment — no need to overhaul your host systems or worry about compatibility. Whether you are replacing an older TallyGenicom unit or expanding, you get the same rugged, industrial-grade performance with full backward compatibility built in.",
     ],
     highlights: [
-      "Line-matrix printers for high-volume forms, picking lists and shipping documents",
-      "Serial-matrix printers for logbooks, journals and multipart stationery",
-      "Low cost per page and long service life in harsh conditions",
-      "Ribbon supply and integration with SAP, Sage and other ERP print queues",
+      "Dual-branded Printronix / TallyGenicom printers — the genuine continuation of the TallyGenicom line",
+      "Line matrix printers for high-volume forms, picking lists, labels and reports",
+      "Laser printers, parts and consumables formerly sold under TallyGenicom, now under Printronix",
+      "Backward-compatible setup — select TallyGenicom or Printronix configuration during install",
+      "Genuine ribbons, printheads and spare parts for both new and installed units",
+      "Integration with SAP, Sage and other host and ERP print streams",
     ],
     icon: "Printer",
     productBrandKeys: [],
     solutionSlugs: ["autoid", "networking"],
     faqs: [
       {
-        question: "Can TallyGenicom printers print multipart (carbon-copy) forms?",
+        question: "Is TallyGenicom still available?",
         answer:
-          "Yes — impact printing is the reason to choose them. They print through multipart stationery that thermal and laser printers cannot handle.",
+          "The standalone TallyGenicom brand was discontinued after Printronix acquired it in 2009. Every TallyGenicom line matrix and laser printer, part and supply is now manufactured by Printronix.",
       },
       {
-        question: "Do you stock TallyGenicom in Zimbabwe?",
+        question: "What will I receive when I order TallyGenicom?",
         answer:
-          "We supply TallyGenicom hardware and ribbons to order. Send us your model or application and we will quote availability and lead time.",
+          "A dual-branded product carrying both the Printronix and TallyGenicom names — the same quality and technology, now under the Printronix umbrella — so there is no confusion about what you are getting.",
+      },
+      {
+        question: "Will it work with my current TallyGenicom printers?",
+        answer:
+          "Yes. During setup you can choose either TallyGenicom or Printronix configuration settings. If you are integrating with an existing TallyGenicom environment, select the TallyGenicom option and the new printer works right alongside your current equipment — no host or workflow changes.",
+      },
+      {
+        question: "Do you supply TallyGenicom ribbons and parts in Zimbabwe?",
+        answer:
+          "Yes — Tyflex supplies the genuine ribbons, printheads and spare parts (now Printronix-branded) for both new and installed units, to order. Send us your model and we will quote availability and lead time.",
       },
     ],
-    metaTitle: "TallyGenicom Impact & Line-Matrix Printers in Zimbabwe | Tyflex",
+    metaTitle: "TallyGenicom Printers — Now Printronix | Tyflex Zimbabwe",
     metaDescription:
-      "TallyGenicom line-matrix and serial-matrix impact printers from Tyflex in Zimbabwe — multipart forms, picking lists and ERP print rooms, with ribbon supply and integration. Pricing on request.",
+      "TallyGenicom line matrix and laser printers are now Printronix. Tyflex supplies genuine dual-branded Printronix / TallyGenicom hardware, ribbons and parts in Zimbabwe — fully backward compatible. Pricing on request.",
     keywords: [
       "TallyGenicom Zimbabwe",
+      "TallyGenicom now Printronix",
+      "TallyGenicom line matrix printer",
+      "TallyGenicom ribbons Zimbabwe",
+      "Printronix TallyGenicom",
       "line matrix printer Zimbabwe",
-      "impact printer Zimbabwe",
-      "multipart form printer",
-      "dot matrix printer Harare",
       "barcode printing Zimbabwe",
     ],
   },
