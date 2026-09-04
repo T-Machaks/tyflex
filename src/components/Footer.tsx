@@ -58,6 +58,16 @@ export default function Footer() {
             </p>
             <div className="mt-6 text-sm text-gray-500 space-y-1">
               <p>{COMPANY.phoneDisplay}</p>
+              <p>
+                <a
+                  href={COMPANY.whatsapp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors"
+                >
+                  WhatsApp us
+                </a>
+              </p>
               <p>{COMPANY.email}</p>
               <p>{COMPANY.address}</p>
             </div>

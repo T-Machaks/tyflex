@@ -3,6 +3,7 @@ export const COMPANY = {
   legalName: "Tyflex Investments (Pvt) Ltd",
   phone: "+2638677174838",
   phoneDisplay: "+263 867 717 4838",
+  whatsapp: "https://wa.me/message/2D7IS57VB34LH1",
   email: "info@tyflex.co.zw",
   address: "40 St Athans Drive, Bluffhill, Harare, Zimbabwe",
   // Tyflex Investments (Pvt) Ltd registered in Zimbabwe — see the About

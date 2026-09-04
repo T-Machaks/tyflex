@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { AlertCircle, CheckCircle2, Clock, Loader2, Mail, MapPin, Phone, Send } from "lucide-react";
+import { AlertCircle, CheckCircle2, Clock, Loader2, Mail, MapPin, MessageCircle, Phone, Send } from "lucide-react";
 import GlassCard from "@/components/ui/GlassCard";
 import FadeIn from "@/components/motion/FadeIn";
 import { BUSINESS_HOURS, COMPANY } from "@/lib/constants";
@@ -14,6 +14,13 @@ type Status = "idle" | "submitting" | "success" | "error";
 const infoItems = [
   { icon: MapPin, label: "Office", value: COMPANY.address },
   { icon: Phone, label: "Phone", value: COMPANY.phoneDisplay, href: `tel:${COMPANY.phone}` },
+  {
+    icon: MessageCircle,
+    label: "WhatsApp",
+    value: "Chat with us on WhatsApp",
+    href: COMPANY.whatsapp,
+    external: true,
+  },
   { icon: Mail, label: "Email", value: COMPANY.email, href: `mailto:${COMPANY.email}` },
 ];
 
@@ -86,7 +93,13 @@ export default function ContactClient({ initialSubject }: ContactClientProps) {
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">{item.label}</p>
                   {item.href ? (
-                    <a href={item.href} className="text-gray-300 hover:text-white transition-colors">
+                    <a
+                      href={item.href}
+                      className="text-gray-300 hover:text-white transition-colors"
+                      {...("external" in item && item.external
+                        ? { target: "_blank", rel: "noopener noreferrer" }
+                        : {})}
+                    >
                       {item.value}
                     </a>
                   ) : (
