@@ -1,4 +1,5 @@
 import type { IconName } from "@/lib/icon-map";
+import { autoIdProducts } from "@/lib/data/products-autoid";
 import { hikvisionCatalog } from "@/lib/data/products-hikvision-catalog";
 import { printerProducts } from "@/lib/data/products-printers";
 import { truenavTscProducts } from "@/lib/data/products-truenav-tsc";
@@ -236,8 +237,9 @@ const curatedProducts: Product[] = [
 ];
 
 /**
- * Full catalogue = the hand-curated core products above, then the printer,
- * Truenav/TSC and generated Hikvision sets. All inquiry-based — no pricing.
+ * Full catalogue = the hand-curated core products above, then the impact
+ * printer, AutoID (Argox/Godex/Honeywell label printer), Truenav/TSC and
+ * generated Hikvision sets. All inquiry-based — no pricing.
  *
  * A few models (DS-3WRU9X, DS-UPS1000/SA, DS-UPS3000/SA) appear in both the
  * curated list and the generated Hikvision pricelist — the curated entry wins,
@@ -247,6 +249,7 @@ const curatedIds = new Set(curatedProducts.map((p) => p.id));
 export const products: Product[] = [
   ...curatedProducts,
   ...printerProducts,
+  ...autoIdProducts,
   ...truenavTscProducts,
   ...yeastarProducts,
   ...hikvisionCatalog.filter((p) => !curatedIds.has(p.id)),
