@@ -486,6 +486,193 @@ export const brands: Brand[] = [
       "PoE switch Zimbabwe",
     ],
   },
+  {
+    slug: "argox",
+    name: "Argox",
+    category: "Barcode & Label Printing",
+    tagline: "Desktop and industrial thermal barcode & label printers — supplied, configured and supported by Tyflex across Zimbabwe.",
+    intro: [
+      "Argox builds dependable thermal barcode and label printers for retail, warehousing, manufacturing and logistics. Tyflex carries the full PRO range — 2- and 4-inch desktop units, 4- and 6-inch industrial printers, and the wide-format iX6 — along with the printheads, cutters, ribbons and label media to keep them running.",
+      "We size the printer to your daily label count, label size and environment, load the emulation your system already speaks (PPLA / PPLB / PPLZ), and stock the consumables so print quality and printhead life stay predictable.",
+    ],
+    highlights: [
+      "Desktop printers (OS-214EX Pro, D4-250, O4-250, CP-2140EX Pro) for steady retail and dispatch volumes",
+      "Industrial printers (iX4-250, iX4-280, XM4-200) for high-throughput, multi-shift printing",
+      "6-inch iX6-250 / iX6-350 Pro for pallet, drum and wide-format labels — the G6000 successor",
+      "Genuine printheads, guillotine cutters, Wi-Fi modules and label rewinders held or sourced on short lead times",
+      "Brochures, driver downloads and configuration support for every model",
+    ],
+    icon: "Printer",
+    productBrandKeys: ["Argox"],
+    solutionSlugs: ["autoid", "networking"],
+    faqs: [
+      {
+        question: "Which Argox printer is right for my volume?",
+        answer:
+          "Desktop models (OS, D4, O4, CP series) suit a few hundred labels a day; the iX4 and iX6 industrial printers are built for continuous multi-shift printing. Tell us your daily label count, label size and environment and we will spec the model, ribbon and media.",
+      },
+      {
+        question: "Do you supply Argox printheads, cutters and ribbons in Zimbabwe?",
+        answer:
+          "Yes — we hold or source genuine printheads, guillotine cutters, Wi-Fi modules and wax / wax-resin / resin ribbons plus label stock sized to your application.",
+      },
+      {
+        question: "Can Argox printers replace an older label printer without changing our software?",
+        answer:
+          "Usually. Argox printers auto-detect PPLA, PPLB and PPLZ (Zebra ZPL-compatible) emulation, so they can often drop into an existing print stream with only a driver change.",
+      },
+    ],
+    metaTitle: "Argox Barcode & Label Printers in Zimbabwe | Tyflex",
+    metaDescription:
+      "Argox thermal barcode and label printers supplied and supported by Tyflex in Zimbabwe — OS, D4, O4, CP desktop and iX4 / iX6 industrial models, with printheads, cutters, ribbons and brochures. Pricing on request.",
+    keywords: [
+      "Argox Zimbabwe",
+      "Argox label printer",
+      "Argox barcode printer Harare",
+      "Argox iX4-250 Zimbabwe",
+      "Argox OS-214EX Pro",
+      "thermal label printer Zimbabwe",
+    ],
+  },
+  {
+    slug: "honeywell",
+    name: "Honeywell",
+    category: "Barcode & Label Printing",
+    tagline: "Honeywell desktop and industrial barcode printers — from the value PC42e-T to the print-and-verify PX940 — supplied and supported by Tyflex.",
+    intro: [
+      "Honeywell (formerly Intermec) builds barcode and label printers for retail, healthcare, manufacturing and transport & logistics. Tyflex supplies the desktop PC42e-T and PC45, the mainstream PM45 / PM65 industrial range that replaced the PM43, the compact PD45S, and the high-performance PX45 / PX65 — plus the PX940 with integrated inline barcode verification.",
+      "We match the printer to the duty cycle, supply the ribbons and media, and support installed units — not just new hardware.",
+    ],
+    highlights: [
+      "PC42e-T — a low-cost, easy-to-deploy 4-inch desktop printer for retail and office labelling",
+      "PM45 / PM65 industrial printers with full-colour touch displays — the modern PM43 replacement",
+      "PX45 / PX65 all-metal high-performance printers for the most demanding production lines",
+      "PX940 with an integrated verifier that grades every barcode to ISO/ANSI as it prints",
+      "Ribbons, printheads and spares, plus the Honeywell warranty matrix and support",
+    ],
+    icon: "Printer",
+    productBrandKeys: ["Honeywell"],
+    solutionSlugs: ["autoid", "networking"],
+    faqs: [
+      {
+        question: "Is the Honeywell PM45 a drop-in replacement for our PM43?",
+        answer:
+          "Effectively yes — the PM45 is the current-generation replacement for the PM43, with the same 4-inch industrial footprint, a full-colour touch display and broad emulation so it slots into an existing PM43 print stream.",
+      },
+      {
+        question: "What does the PX940 verifier actually do?",
+        answer:
+          "It prints and grades each label in one pass: an integrated verifier scores every barcode to ISO/ANSI standards as it is printed, so unreadable labels never leave the printer. It is used where a failed scan downstream is expensive — automotive, aerospace, pharma and retail compliance.",
+      },
+      {
+        question: "Do you supply Honeywell ribbons and support existing printers?",
+        answer:
+          "Yes — we supply genuine ribbons, printheads and spares, and can support installed PC, PM and PX units in Zimbabwe, not only new hardware.",
+      },
+    ],
+    metaTitle: "Honeywell Barcode & Label Printers in Zimbabwe | Tyflex",
+    metaDescription:
+      "Honeywell (Intermec) barcode and label printers from Tyflex in Zimbabwe — PC42e-T, PC45, PM45 / PM65, PD45S, PX45 / PX65 and the PX940 verifier, with ribbons, printheads and support. Pricing on request.",
+    keywords: [
+      "Honeywell printers Zimbabwe",
+      "Honeywell PM45 Zimbabwe",
+      "Honeywell PC42e-T",
+      "Intermec printer Zimbabwe",
+      "barcode label printer Harare",
+      "Honeywell PX940 verifier",
+    ],
+  },
+  {
+    slug: "godex",
+    name: "Godex",
+    category: "Barcode & Label Printing",
+    tagline: "Godex thermal label printers and Godex / Tautron label rewinders — supplied and supported by Tyflex in Zimbabwe.",
+    intro: [
+      "Godex builds thermal barcode and label printers with a strong line in wide-format industrial models. Tyflex supplies the 8-inch HD830i for pallet placards, banners and RFID inlays, plus the Godex and Tautron external label rewinders — the T10, T20 and T30, and the popular Tautron KEM RW155 — that pair with any desktop or industrial printer.",
+      "We match the printer and rewinder to your media width and volume, and supply the free GoLabel design software and driver downloads.",
+    ],
+    highlights: [
+      "HD830i — a true 8-inch wide-format thermal-transfer industrial printer, 300 dpi, with a 24-month warranty",
+      "Godex external rewinders (T10 4-inch, T20 6-inch, T30 8.46-inch) for tidy printed-label rolls",
+      "Tautron KEM RW155 — the most popular 4-inch label rewinder, inside / outside winding",
+      "GoLabel label design software included; ZPL / EPL / GPL auto-switching emulation",
+      "Printheads, cutters and interface modules held or sourced on short lead times",
+    ],
+    icon: "Printer",
+    productBrandKeys: ["Godex", "Tautron"],
+    solutionSlugs: ["autoid", "networking"],
+    faqs: [
+      {
+        question: "Do I need a label rewinder?",
+        answer:
+          "A rewinder winds printed labels back into a neat roll as they leave the printer — useful for storage, transport, or feeding a label applicator. Match the rewinder width to your label width; the RW155 covers 4-inch media and the Godex T20 covers 6-inch.",
+      },
+      {
+        question: "How wide can the Godex HD830i print?",
+        answer:
+          "The HD830i is a true 8-inch wide-format printer — it handles media wider than a 4- or 6-inch printer can take, which suits pallet placards, chemical drum labels and RFID inlays.",
+      },
+    ],
+    metaTitle: "Godex Printers & Label Rewinders in Zimbabwe | Tyflex",
+    metaDescription:
+      "Godex thermal label printers and Godex / Tautron label rewinders from Tyflex in Zimbabwe — the 8-inch HD830i, T10 / T20 / T30 rewinders and the Tautron KEM RW155. Pricing on request.",
+    keywords: [
+      "Godex Zimbabwe",
+      "Godex HD830i",
+      "label rewinder Zimbabwe",
+      "Tautron RW155",
+      "Godex reseller Zimbabwe",
+      "barcode printer Harare",
+    ],
+  },
+  {
+    slug: "zebra",
+    name: "Zebra Technologies",
+    category: "Barcode & Label Printing",
+    tagline: "Zebra thermal printers, barcode scanners and mobile computers — supplied, integrated and supported by Tyflex in Zimbabwe.",
+    intro: [
+      "Zebra Technologies is the global reference name in barcode printing, scanning and enterprise mobility. Tyflex specifies and supports Zebra hardware for retail, warehousing, manufacturing, healthcare and transport & logistics — desktop and industrial ZD / ZT thermal printers, DS and LI series barcode scanners, TC and MC series mobile computers, and genuine Zebra ribbons and label media.",
+      "Where a Zebra printer is the right fit we supply and configure it; where an Argox, Honeywell or Godex model does the same job for less, we will tell you. Zebra ZPL is the de-facto label language, and the printers we supply from every brand speak it.",
+    ],
+    highlights: [
+      "ZD-series desktop printers (ZD230, ZD421, ZD621) for retail and dispatch labelling",
+      "ZT-series industrial printers (ZT231, ZT411, ZT610) for high-duty, multi-shift printing",
+      "Barcode scanners — corded and cordless 1D/2D imagers for POS, receiving and stock takes",
+      "TC and MC series mobile computers for pick-and-pack, delivery and field service",
+      "Genuine Zebra ribbons, label media and Certified Supplies, plus ZPL integration support",
+    ],
+    icon: "Barcode",
+    productBrandKeys: [],
+    solutionSlugs: ["autoid", "networking"],
+    faqs: [
+      {
+        question: "Does Tyflex supply Zebra hardware in Zimbabwe?",
+        answer:
+          "Yes — we source and support Zebra thermal printers, barcode scanners and mobile computers, along with genuine Zebra ribbons and label media. Contact us with your application and we will quote the right model.",
+      },
+      {
+        question: "Zebra or Argox / Honeywell — which should I choose?",
+        answer:
+          "Zebra has the widest range and the deepest ecosystem; Argox, Honeywell and Godex often match it on core desktop and industrial labelling for a lower price. All of them speak ZPL, so the label software rarely has to change. We will recommend the best value for your volume and environment.",
+      },
+      {
+        question: "Can you support an existing Zebra printer fleet?",
+        answer:
+          "Yes — we supply Zebra ribbons, printheads and spares and can help configure and integrate installed ZD, ZT and older GK / GX / ZT units with your ERP or WMS print streams.",
+      },
+    ],
+    metaTitle: "Zebra Printers, Scanners & Mobile Computers in Zimbabwe | Tyflex",
+    metaDescription:
+      "Zebra Technologies thermal printers, barcode scanners and mobile computers supplied and supported by Tyflex in Zimbabwe — ZD / ZT printers, DS / LI scanners, TC / MC mobile computers, ribbons and media. Pricing on request.",
+    keywords: [
+      "Zebra Zimbabwe",
+      "Zebra printer Zimbabwe",
+      "Zebra barcode scanner Zimbabwe",
+      "Zebra ZT411 Zimbabwe",
+      "Zebra reseller Zimbabwe",
+      "barcode printing Zimbabwe",
+    ],
+  },
 ];
 
 export function getBrandBySlug(slug: string): Brand | undefined {

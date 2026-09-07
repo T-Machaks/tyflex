@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight, FileText, Tag } from "lucide-react";
+import { ArrowLeft, ArrowRight, ExternalLink, FileText, Tag } from "lucide-react";
 import GlassCard from "@/components/ui/GlassCard";
 import GradientButton from "@/components/ui/GradientButton";
 import DynamicIcon from "@/components/ui/DynamicIcon";
@@ -190,6 +190,22 @@ export default function ProductPage({ params }: ProductPageProps) {
                   <FileText className="h-4 w-4" />
                   Download datasheet (PDF)
                 </a>
+              )}
+              {product.resources && product.resources.length > 0 && (
+                <div className="mt-4 flex flex-col gap-1.5">
+                  {product.resources.map((r) => (
+                    <a
+                      key={r.url}
+                      href={r.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-sm text-brand-red hover:underline"
+                    >
+                      <ExternalLink className="h-4 w-4" />
+                      {r.label}
+                    </a>
+                  ))}
+                </div>
               )}
             </FadeIn>
           </div>

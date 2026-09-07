@@ -21,6 +21,11 @@ export const autoIdProducts: Product[] = [
     name: "Argox OS-2130D Pro Desktop Label Printer",
     category: "Printers",
     brand: "Argox",
+    image: "/webstore/autoid/argox-d2-250.png",
+    resources: [
+      { label: "OS-2130D Pro brochure (PDF)", url: "https://www.argox.com/docfile/brochure/OS-2130D_Pro_brochure_en_v1.0.pdf" },
+      { label: "Argox printer drivers", url: "https://www.argox.com/download/drivers/" },
+    ],
     shortDescription:
       "Compact 2-inch direct-thermal desktop label printer for retail shelf-edge, POS and light dispatch labelling.",
     description:
@@ -41,6 +46,11 @@ export const autoIdProducts: Product[] = [
     name: "Argox OS D2-250 Pro Desktop Label Printer",
     category: "Printers",
     brand: "Argox",
+    image: "/webstore/autoid/argox-d2-250.png",
+    resources: [
+      { label: "D2 Pro brochure (PDF)", url: "https://www.argox.com/docfile/brochure/D2_Pro_brochure_en_v1.0.pdf" },
+      { label: "Argox printer drivers", url: "https://www.argox.com/download/drivers/" },
+    ],
     shortDescription:
       "2-inch direct-thermal desktop printer, 203 dpi at 7 ips, with USB, USB host and Ethernet — retail and small-parcel labelling.",
     description:
@@ -64,6 +74,11 @@ export const autoIdProducts: Product[] = [
     name: "Argox OS-214D Pro Desktop Label Printer",
     category: "Printers",
     brand: "Argox",
+    image: "/webstore/autoid/argox-os-214.jpg",
+    resources: [
+      { label: "OS-214D brochure (PDF)", url: "https://www.argox.com/docfile/brochure/OS-214D_brochure_en_v1.1.pdf" },
+      { label: "Argox printer drivers", url: "https://www.argox.com/download/drivers/" },
+    ],
     shortDescription:
       "4-inch direct-thermal desktop printer, 203 dpi at 6 ips, with USB, RS-232 and Ethernet — general-purpose retail and dispatch labelling.",
     description:
@@ -87,6 +102,11 @@ export const autoIdProducts: Product[] = [
     name: "Argox OS-214EX Pro Desktop Label Printer",
     category: "Printers",
     brand: "Argox",
+    image: "/webstore/autoid/argox-os-214.jpg",
+    resources: [
+      { label: "OS-214EX Pro brochure (PDF)", url: "https://www.argox.com/docfile/brochure/OS-214EX_Pro_OS-200_Pro_brochure_en_v1.5.pdf" },
+      { label: "Argox printer drivers", url: "https://www.argox.com/download/drivers/" },
+    ],
     shortDescription:
       "Popular 4-inch DT/TT desktop printer, 203 dpi at 6 ips, with RS-232, USB and LAN — thermal-transfer durability for warehouse and asset labels.",
     description:
@@ -111,6 +131,11 @@ export const autoIdProducts: Product[] = [
     name: "Argox D4-250 Pro Desktop Label Printer",
     category: "Printers",
     brand: "Argox",
+    image: "/webstore/autoid/argox-d4-250.jpg",
+    resources: [
+      { label: "D4 Pro brochure (PDF)", url: "https://www.argox.com/docfile/brochure/D4-pro_brochure_en_v3.0.pdf" },
+      { label: "Argox printer drivers", url: "https://www.argox.com/download/drivers/" },
+    ],
     shortDescription:
       "Popular 4-inch direct-thermal desktop printer, 203 dpi at 6 ips, with Ethernet, USB host, USB and RS-232 — fast, quiet retail and dispatch labelling.",
     description:
@@ -134,6 +159,11 @@ export const autoIdProducts: Product[] = [
     name: "Argox D4-280 Plus Pro Linerless Label Printer",
     category: "Printers",
     brand: "Argox",
+    image: "/webstore/autoid/argox-o4-250.jpg",
+    resources: [
+      { label: "D4-280 Plus Pro product page", url: "https://www.argox.com/products-detail/d4-280plus_pro/" },
+      { label: "Argox printer drivers", url: "https://www.argox.com/download/drivers/" },
+    ],
     shortDescription:
       "4-inch direct-thermal linerless desktop printer, 203 dpi at 6 ips, with built-in cutter — no backing waste for shipping and grocery labels.",
     description:
@@ -157,6 +187,11 @@ export const autoIdProducts: Product[] = [
     name: "Argox O4-250 Pro Desktop Label Printer",
     category: "Printers",
     brand: "Argox",
+    image: "/webstore/autoid/argox-o4-250.jpg",
+    resources: [
+      { label: "O4 Pro brochure (PDF)", url: "https://www.argox.com/docfile/brochure/O4_Pro_brochure_en_v1.0.pdf" },
+      { label: "Argox printer drivers", url: "https://www.argox.com/download/drivers/" },
+    ],
     shortDescription:
       "Popular 4-inch DT/TT desktop printer, 203 dpi at 7 ips, with RS-232, USB, USB host and Ethernet — thermal-transfer labelling with a 110 m ribbon.",
     description:
@@ -181,6 +216,11 @@ export const autoIdProducts: Product[] = [
     name: "Argox O4-350 Pro Desktop Label Printer — 300 dpi",
     category: "Printers",
     brand: "Argox",
+    image: "/webstore/autoid/argox-cp2140ex.jpg",
+    resources: [
+      { label: "O4 Pro brochure (PDF)", url: "https://www.argox.com/docfile/brochure/O4_Pro_brochure_en_v1.0.pdf" },
+      { label: "Argox printer drivers", url: "https://www.argox.com/download/drivers/" },
+    ],
     shortDescription:
       "4-inch DT/TT desktop printer at 300 dpi, 6 ips, with RS-232, USB, USB host and Ethernet — fine text, small labels and 2D barcodes.",
     description:
@@ -205,6 +245,11 @@ export const autoIdProducts: Product[] = [
     name: "Argox CP-2140EX Pro Desktop Label Printer",
     category: "Printers",
     brand: "Argox",
+    image: "/webstore/autoid/argox-cp2140ex.jpg",
+    resources: [
+      { label: "CP-EX Pro series brochure (PDF)", url: "https://www.argox.com/docfile/brochure/CP-EX_Pro_series_brochure_en_v2.1.pdf" },
+      { label: "Argox printer drivers", url: "https://www.argox.com/download/drivers/" },
+    ],
     shortDescription:
       "Popular 4-inch DT/TT desktop printer, 203 dpi at 6 ips, with USB, LAN and RS-232 — 300 m ribbon on a 25 mm core for long unattended runs.",
     description:
@@ -229,6 +274,11 @@ export const autoIdProducts: Product[] = [
     name: "Argox CP-2240 Pro Desktop Label Printer",
     category: "Printers",
     brand: "Argox",
+    image: "/webstore/autoid/argox-cp3140ex.jpg",
+    resources: [
+      { label: "CP-2240 / CP-2140L product page", url: "https://www.argox.com/products-detail/cp-2240-cp-2140l/" },
+      { label: "Argox printer drivers", url: "https://www.argox.com/download/drivers/" },
+    ],
     shortDescription:
       "4-inch DT/TT desktop printer, 203 dpi at 7 ips, with a 6-inch OD media capacity — mid-volume retail and warehouse labelling.",
     description:
@@ -250,6 +300,11 @@ export const autoIdProducts: Product[] = [
     name: "Argox CP-3140EX Pro Desktop Label Printer — 300 dpi",
     category: "Printers",
     brand: "Argox",
+    image: "/webstore/autoid/argox-cp3140ex.jpg",
+    resources: [
+      { label: "CP-EX Pro series brochure (PDF)", url: "https://www.argox.com/docfile/brochure/CP-EX_Pro_series_brochure_en_v2.1.pdf" },
+      { label: "Argox printer drivers", url: "https://www.argox.com/download/drivers/" },
+    ],
     shortDescription:
       "4-inch DT/TT desktop printer at 300 dpi, 4 ips, with USB, USB host, RS-232 and Ethernet — high-resolution labels with high ribbon capacity.",
     description:
@@ -277,6 +332,11 @@ export const autoIdProducts: Product[] = [
     name: "Argox iX4-240 Pro Industrial Label Printer",
     category: "Printers",
     brand: "Argox",
+    image: "/webstore/autoid/argox-ix4-240.jpg",
+    resources: [
+      { label: "iX4 Pro brochure (PDF)", url: "https://www.argox.com/docfile/brochure/iX4%20Pro%20brochure%20en%20v4.0.pdf" },
+      { label: "Argox printer drivers", url: "https://www.argox.com/download/drivers/" },
+    ],
     shortDescription:
       "4-inch DT/TT industrial printer, 203 dpi at 6 ips, 450 m ribbon on a 25 mm core, with Ethernet, USB host, USB and RS-232.",
     description:
@@ -301,6 +361,11 @@ export const autoIdProducts: Product[] = [
     name: "Argox iX4-250 Pro Industrial Label Printer",
     category: "Printers",
     brand: "Argox",
+    image: "/webstore/autoid/argox-ix4-250.jpg",
+    resources: [
+      { label: "iX4 Pro brochure (PDF)", url: "https://www.argox.com/docfile/brochure/iX4%20Pro%20brochure%20en%20v4.0.pdf" },
+      { label: "Argox printer drivers", url: "https://www.argox.com/download/drivers/" },
+    ],
     shortDescription:
       "Popular 4-inch DT/TT industrial printer, 203 dpi at 8 ips, 450 m ribbon, with RTC, Ethernet, USB host, USB and RS-232.",
     description:
@@ -326,6 +391,11 @@ export const autoIdProducts: Product[] = [
     name: "Argox iX4-250 Pro Industrial Label Printer with Cutter",
     category: "Printers",
     brand: "Argox",
+    image: "/webstore/autoid/argox-ix4-250-cutter.jpg",
+    resources: [
+      { label: "iX4 Pro brochure (PDF)", url: "https://www.argox.com/docfile/brochure/iX4%20Pro%20brochure%20en%20v4.0.pdf" },
+      { label: "Argox printer drivers", url: "https://www.argox.com/download/drivers/" },
+    ],
     shortDescription:
       "iX4-250 Pro industrial printer factory-fitted with a guillotine cutter — 4-inch DT/TT, 203 dpi at 8 ips, 450 m ribbon, RTC.",
     description:
@@ -350,6 +420,11 @@ export const autoIdProducts: Product[] = [
     name: "Argox iX4-350 Pro Industrial Label Printer — 300 dpi",
     category: "Printers",
     brand: "Argox",
+    image: "/webstore/autoid/argox-ix4-350.jpg",
+    resources: [
+      { label: "iX4 Pro brochure (PDF)", url: "https://www.argox.com/docfile/brochure/iX4%20Pro%20brochure%20en%20v4.0.pdf" },
+      { label: "Argox printer drivers", url: "https://www.argox.com/download/drivers/" },
+    ],
     shortDescription:
       "4-inch DT/TT industrial printer at 300 dpi, 6 ips, 450 m ribbon, with Ethernet, USB host, USB and RS-232.",
     description:
@@ -374,6 +449,11 @@ export const autoIdProducts: Product[] = [
     name: "Argox iX4-280 Industrial Label Printer",
     category: "Printers",
     brand: "Argox",
+    image: "/webstore/autoid/argox-ix4-280.jpg",
+    resources: [
+      { label: "iX4-280 / 380 brochure (PDF)", url: "https://www.argox.com/docfile/brochure/iX4-280_380_brochure_en_v1.0.pdf" },
+      { label: "Argox printer drivers", url: "https://www.argox.com/download/drivers/" },
+    ],
     shortDescription:
       "Popular high-speed 4-inch industrial printer, 203 dpi at 10 ips, with USB, RS-232 and Ethernet — fast throughput for busy dispatch lines.",
     description:
@@ -396,6 +476,11 @@ export const autoIdProducts: Product[] = [
     name: "Argox XM4-200 Industrial Label Printer",
     category: "Printers",
     brand: "Argox",
+    image: "/webstore/autoid/argox-xm4-200.jpg",
+    resources: [
+      { label: "XM4-200 / 300 brochure (PDF)", url: "https://www.argox.com/docfile/brochure/XM4-200_300_brochure_en_v1.0.pdf" },
+      { label: "Argox printer drivers", url: "https://www.argox.com/download/drivers/" },
+    ],
     shortDescription:
       "4-inch industrial printer, 203 dpi at 12 ips, with a 3.5-inch colour display and USB, RS-232 and Ethernet — very high-speed labelling.",
     description:
@@ -419,6 +504,11 @@ export const autoIdProducts: Product[] = [
     name: "Argox iX6-250 Pro 6-inch Industrial Label Printer",
     category: "Printers",
     brand: "Argox",
+    image: "/webstore/autoid/argox-ix6.png",
+    resources: [
+      { label: "iX6 Pro brochure (PDF)", url: "https://www.argox.com/docfile/brochure/iX6%20Pro%20brochure%20en%20v1.5.pdf" },
+      { label: "Argox printer drivers", url: "https://www.argox.com/download/drivers/" },
+    ],
     shortDescription:
       "6-inch DT/TT industrial printer, 203 dpi at 6 ips, 168 mm max print width, 450 m ribbon — pallet, drum and wide-format labels. Replaces G6000.",
     description:
@@ -443,6 +533,11 @@ export const autoIdProducts: Product[] = [
     name: "Argox iX6-350 Pro 6-inch Industrial Label Printer — 300 dpi",
     category: "Printers",
     brand: "Argox",
+    image: "/webstore/autoid/argox-ix6.png",
+    resources: [
+      { label: "iX6 Pro brochure (PDF)", url: "https://www.argox.com/docfile/brochure/iX6%20Pro%20brochure%20en%20v1.5.pdf" },
+      { label: "Argox printer drivers", url: "https://www.argox.com/download/drivers/" },
+    ],
     shortDescription:
       "6-inch DT/TT industrial printer at 300 dpi, 6 ips, 168 mm max print width, 450 m ribbon — high-resolution wide-format labelling.",
     description:
@@ -499,6 +594,10 @@ export const autoIdProducts: Product[] = [
     name: "Honeywell PC42e-T Desktop Label Printer",
     category: "Printers",
     brand: "Honeywell",
+    image: "/webstore/autoid/honeywell-pc42e-t.jpg",
+    resources: [
+      { label: "PC42e-T product page", url: "https://sps.honeywell.com/us/en/products/productivity/printers/desktop/pc42t-plus-desktop-thermal-transfer-barcode-printer" },
+    ],
     shortDescription:
       "Popular 4-inch thermal-transfer desktop printer, 203 dpi, with USB and Ethernet — a low-cost, easy-to-deploy label printer for retail and office.",
     description:
@@ -521,6 +620,10 @@ export const autoIdProducts: Product[] = [
     name: "Honeywell PC45-T Desktop Label Printer",
     category: "Printers",
     brand: "Honeywell",
+    image: "/webstore/autoid/honeywell-pc45.jpg",
+    resources: [
+      { label: "PC45 product page", url: "https://sps.honeywell.com/us/en/products/productivity/printers/desktop/pc45t-desktop-thermal-transfer-barcode-printer" },
+    ],
     shortDescription:
       "4-inch thermal-transfer desktop printer, 203 dpi, with Ethernet and a full-touch screen — a modern desktop unit for retail and healthcare.",
     description:
@@ -543,6 +646,10 @@ export const autoIdProducts: Product[] = [
     name: "Honeywell PC45-D Desktop Label Printer",
     category: "Printers",
     brand: "Honeywell",
+    image: "/webstore/autoid/honeywell-pc45.jpg",
+    resources: [
+      { label: "PC45 product page", url: "https://sps.honeywell.com/us/en/products/productivity/printers/desktop/pc45t-desktop-thermal-transfer-barcode-printer" },
+    ],
     shortDescription:
       "4-inch direct-thermal desktop printer, 203 dpi, with Ethernet and a full-touch screen — shipping and receiving labels with no ribbon to manage.",
     description:
@@ -565,6 +672,10 @@ export const autoIdProducts: Product[] = [
     name: "Honeywell PM45 Industrial Label Printer",
     category: "Printers",
     brand: "Honeywell",
+    image: "/webstore/autoid/honeywell-pm45.png",
+    resources: [
+      { label: "PM45 product page", url: "https://sps.honeywell.com/us/en/products/productivity/printers/industrial/pm45" },
+    ],
     shortDescription:
       "Popular 4-inch thermal-transfer industrial printer, 203 dpi, with a full-touch display and Ethernet — the modern replacement for the PM43.",
     description:
@@ -589,6 +700,10 @@ export const autoIdProducts: Product[] = [
     name: "Honeywell PM45 Industrial Label Printer with Rewinder + LTS",
     category: "Printers",
     brand: "Honeywell",
+    image: "/webstore/autoid/honeywell-pm45.png",
+    resources: [
+      { label: "PM45 product page", url: "https://sps.honeywell.com/us/en/products/productivity/printers/industrial/pm45" },
+    ],
     shortDescription:
       "PM45A industrial printer factory-fitted with an internal rewinder and label-taken sensor — peel-and-present applications at 203 or 300 dpi.",
     description:
@@ -611,6 +726,10 @@ export const autoIdProducts: Product[] = [
     name: "Honeywell PM65 6-inch Industrial Label Printer",
     category: "Printers",
     brand: "Honeywell",
+    image: "/webstore/autoid/honeywell-pm65.png",
+    resources: [
+      { label: "PM45 / PM65 product page", url: "https://sps.honeywell.com/us/en/products/productivity/printers/industrial/pm45" },
+    ],
     shortDescription:
       "6-inch thermal-transfer industrial printer, 203 dpi, with a full-touch display and Ethernet — wide labels, placards and drum labelling.",
     description:
@@ -634,6 +753,10 @@ export const autoIdProducts: Product[] = [
     name: "Honeywell PD45S Industrial Label Printer",
     category: "Printers",
     brand: "Honeywell",
+    image: "/webstore/autoid/honeywell-pd45s.png",
+    resources: [
+      { label: "PD45S / PD45 product page", url: "https://sps.honeywell.com/us/en/products/productivity/printers/industrial/pd45s-pd45" },
+    ],
     shortDescription:
       "4-inch DT/TT industrial printer, 203 dpi, with a colour LCD and Ethernet — the replacement for the PM42, for mid-volume industrial labelling.",
     description:
@@ -657,6 +780,10 @@ export const autoIdProducts: Product[] = [
     name: "Honeywell PX45 High-Performance Industrial Label Printer",
     category: "Printers",
     brand: "Honeywell",
+    image: "/webstore/autoid/honeywell-px45.jpg",
+    resources: [
+      { label: "PX65 / PX45 product page", url: "https://sps.honeywell.com/us/en/products/productivity/printers/industrial/px65-industrial-printer" },
+    ],
     shortDescription:
       "4-inch thermal-transfer high-performance industrial printer, 203 or 300 dpi, with a rewinder + label-taken sensor and Ethernet — heavy-duty, all-metal.",
     description:
@@ -680,6 +807,10 @@ export const autoIdProducts: Product[] = [
     name: "Honeywell PX65 6-inch High-Performance Industrial Label Printer",
     category: "Printers",
     brand: "Honeywell",
+    image: "/webstore/autoid/honeywell-px65.jpg",
+    resources: [
+      { label: "PX65 product page", url: "https://sps.honeywell.com/us/en/products/productivity/printers/industrial/px65-industrial-printer" },
+    ],
     shortDescription:
       "6-inch thermal-transfer high-performance industrial printer, 203 or 300 dpi, with Ethernet — wide-format labelling at the highest duty cycles.",
     description:
@@ -702,6 +833,10 @@ export const autoIdProducts: Product[] = [
     name: "Honeywell PX940 Barcode Verification Industrial Printer",
     category: "Printers",
     brand: "Honeywell",
+    image: "/webstore/autoid/honeywell-px940.jpg",
+    resources: [
+      { label: "PX940 product page", url: "https://sps.honeywell.com/us/en/products/productivity/printers/industrial/px940-industrial-printer" },
+    ],
     shortDescription:
       "4-inch industrial printer with integrated inline barcode verification, 203 dpi, full-touch display, internal rewinder and peel-off — print-and-grade in one pass.",
     description:
@@ -729,6 +864,7 @@ export const autoIdProducts: Product[] = [
     name: "Tautron KEM RW155 4-inch Label Rewinder",
     category: "Accessories",
     brand: "Tautron",
+    image: "/webstore/autoid/tautron-rw155.jpg",
     shortDescription:
       "Most popular label rewinder — 4-inch external rewinder that winds printed labels into a tidy roll as they leave the printer.",
     description:
@@ -749,6 +885,7 @@ export const autoIdProducts: Product[] = [
     name: "Kemtek T10 4-inch Label Rewinder",
     category: "Accessories",
     brand: "Godex",
+    image: "/webstore/autoid/kemtek-t10-rewinder.png",
     shortDescription:
       "4-inch external label rewinder, up to 14 ips auto-mode rewind, 8-inch label roll capacity, inside/outside winding.",
     description:
@@ -770,6 +907,7 @@ export const autoIdProducts: Product[] = [
     name: "Kemtek T20 6-inch Label Rewinder",
     category: "Accessories",
     brand: "Godex",
+    image: "/webstore/autoid/kemtek-t20-rewinder.png",
     shortDescription:
       "6-inch external label rewinder, roll OD up to 152.4 mm, 1\"/1.5\"/3\" core, inside or outside winding — for wide-format printers.",
     description:

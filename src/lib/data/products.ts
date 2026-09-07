@@ -44,6 +44,11 @@ export interface Product {
   image?: string;
   /** Public path to a downloadable datasheet PDF, when one is published. */
   datasheet?: string;
+  /**
+   * External manufacturer resources — brochures, product pages, driver
+   * downloads. Rendered as an outbound link list on the product page.
+   */
+  resources?: { label: string; url: string }[];
 }
 
 const curatedProducts: Product[] = [
