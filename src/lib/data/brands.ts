@@ -673,6 +673,150 @@ export const brands: Brand[] = [
       "barcode printing Zimbabwe",
     ],
   },
+  {
+    slug: "mikrotik",
+    name: "MikroTik",
+    category: "Routers, Switches & Wireless",
+    tagline: "MikroTik RouterOS routers, CRS / CSS switches, wireless and SFP modules — supplied and configured by Tyflex in Zimbabwe.",
+    intro: [
+      "MikroTik builds carrier-grade routing and switching at a price that changed the market. The range runs from hEX and RB edge routers and CCR aggregation routers, through CRS and CSS managed and smart switches, to hAP / cAP / wAP wireless and LTE gateways — all on RouterOS, with enterprise features like BGP, MPLS, VLANs, VPN, firewall, QoS and hotspot built in.",
+      "Tyflex supplies MikroTik for ISPs, WISPs and business networks, and configures RouterOS so the box arrives doing its job — routing, failover, VPN and segmentation documented and handed over.",
+    ],
+    highlights: [
+      "CRS and CSS managed / smart switches — Gigabit copper with SFP and SFP+ uplinks",
+      "hEX, RB and CCR routers on RouterOS for edge, VPN, BGP and multi-WAN",
+      "hAP, cAP and wAP wireless for indoor coverage and outdoor point-to-point",
+      "LTE routers for automatic failover and sites with no fixed line",
+      "SFP / SFP+ modules and the accessories to match, plus RouterOS configuration",
+    ],
+    icon: "Router",
+    productBrandKeys: ["MikroTik"],
+    solutionSlugs: ["networking"],
+    faqs: [
+      {
+        question: "Does Tyflex configure MikroTik, or only supply it?",
+        answer:
+          "Both. We supply the hardware and set up RouterOS — firewall, VPN, VLANs, QoS and WAN failover — then hand over a documented configuration so your team can maintain it.",
+      },
+      {
+        question: "MikroTik or a mainstream brand?",
+        answer:
+          "MikroTik gives you enterprise routing and switching features — BGP, MPLS, VLAN, VPN, hotspot — for a fraction of the usual price. The trade-off is that it rewards someone who knows RouterOS, which is the gap we cover on supply and support.",
+      },
+      {
+        question: "Can you supply MikroTik for an ISP or WISP?",
+        answer:
+          "Yes — CCR routers for aggregation and BGP, CRS switches for the core, and the wireless and SFP kit for last-mile and backhaul, all from one supplier.",
+      },
+    ],
+    metaTitle: "MikroTik Routers, Switches & Wireless in Zimbabwe | Tyflex",
+    metaDescription:
+      "MikroTik RouterOS routers, CRS / CSS switches, wireless and SFP modules supplied and configured by Tyflex in Zimbabwe — for ISPs, WISPs and business networks. Pricing on request.",
+    keywords: [
+      "MikroTik Zimbabwe",
+      "MikroTik router Zimbabwe",
+      "RouterOS Zimbabwe",
+      "MikroTik switch Harare",
+      "MikroTik reseller Zimbabwe",
+      "WISP equipment Zimbabwe",
+    ],
+  },
+  {
+    slug: "tp-link",
+    name: "TP-Link",
+    category: "Omada Networking, Wi-Fi & VIGI Security",
+    tagline: "TP-Link Omada switches, business Wi-Fi, Deco mesh and VIGI cameras — supplied and deployed by Tyflex in Zimbabwe.",
+    intro: [
+      "TP-Link's business line covers cloud-managed networking and surveillance for SMEs, retail chains, schools and hospitality: Omada SDN switches, access points and controllers, Deco whole-site mesh, LTE and 5G routers, and the VIGI range of IP cameras and NVRs — all manageable from a single Omada dashboard, on-premise or in the cloud.",
+      "Tyflex specifies, supplies and deploys TP-Link, sizing the controller, VLANs and Wi-Fi coverage to the building and handing over a managed network rather than a box of parts.",
+    ],
+    highlights: [
+      "Omada managed and smart switches — Gigabit and 10G, PoE+ where the APs and cameras need it",
+      "Omada EAP ceiling, wall-plate and outdoor access points under one controller",
+      "Deco mesh for fast whole-office or multi-building coverage",
+      "LTE and 5G routers for failover and sites without a fixed line",
+      "VIGI IP cameras and NVRs — cloud or on-prem, alongside the network in the same ecosystem",
+    ],
+    icon: "Wifi",
+    productBrandKeys: ["TP-Link"],
+    solutionSlugs: ["networking", "smart-building"],
+    faqs: [
+      {
+        question: "Is TP-Link Omada a proper managed / SDN platform?",
+        answer:
+          "Yes. One controller — hardware, software or cloud — runs the switches, access points and gateways together, with VLANs, seamless roaming, captive portal and central firmware. We size it and set it up.",
+      },
+      {
+        question: "Can VIGI cameras and the network run from one place?",
+        answer:
+          "VIGI NVRs and cameras sit in the same TP-Link ecosystem as Omada, so a small or mid-size site can run its network and its cameras without two separate management stacks.",
+      },
+      {
+        question: "TP-Link or a more expensive brand?",
+        answer:
+          "Omada matches the cloud-managed model at a lower entry price and is well stocked in Zimbabwe. For very large or SLA-critical deployments we will tell you where a different platform earns its cost.",
+      },
+    ],
+    metaTitle: "TP-Link Omada Networking, Wi-Fi & VIGI Cameras in Zimbabwe | Tyflex",
+    metaDescription:
+      "TP-Link Omada switches, access points and controllers, Deco mesh, LTE routers and VIGI IP cameras / NVRs from Tyflex in Zimbabwe — supplied and deployed. Pricing on request.",
+    keywords: [
+      "TP-Link Zimbabwe",
+      "TP-Link Omada Zimbabwe",
+      "business WiFi Zimbabwe",
+      "VIGI camera Zimbabwe",
+      "TP-Link switch Harare",
+      "TP-Link reseller Zimbabwe",
+    ],
+  },
+  {
+    slug: "samsung",
+    name: "Samsung",
+    category: "Professional & Large-Format Displays",
+    tagline: "Samsung professional signage, interactive panels and video-wall displays — supplied and installed by Tyflex in Zimbabwe.",
+    intro: [
+      "Samsung's commercial display range covers professional signage panels (QB, QM, QE and QH series) from 24\" to 98\", 16/7 and 24/7 duty ratings for always-on retail and wayfinding, interactive whiteboards for meeting rooms and classrooms, and video-wall and fine-pitch options for control rooms and lobbies. Most panels carry the Tizen SoC media player, so they schedule content with MagicINFO without an external PC.",
+      "Tyflex supplies, mounts and commissions Samsung displays for boardrooms, reception areas, retail, control rooms and campuses — the right size and duty rating for the room, on the wall and working.",
+    ],
+    highlights: [
+      "QB / QM / QE / QH professional signage panels, FHD to 4K UHD, 24\" to 98\"",
+      "16/7 and 24/7 duty ratings for retail, wayfinding and always-on displays",
+      "Interactive whiteboards (WAC / WAD series) for Microsoft Teams and classroom use",
+      "Tizen SoC media player on board — schedule with MagicINFO, no separate PC",
+      "Wall mounts, trolleys and installation, plus video-wall and fine-pitch LED options",
+    ],
+    icon: "Monitor",
+    productBrandKeys: ["Samsung"],
+    solutionSlugs: ["meeting-rooms", "smart-building"],
+    faqs: [
+      {
+        question: "Do Samsung professional displays need a separate media player?",
+        answer:
+          "Most don't — the Tizen SoC player is built in. Schedule content with MagicINFO and skip the external PC. We configure it as part of the install.",
+      },
+      {
+        question: "Does Tyflex mount and commission the displays?",
+        answer:
+          "Yes — we supply the correct wall mount or trolley, install the screen, and hand it over working: source switching and scheduling for signage, or Teams-ready for an interactive panel.",
+      },
+      {
+        question: "Why is there no fixed price on the display models?",
+        answer:
+          "Large-format Samsung is quoted per project — size, duty rating, mount and installation all move the number. Send us the room and we will spec and price it.",
+      },
+    ],
+    metaTitle: "Samsung Professional & Large-Format Displays in Zimbabwe | Tyflex",
+    metaDescription:
+      "Samsung professional signage panels, interactive whiteboards and video-wall displays from Tyflex in Zimbabwe — supplied, mounted and commissioned with the Tizen SoC player. Pricing on request.",
+    keywords: [
+      "Samsung display Zimbabwe",
+      "Samsung signage Zimbabwe",
+      "large format display Zimbabwe",
+      "interactive whiteboard Zimbabwe",
+      "video wall Harare",
+      "Samsung reseller Zimbabwe",
+    ],
+  },
 ];
 
 export function getBrandBySlug(slug: string): Brand | undefined {
