@@ -24,8 +24,8 @@ const featuredPicks = (() => {
   }
   const cols = [...byCat.values()];
   const out: typeof products = [];
-  for (let i = 0; out.length < 8 && cols.some((c) => c[i]); i++) {
-    for (const c of cols) if (c[i] && out.length < 8) out.push(c[i]);
+  for (let i = 0; out.length < 12 && cols.some((c) => c[i]); i++) {
+    for (const c of cols) if (c[i] && out.length < 12) out.push(c[i]);
   }
   return out;
 })();

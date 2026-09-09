@@ -4,6 +4,7 @@ import { hikvisionCatalog } from "@/lib/data/products-hikvision-catalog";
 import { printerProducts } from "@/lib/data/products-printers";
 import { truenavTscProducts } from "@/lib/data/products-truenav-tsc";
 import { yeastarProducts } from "@/lib/data/products-yeastar";
+import { nologyProducts } from "@/lib/data/products-nology";
 
 export const PRODUCT_CATEGORIES = [
   "Networking",
@@ -257,6 +258,7 @@ export const products: Product[] = [
   ...autoIdProducts,
   ...truenavTscProducts,
   ...yeastarProducts,
+  ...nologyProducts,
   ...hikvisionCatalog.filter((p) => !curatedIds.has(p.id)),
 ];
 
