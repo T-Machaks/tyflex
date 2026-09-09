@@ -131,6 +131,10 @@ export default function QuoteCartDrawer() {
                   >
                     Request a quote for these
                   </Link>
+                  <p className="text-center text-xs text-gray-500">
+                    Online orders only &mdash; we email pricing &amp; availability, then
+                    deliver countrywide or arrange collection.
+                  </p>
                   <button
                     onClick={clear}
                     className="w-full text-center text-xs text-gray-500 hover:text-gray-300 transition-colors"

@@ -7,7 +7,7 @@ import { buildMetadata } from "@/lib/seo";
 export const metadata = buildMetadata({
   title: "Webstore | Tyflex",
   description:
-    "Browse enterprise technology from Tyflex in Zimbabwe — Hikvision cameras and switches, TSC and Printronix label printers, Yealink and Fanvil IP phones, Yeastar PBX and 3CX. Request a quote.",
+    "Tyflex's online store for enterprise technology in Zimbabwe — Hikvision cameras and switches, MikroTik and TP-Link networking, Samsung displays, TSC and Printronix label printers, Yealink and Fanvil IP phones, Yeastar PBX and 3CX. Order and request pricing online; delivered countrywide.",
   path: "/webstore",
   keywords: [
     "enterprise technology Zimbabwe",
@@ -26,7 +26,7 @@ export default function WebstorePage() {
         <div className="text-center mb-16">
           <FadeIn>
             <span className="inline-block px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-sm text-gray-300 mb-4">
-              Inquiry-Based Ordering
+              Online Store &mdash; Order &amp; Quote Online
             </span>
           </FadeIn>
           <FadeIn delay={0.1}>
@@ -36,9 +36,9 @@ export default function WebstorePage() {
           </FadeIn>
           <FadeIn delay={0.15}>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              Browse and request pricing on enterprise technology products.
-              From VoIP phones to barcode scanners, sourced and supported
-              across Zimbabwe.
+              Tyflex&rsquo;s online store for enterprise technology &mdash; VoIP phones,
+              barcode printers, cameras, switches, displays and more. Browse, build a
+              list and order or request pricing online. We deliver across Zimbabwe.
             </p>
           </FadeIn>
           <FadeIn delay={0.2}>
@@ -51,6 +51,15 @@ export default function WebstorePage() {
             </p>
           </FadeIn>
         </div>
+
+        <FadeIn delay={0.25}>
+          <div className="mx-auto max-w-3xl -mt-6 mb-14 rounded-xl border border-brand-red/25 bg-brand-red/[0.06] px-5 py-4 text-sm text-gray-300">
+            <span className="font-semibold text-white">This is an online store.</span>{" "}
+            Place your order or quote request right here &mdash; we deliver countrywide,
+            or arrange collection by appointment. Our premises are not a walk-in shop, so
+            please don&rsquo;t pop in without booking a time with us first.
+          </div>
+        </FadeIn>
 
         <WebstoreClient />
       </div>

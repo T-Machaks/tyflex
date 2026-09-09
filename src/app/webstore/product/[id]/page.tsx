@@ -178,7 +178,9 @@ export default function ProductPage({ params }: ProductPageProps) {
                 <Link href={quoteHref} className="text-brand-red hover:underline">
                   ask about just this item
                 </Link>
-                . No checkout — our team confirms availability and pricing with you.
+                . Our team confirms availability and pricing with you, then we deliver
+                countrywide or arrange collection. This is an online store — there is no
+                walk-in counter at our offices.
               </p>
               {product.datasheet && (
                 <a
