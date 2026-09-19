@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
@@ -19,6 +19,56 @@ const WELCOME_MESSAGE =
 
 const STORAGE_KEY = "tyflex-chat-messages";
 const LEAD_CAPTURE_THRESHOLD = 3;
+
+/** Renders **bold** and `code` spans plus "- " bullet lines as real elements —
+ * the model's replies are plain text otherwise, so markdown syntax like "**"
+ * was showing up literally instead of rendering. */
+function renderInline(text: string): ReactNode[] {
+  const parts: ReactNode[] = [];
+  const re = /\*\*(.+?)\*\*|`(.+?)`/g;
+  let lastIndex = 0;
+  let m: RegExpExecArray | null;
+  let key = 0;
+  while ((m = re.exec(text))) {
+    if (m.index > lastIndex) parts.push(text.slice(lastIndex, m.index));
+    if (m[1] !== undefined) parts.push(<strong key={key++}>{m[1]}</strong>);
+    else if (m[2] !== undefined) parts.push(<code key={key++} className="rounded bg-black/20 px-1 py-0.5 text-[0.85em]">{m[2]}</code>);
+    lastIndex = re.lastIndex;
+  }
+  if (lastIndex < text.length) parts.push(text.slice(lastIndex));
+  return parts;
+}
+
+function renderMarkdownLite(text: string): ReactNode {
+  const lines = text.split("\n");
+  const nodes: ReactNode[] = [];
+  let listBuffer: string[] = [];
+
+  function flushList(key: string) {
+    if (listBuffer.length === 0) return;
+    nodes.push(
+      <ul key={key} className="my-1 list-disc space-y-0.5 pl-4">
+        {listBuffer.map((item, i) => (
+          <li key={i}>{renderInline(item)}</li>
+        ))}
+      </ul>
+    );
+    listBuffer = [];
+  }
+
+  lines.forEach((line, i) => {
+    const bulletMatch = /^[-*]\s+(.*)/.exec(line);
+    if (bulletMatch) {
+      listBuffer.push(bulletMatch[1]);
+      return;
+    }
+    flushList(`ul-${i}`);
+    nodes.push(<span key={`l-${i}`}>{renderInline(line)}</span>);
+    if (i < lines.length - 1) nodes.push(<br key={`br-${i}`} />);
+  });
+  flushList("ul-end");
+  return nodes;
+}
 
 export default function ChatWidget() {
   const pathname = usePathname();
@@ -153,6 +203,7 @@ export default function ChatWidget() {
           email: leadEmail,
           subject: "Chatbot Lead",
           message: `Captured from the website chat assistant after ${userMessageCount} messages.\n\nRecent conversation:\n${transcript}`,
+          confirmToVisitor: true,
         }),
       });
     } catch {
@@ -232,13 +283,13 @@ export default function ChatWidget() {
                 return (
                   <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
                     <div
-                      className={`max-w-[85%] px-4 py-2.5 text-sm leading-relaxed whitespace-pre-wrap ${
+                      className={`max-w-[85%] px-4 py-2.5 text-sm leading-relaxed ${
                         m.role === "user"
                           ? "rounded-2xl rounded-br-sm bg-brand-red text-white"
                           : "rounded-2xl rounded-bl-sm bg-white/5 text-gray-200"
                       }`}
                     >
-                      {isEmptyStreamingReply ? <TypingIndicator /> : m.content}
+                      {isEmptyStreamingReply ? <TypingIndicator /> : renderMarkdownLite(m.content)}
                     </div>
                   </div>
                 );

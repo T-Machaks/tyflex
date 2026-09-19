@@ -7,6 +7,10 @@ export const contactSchema = z.object({
   company: z.string().trim().max(160).optional().or(z.literal("")),
   subject: z.string().trim().max(60).optional().or(z.literal("")),
   message: z.string().trim().min(10, "Please add a few more details").max(4000),
+  /** When true, also sends a short auto-reply confirmation to the submitter's own email
+   * (in addition to the business notification). Opt-in per caller — e.g. the chat widget's
+   * lead capture uses it; the general contact form doesn't, to leave its behavior unchanged. */
+  confirmToVisitor: z.boolean().optional(),
 });
 
 export type ContactFormData = z.infer<typeof contactSchema>;

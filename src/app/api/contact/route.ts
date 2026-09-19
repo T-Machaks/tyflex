@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const { name, email, phone, company, subject, message } = parsed.data;
+  const { name, email, phone, company, subject, message, confirmToVisitor } = parsed.data;
 
   const rows: [string, string][] = [
     ["Name", name],
@@ -51,6 +51,25 @@ export async function POST(request: NextRequest) {
       },
       { status: 502 }
     );
+  }
+
+  // Best-effort auto-reply to the visitor — the business notification above is
+  // the part that matters, so a failure here doesn't turn a successful
+  // submission into an error response.
+  if (confirmToVisitor) {
+    try {
+      await sendMail({
+        to: email,
+        subject: "Thanks for reaching out to Tyflex",
+        html: `<p style="font-family:sans-serif;">Hi ${name},</p>
+<p style="font-family:sans-serif;">Thanks for chatting with the Tyflex Assistant — we've received your details and someone from our team will follow up with you shortly.</p>
+<p style="font-family:sans-serif;">In the meantime, feel free to browse our solutions at <a href="${COMPANY.url}/solutions">${COMPANY.url}/solutions</a>, or reach us directly at ${COMPANY.email} / ${COMPANY.phoneDisplay}.</p>
+<p style="font-family:sans-serif;">— The Tyflex Team</p>`,
+        text: `Hi ${name},\n\nThanks for chatting with the Tyflex Assistant — we've received your details and someone from our team will follow up with you shortly.\n\nIn the meantime, feel free to browse our solutions at ${COMPANY.url}/solutions, or reach us directly at ${COMPANY.email} / ${COMPANY.phoneDisplay}.\n\n— The Tyflex Team`,
+      });
+    } catch (err) {
+      console.error("Failed to send visitor confirmation email:", err);
+    }
   }
 
   return NextResponse.json({ ok: true });
