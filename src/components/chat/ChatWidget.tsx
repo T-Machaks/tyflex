@@ -7,7 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Bot, MessageCircle, Send, Sparkles, X } from "lucide-react";
 import TypingIndicator from "@/components/motion/TypingIndicator";
 import { MAX_CHAT_USER_MESSAGES } from "@/lib/validation";
-import { isProtectedPath } from "@/lib/constants";
+import { isProtectedPath, COMPANY } from "@/lib/constants";
 
 interface ChatMessage {
   role: "user" | "assistant";
@@ -20,19 +20,39 @@ const WELCOME_MESSAGE =
 const STORAGE_KEY = "tyflex-chat-messages";
 const LEAD_CAPTURE_THRESHOLD = 3;
 
-/** Renders **bold** and `code` spans plus "- " bullet lines as real elements —
- * the model's replies are plain text otherwise, so markdown syntax like "**"
- * was showing up literally instead of rendering. */
+/** Renders [label](url) links (internal ones navigate client-side via next/link,
+ * so the widget stays open), **bold** and `code` spans as real elements — the
+ * model's replies are plain text otherwise, so this syntax was showing up
+ * literally instead of rendering/navigating. */
 function renderInline(text: string): ReactNode[] {
   const parts: ReactNode[] = [];
-  const re = /\*\*(.+?)\*\*|`(.+?)`/g;
+  const re = /\[([^\]]+)\]\(([^)]+)\)|\*\*(.+?)\*\*|`(.+?)`/g;
   let lastIndex = 0;
   let m: RegExpExecArray | null;
   let key = 0;
   while ((m = re.exec(text))) {
     if (m.index > lastIndex) parts.push(text.slice(lastIndex, m.index));
-    if (m[1] !== undefined) parts.push(<strong key={key++}>{m[1]}</strong>);
-    else if (m[2] !== undefined) parts.push(<code key={key++} className="rounded bg-black/20 px-1 py-0.5 text-[0.85em]">{m[2]}</code>);
+    if (m[1] !== undefined && m[2] !== undefined) {
+      const label = m[1];
+      const href = m[2];
+      const isInternal = href.startsWith("/") || href.startsWith(COMPANY.url);
+      const path = href.startsWith(COMPANY.url) ? href.slice(COMPANY.url.length) || "/" : href;
+      parts.push(
+        isInternal ? (
+          <Link key={key++} href={path} className="underline decoration-1 underline-offset-2 hover:text-brand-red">
+            {label}
+          </Link>
+        ) : (
+          <a key={key++} href={href} target="_blank" rel="noopener noreferrer" className="underline decoration-1 underline-offset-2 hover:text-brand-red">
+            {label}
+          </a>
+        )
+      );
+    } else if (m[3] !== undefined) {
+      parts.push(<strong key={key++}>{m[3]}</strong>);
+    } else if (m[4] !== undefined) {
+      parts.push(<code key={key++} className="rounded bg-black/20 px-1 py-0.5 text-[0.85em]">{m[4]}</code>);
+    }
     lastIndex = re.lastIndex;
   }
   if (lastIndex < text.length) parts.push(text.slice(lastIndex));
