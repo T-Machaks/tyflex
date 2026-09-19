@@ -206,7 +206,7 @@ export default function ChatWidget() {
 
   const welcomeMessage = visitor
     ? `Hey ${firstName(visitor.name)}, good to see you again! What can I help you find today?`
-    : "Hi! I'm Mukoma, your Tyflex assistant. Tell me what your business needs, or ask about any of our solutions — I'll point you in the right direction.";
+    : "Hi! I'm Nyasha, your Tyflex assistant. Tell me what your business needs, or ask about any of our solutions — I'll point you in the right direction.";
 
   async function sendMessage(text: string) {
     const trimmed = text.trim();
@@ -321,7 +321,7 @@ export default function ChatWidget() {
               }}
               className="block w-full px-4 py-3 text-left text-xs text-gray-200 hover:text-white"
             >
-              Need a hand finding something? Ask Mukoma 👋
+              Need a hand finding something? Ask Nyasha 👋
             </button>
             <button
               onClick={() => setShowNudge(false)}
@@ -340,7 +340,7 @@ export default function ChatWidget() {
           setShowNudge(false);
           setIsOpen((v) => !v);
         }}
-        aria-label={isOpen ? "Close Mukoma, the Tyflex chat assistant" : "Open Mukoma, the Tyflex chat assistant"}
+        aria-label={isOpen ? "Close Nyasha, the Tyflex chat assistant" : "Open Nyasha, the Tyflex chat assistant"}
         className="fixed bottom-6 right-6 z-50 h-14 w-14 rounded-full bg-brand-red text-white flex items-center justify-center shadow-lg shadow-brand-red/30 animate-glow-pulse"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
@@ -374,7 +374,7 @@ export default function ChatWidget() {
                 <Bot className="h-5 w-5" />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="font-semibold text-sm">Mukoma</p>
+                <p className="font-semibold text-sm">Nyasha</p>
                 <p className="text-xs text-gray-500 flex items-center gap-1.5">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
                   Online

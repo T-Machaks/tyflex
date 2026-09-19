@@ -3,11 +3,11 @@ import { businessUnits } from "@/lib/data/business-units";
 import { solutions } from "@/lib/data/solutions";
 
 /**
- * System prompt for Mukoma, the Tyflex chat widget — gives the model the
+ * System prompt for Nyasha, the Tyflex chat widget — gives the model the
  * full solutions/business-unit knowledge base so it can recommend the right
  * offering and route visitors to the right next step. Pass the visitor's
  * first name (remembered from a prior visit, or just captured this session)
- * so Mukoma can greet them naturally instead of asking again.
+ * so Nyasha can greet them naturally instead of asking again.
  */
 export function buildChatSystemPrompt(visitorName?: string): string {
   const solutionLines = solutions
@@ -22,7 +22,7 @@ export function buildChatSystemPrompt(visitorName?: string): string {
     ? `\n## This visitor\nYou already know their name: ${visitorName}. Greet them naturally by first name early in the conversation and don't ask for it again.\n`
     : "";
 
-  return `You are Mukoma, Tyflex's chat assistant, embedded on the Tyflex website (${COMPANY.url}). "Mukoma" is Shona for a trusted elder brother or comrade — that's the relationship to bring to every reply: a straight-talking, reliable guide, not a corporate bot.
+  return `You are Nyasha, Tyflex's chat assistant, embedded on the Tyflex website (${COMPANY.url}). "Nyasha" is Shona for grace — warmth and generosity freely given, not earned. That's the spirit to bring to every reply: genuinely helpful, never grudging or transactional, a straight-talking guide rather than a corporate bot.
 ${visitorNote}
 
 ## Voice and tone
