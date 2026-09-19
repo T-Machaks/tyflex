@@ -14,11 +14,22 @@ interface ChatMessage {
   content: string;
 }
 
-const WELCOME_MESSAGE =
-  "Hi! I'm the Tyflex Assistant. Tell me what your business needs, or ask about any of our solutions — I'll point you in the right direction.";
+interface Visitor {
+  name: string;
+  email: string;
+}
 
 const STORAGE_KEY = "tyflex-chat-messages";
+const VISITOR_KEY = "tyflex-visitor";
+const NUDGE_COUNT_KEY = "tyflex-chat-nudge-count";
 const LEAD_CAPTURE_THRESHOLD = 3;
+const MAX_NUDGES_PER_SESSION = 3;
+const NUDGE_DELAY_MS = 8000;
+const NUDGE_AUTO_HIDE_MS = 12000;
+
+function firstName(name: string): string {
+  return name.trim().split(/\s+/)[0] || name;
+}
 
 /** Renders [label](url) links (internal ones navigate client-side via next/link,
  * so the widget stays open), **bold** and `code` spans as real elements — the
@@ -99,6 +110,7 @@ export default function ChatWidget() {
   const [isStreaming, setIsStreaming] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
+  const [visitor, setVisitor] = useState<Visitor | null>(null);
   const [showLeadCapture, setShowLeadCapture] = useState(false);
   const [leadDismissed, setLeadDismissed] = useState(false);
   const [leadCaptured, setLeadCaptured] = useState(false);
@@ -106,13 +118,26 @@ export default function ChatWidget() {
   const [leadEmail, setLeadEmail] = useState("");
   const [leadSubmitting, setLeadSubmitting] = useState(false);
 
+  const [showNudge, setShowNudge] = useState(false);
+
   const bottomRef = useRef<HTMLDivElement>(null);
 
-  // Restore an in-progress conversation within the same tab session.
+  // Restore an in-progress conversation within the same tab session, and a
+  // remembered visitor (name/email, saved on this browser) across visits —
+  // so a returning visitor isn't asked to re-enter details already given.
   useEffect(() => {
     try {
       const saved = sessionStorage.getItem(STORAGE_KEY);
       if (saved) setMessages(JSON.parse(saved));
+    } catch {
+      // ignore corrupt/unavailable storage
+    }
+    try {
+      const savedVisitor = localStorage.getItem(VISITOR_KEY);
+      if (savedVisitor) {
+        setVisitor(JSON.parse(savedVisitor));
+        setLeadCaptured(true);
+      }
     } catch {
       // ignore corrupt/unavailable storage
     }
@@ -145,9 +170,43 @@ export default function ChatWidget() {
     }
   }, [userMessageCount, leadCaptured, leadDismissed, showLeadCapture, isStreaming]);
 
+  // Gently nudge visitors toward the assistant as a way to find their way
+  // around the site — a few times per browser session, not on every page.
+  useEffect(() => {
+    if (isProtectedPath(pathname) || isOpen || messages.length > 0) return;
+    let count = 0;
+    try {
+      count = Number(sessionStorage.getItem(NUDGE_COUNT_KEY) || "0");
+    } catch {
+      // ignore
+    }
+    if (count >= MAX_NUDGES_PER_SESSION) return;
+
+    const showTimer = setTimeout(() => {
+      setShowNudge(true);
+      try {
+        sessionStorage.setItem(NUDGE_COUNT_KEY, String(count + 1));
+      } catch {
+        // ignore
+      }
+    }, NUDGE_DELAY_MS);
+
+    return () => clearTimeout(showTimer);
+  }, [pathname, isOpen, messages.length]);
+
+  useEffect(() => {
+    if (!showNudge) return;
+    const hideTimer = setTimeout(() => setShowNudge(false), NUDGE_AUTO_HIDE_MS);
+    return () => clearTimeout(hideTimer);
+  }, [showNudge]);
+
   if (isProtectedPath(pathname)) {
     return null;
   }
+
+  const welcomeMessage = visitor
+    ? `Hey ${firstName(visitor.name)}, good to see you again! What can I help you find today?`
+    : "Hi! I'm Mukoma, your Tyflex assistant. Tell me what your business needs, or ask about any of our solutions — I'll point you in the right direction.";
 
   async function sendMessage(text: string) {
     const trimmed = text.trim();
@@ -163,7 +222,7 @@ export default function ChatWidget() {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: outgoing }),
+        body: JSON.stringify({ messages: outgoing, visitorName: visitor?.name }),
       });
 
       if (!res.ok || !res.body) {
@@ -229,6 +288,14 @@ export default function ChatWidget() {
     } catch {
       // Non-critical — don't block the chat experience on this failing.
     } finally {
+      const saved: Visitor = { name: leadName, email: leadEmail };
+      setVisitor(saved);
+      try {
+        localStorage.setItem(VISITOR_KEY, JSON.stringify(saved));
+      } catch {
+        // ignore storage failures (private browsing, quota, etc.) — the
+        // in-memory visitor state above still personalizes this session.
+      }
       setLeadCaptured(true);
       setShowLeadCapture(false);
       setLeadSubmitting(false);
@@ -237,10 +304,43 @@ export default function ChatWidget() {
 
   return (
     <>
+      {/* Nudge bubble — points visitors toward the assistant as a way to find their way around */}
+      <AnimatePresence>
+        {showNudge && !isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 8, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 8, scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+            className="fixed bottom-24 right-6 z-50 max-w-[220px] rounded-2xl rounded-br-sm border border-white/10 bg-brand-card shadow-xl"
+          >
+            <button
+              onClick={() => {
+                setShowNudge(false);
+                setIsOpen(true);
+              }}
+              className="block w-full px-4 py-3 text-left text-xs text-gray-200 hover:text-white"
+            >
+              Need a hand finding something? Ask Mukoma 👋
+            </button>
+            <button
+              onClick={() => setShowNudge(false)}
+              aria-label="Dismiss"
+              className="absolute -right-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-brand-black text-gray-500 hover:text-white"
+            >
+              <X className="h-3 w-3" />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Floating trigger */}
       <motion.button
-        onClick={() => setIsOpen((v) => !v)}
-        aria-label={isOpen ? "Close chat assistant" : "Open chat assistant"}
+        onClick={() => {
+          setShowNudge(false);
+          setIsOpen((v) => !v);
+        }}
+        aria-label={isOpen ? "Close Mukoma, the Tyflex chat assistant" : "Open Mukoma, the Tyflex chat assistant"}
         className="fixed bottom-6 right-6 z-50 h-14 w-14 rounded-full bg-brand-red text-white flex items-center justify-center shadow-lg shadow-brand-red/30 animate-glow-pulse"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
@@ -274,7 +374,7 @@ export default function ChatWidget() {
                 <Bot className="h-5 w-5" />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="font-semibold text-sm">Tyflex Assistant</p>
+                <p className="font-semibold text-sm">Mukoma</p>
                 <p className="text-xs text-gray-500 flex items-center gap-1.5">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
                   Online
@@ -293,7 +393,7 @@ export default function ChatWidget() {
             <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3">
               <div className="flex justify-start">
                 <div className="max-w-[85%] rounded-2xl rounded-bl-sm bg-white/5 text-gray-200 px-4 py-2.5 text-sm leading-relaxed">
-                  {WELCOME_MESSAGE}
+                  {welcomeMessage}
                 </div>
               </div>
 

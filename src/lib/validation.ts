@@ -76,6 +76,10 @@ export const chatMessageSchema = z.object({
 // who hits it gets the friendly rate-limit message instead of a generic 400.
 export const chatSchema = z.object({
   messages: z.array(chatMessageSchema).min(1).max(MAX_CHAT_USER_MESSAGES * 4),
+  /** First name of a remembered/just-captured visitor, if any — lets the
+   * assistant greet them by name. Purely cosmetic context, not trusted for
+   * anything else. */
+  visitorName: z.string().trim().min(1).max(120).optional(),
 });
 
 export type ChatMessage = z.infer<typeof chatMessageSchema>;

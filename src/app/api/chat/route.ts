@@ -19,8 +19,6 @@ const MAX_TOKENS = 1024;
 // InvokeModelWithResponseStream on the model/inference-profile ARN.
 const bedrock = new BedrockRuntimeClient({ region: REGION });
 
-const SYSTEM_PROMPT = buildChatSystemPrompt();
-
 const RATE_LIMIT_MESSAGE = `You've reached the ${MAX_CHAT_USER_MESSAGES}-message limit for this conversation. For anything further, please use our contact form or request a quote directly — a real person will pick it up from there.`;
 
 const DEV_FALLBACK_REPLY =
@@ -65,7 +63,7 @@ export async function POST(request: Request) {
     return jsonError("Invalid message format.", 400);
   }
 
-  const { messages } = parsed.data;
+  const { messages, visitorName } = parsed.data;
 
   // Rate limit: the client resends the full conversation on every request, so
   // counting user turns here needs no server-side session storage.
@@ -74,11 +72,15 @@ export async function POST(request: Request) {
     return jsonError(RATE_LIMIT_MESSAGE, 429);
   }
 
+  // First name only — keeps what's injected into the system prompt short,
+  // since this comes straight from what the visitor typed into the form.
+  const firstName = visitorName?.trim().split(/\s+/)[0];
+
   try {
     const response = await bedrock.send(
       new ConverseStreamCommand({
         modelId: MODEL_ID,
-        system: [{ text: SYSTEM_PROMPT }],
+        system: [{ text: buildChatSystemPrompt(firstName) }],
         messages: messages.map((m) => ({ role: m.role, content: [{ text: m.content }] })),
         inferenceConfig: { maxTokens: MAX_TOKENS },
       })
