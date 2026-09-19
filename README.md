@@ -67,7 +67,8 @@ reads automatically.
    - `AWS_REGION` — region for SES/S3 (e.g. `us-east-1`)
    - `SES_FROM_EMAIL`, `SES_TO_EMAIL`
    - `S3_BUCKET_NAME`
-   - `ANTHROPIC_API_KEY`
+   - `BEDROCK_MODEL_ID`, `BEDROCK_REGION` — the chat widget calls AWS Bedrock
+     directly using the compute role's IAM permissions, not an API key
    
    Prefer **not** setting `AWS_ACCESS_KEY_ID`/`AWS_SECRET_ACCESS_KEY` at all —
    grant the Amplify compute role's IAM policy `ses:SendEmail`,

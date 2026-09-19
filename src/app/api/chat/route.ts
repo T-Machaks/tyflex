@@ -1,16 +1,23 @@
-import Anthropic from "@anthropic-ai/sdk";
+import { BedrockRuntimeClient, ConverseStreamCommand } from "@aws-sdk/client-bedrock-runtime";
 import { buildChatSystemPrompt } from "@/lib/chat-system-prompt";
 import { chatSchema, MAX_CHAT_USER_MESSAGES } from "@/lib/validation";
 import { solutions } from "@/lib/data/solutions";
 
-// The Anthropic SDK needs the full Node runtime, not the Edge runtime.
+// The AWS SDK needs the full Node runtime, not the Edge runtime.
 export const runtime = "nodejs";
 
-const MODEL = "claude-haiku-4-5";
+// Bare "anthropic.claude-haiku-4-5-..." IDs 400 on Bedrock (on-demand
+// throughput isn't supported for this model) — the "us." cross-region
+// inference profile prefix is required. Same ID already proven working in
+// the Omniflex and ADMA projects.
+const MODEL_ID = process.env.BEDROCK_MODEL_ID || "us.anthropic.claude-haiku-4-5-20251001-v1:0";
+const REGION = process.env.BEDROCK_REGION || "us-east-1";
 const MAX_TOKENS = 1024;
 
-const apiKey = process.env.ANTHROPIC_API_KEY;
-const anthropic = apiKey ? new Anthropic({ apiKey }) : null;
+// No API key — auth is the instance's IAM role in production (or the
+// local AWS credential chain in dev). Needs bedrock:InvokeModel /
+// InvokeModelWithResponseStream on the model/inference-profile ARN.
+const bedrock = new BedrockRuntimeClient({ region: REGION });
 
 const SYSTEM_PROMPT = buildChatSystemPrompt();
 
@@ -29,7 +36,7 @@ function jsonError(message: string, status: number): Response {
   });
 }
 
-/** Streams the dev-mode canned reply word by word so the widget's typing UX still works without a live API key. */
+/** Streams the dev-mode canned reply word by word so the widget's typing UX still works without live Bedrock access. */
 function streamDevFallback(): ReadableStream<Uint8Array> {
   const encoder = new TextEncoder();
   const words = DEV_FALLBACK_REPLY.split(" ");
@@ -67,43 +74,31 @@ export async function POST(request: Request) {
     return jsonError(RATE_LIMIT_MESSAGE, 429);
   }
 
-  if (!anthropic) {
-    if (process.env.NODE_ENV === "production") {
-      return jsonError(
-        "The chat assistant is temporarily unavailable. Please use the contact form instead.",
-        502
-      );
-    }
-    console.log("[dev] ANTHROPIC_API_KEY not set — streaming a canned reply instead of calling the API.");
-    return new Response(streamDevFallback(), {
-      headers: { "Content-Type": "text/plain; charset=utf-8" },
-    });
-  }
-
   try {
-    const messageStream = anthropic.messages.stream({
-      model: MODEL,
-      max_tokens: MAX_TOKENS,
-      system: [{ type: "text", text: SYSTEM_PROMPT, cache_control: { type: "ephemeral" } }],
-      messages: messages.map((m) => ({ role: m.role, content: m.content })),
-    });
+    const response = await bedrock.send(
+      new ConverseStreamCommand({
+        modelId: MODEL_ID,
+        system: [{ text: SYSTEM_PROMPT }],
+        messages: messages.map((m) => ({ role: m.role, content: [{ text: m.content }] })),
+        inferenceConfig: { maxTokens: MAX_TOKENS },
+      })
+    );
 
     const encoder = new TextEncoder();
     const readable = new ReadableStream<Uint8Array>({
-      start(controller) {
-        messageStream.on("text", (delta) => {
-          controller.enqueue(encoder.encode(delta));
-        });
-        messageStream.on("end", () => {
+      async start(controller) {
+        try {
+          if (response.stream) {
+            for await (const event of response.stream) {
+              const text = event.contentBlockDelta?.delta?.text;
+              if (text) controller.enqueue(encoder.encode(text));
+            }
+          }
           controller.close();
-        });
-        messageStream.on("error", (err) => {
-          console.error("Chat stream error:", err);
+        } catch (err) {
+          console.error("Bedrock stream error:", err);
           controller.error(err);
-        });
-      },
-      cancel() {
-        messageStream.abort();
+        }
       },
     });
 
@@ -111,10 +106,18 @@ export async function POST(request: Request) {
       headers: { "Content-Type": "text/plain; charset=utf-8" },
     });
   } catch (err) {
-    console.error("Failed to start chat stream:", err);
-    return jsonError(
-      "The chat assistant is temporarily unavailable. Please try again or use the contact form.",
-      502
-    );
+    if (process.env.NODE_ENV === "production") {
+      console.error("Failed to invoke Bedrock:", err);
+      return jsonError(
+        "The chat assistant is temporarily unavailable. Please try again or use the contact form.",
+        502
+      );
+    }
+    // Local dev without AWS credentials configured — fall back to a canned
+    // reply so the widget's UX is still testable.
+    console.log("[dev] Bedrock call failed (expected without local AWS credentials) — streaming a canned reply.", err);
+    return new Response(streamDevFallback(), {
+      headers: { "Content-Type": "text/plain; charset=utf-8" },
+    });
   }
 }
