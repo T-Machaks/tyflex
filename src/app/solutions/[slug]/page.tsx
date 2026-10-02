@@ -31,6 +31,7 @@ export function generateMetadata({ params }: SolutionPageProps): Metadata {
     title: `${solution.name} | Tyflex`,
     description: solution.shortDescription,
     path: `/solutions/${solution.slug}`,
+    keywords: solution.keywords,
   });
 }
 

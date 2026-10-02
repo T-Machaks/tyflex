@@ -16,6 +16,8 @@ export interface Partner {
   icon: IconName;
   /** Slug of the dedicated /brands/[slug] page, where one exists. */
   brandSlug?: string;
+  /** Slug of the dedicated /solutions/[slug] page, for a service/platform partnership rather than a resold hardware brand. */
+  solutionSlug?: string;
 }
 
 export const partners: Partner[] = [
@@ -134,5 +136,13 @@ export const partners: Partner[] = [
       "TallyGenicom line-matrix and serial-matrix impact printers for multipart forms, logistics and ERP print rooms.",
     icon: "Printer",
     brandSlug: "tallygenicom",
+  },
+  {
+    name: "CommCare (Dimagi)",
+    category: "Cloud & Software",
+    description:
+      "Dimagi-certified CommCare Provider — we deploy, build and support CommCare mobile data collection and case management for NGOs and health programs.",
+    icon: "Smartphone",
+    solutionSlug: "commcare",
   },
 ];

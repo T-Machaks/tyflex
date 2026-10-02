@@ -58,6 +58,8 @@ export interface Solution {
   ctaDescription?: string;
   /** Overrides the CTA button label (default "Get a Free Quote") — e.g. "Talk to Us About Pricing" where no figures are published. */
   ctaButtonLabel?: string;
+  /** Optional keyword list passed through to page metadata — for solutions targeting specific search terms beyond the generic title/description. */
+  keywords?: string[];
   /**
    * Keeps a solution out of the header's top-level Solutions dropdown while
    * still fully live — reachable from the hub grid, footer, and sitemap.
@@ -470,6 +472,51 @@ export const solutions: Solution[] = [
       { question: "Will the equipment work with Teams, Zoom, and Google Meet?", answer: "Yes, our meeting room kits are certified for all major platforms including Microsoft Teams, Zoom, and Google Meet." },
       { question: "Do you handle installation and cabling?", answer: "Yes, we design the AV layout and handle full installation, from mounting displays to running cabling." },
       { question: "Can we add room booking displays later?", answer: "Yes, room booking panels can be added to any meeting room setup at any time and integrate with your calendar system." },
+    ],
+  },
+  {
+    slug: "commcare",
+    name: "CommCare Implementation",
+    shortDescription:
+      "CommCare deployment, app building, training and ongoing support — Tyflex is a Dimagi-certified Provider for NGOs, health programs and field data collection.",
+    tagline:
+      "Mobile data collection and case management for NGOs, health programs and field teams — deployed, customised and supported by Tyflex as a Dimagi-certified CommCare Provider.",
+    icon: "Smartphone",
+    badges: ["Dimagi Certified Provider", "Offline-First Mobile Data", "App & Form Building", "Training & Support"],
+    keywords: [
+      "CommCare Zimbabwe",
+      "CommCare implementation partner",
+      "CommCare certified provider",
+      "Dimagi partner Zimbabwe",
+      "CommCare deployment Zimbabwe",
+      "mobile data collection Zimbabwe",
+      "CommCare app development",
+      "offline data collection NGO",
+    ],
+    features: [
+      { icon: "Smartphone", title: "Mobile Data Collection", description: "CommCare's offline-first Android app lets field workers collect data, manage cases and follow guided workflows even without a live connection — everything syncs automatically once back online." },
+      { icon: "Settings", title: "App & Form Building", description: "We design and build your CommCare apps and forms — case types, workflows, decision logic and multimedia — matched to how your program actually runs in the field." },
+      { icon: "Users", title: "Training & Onboarding", description: "Hands-on training for field staff, supervisors and administrators, so your team is confident using CommCare from day one." },
+      { icon: "Server", title: "Hosting & Ongoing Support", description: "Server setup, data hosting and day-to-day technical support, so a CommCare program keeps running reliably as it scales from pilot to full rollout." },
+      { icon: "Database", title: "Case Management & Reporting", description: "Structured case tracking and built-in reporting give program managers visibility into field activity without manual data entry or spreadsheets." },
+      { icon: "BadgeCheck", title: "Dimagi-Certified Delivery", description: "As a Dimagi-vetted Certified Provider, Tyflex designs, builds and supports CommCare programs to the standard Dimagi holds its own partner network to." },
+    ],
+    useCases: [
+      { title: "NGOs & Development Programs", description: "Community health, agriculture extension, WASH and social protection programs that need reliable field data from community workers, even offline." },
+      { title: "Health Programs & Community Health Workers", description: "Frontline health worker visits, patient tracking and referral management, structured as guided CommCare workflows." },
+      { title: "Monitoring & Evaluation Teams", description: "M&E teams replacing paper forms and manual data entry with structured, timestamped digital data collection." },
+    ],
+    relatedProducts: [
+      { name: "Android Field Tablets & Smartphones", description: "CommCare runs on any Android device — browse rugged and standard tablets and smartphones for field teams." },
+      { name: "Backup Power for Field Offices", description: "Line-interactive UPS units to keep routers, laptops and charging stations running through power outages at rural offices and health posts.", productId: "hikvision-ds-ups1000-sa" },
+      { name: "Networking for Field & Program Offices", description: "Routers, switches and Wi-Fi gear to connect program offices so synced CommCare data reaches your server reliably." },
+    ],
+    faqs: [
+      { question: "Is Tyflex an official CommCare partner?", answer: "Yes — Tyflex is a Dimagi-vetted Certified Provider, listed in CommCare's official implementer directory as an independent partner who designs, builds and supports CommCare programs." },
+      { question: "Does CommCare work without internet access?", answer: "Yes — CommCare's mobile app is offline-first: field workers can collect data and complete workflows with no connection, and everything syncs automatically the next time the device goes online." },
+      { question: "Can you help us move from paper forms to CommCare?", answer: "Yes — we design your CommCare case types, forms and workflows around how your program already runs, so the switch from paper is structured around your existing process, not a generic template." },
+      { question: "Do you provide training for field staff?", answer: "Yes — training and onboarding for field workers, supervisors and administrators is part of every CommCare deployment we run, not a separate add-on." },
+      { question: "Who hosts and supports our CommCare program after go-live?", answer: "We handle ongoing hosting and technical support after launch, so your program keeps running reliably as it scales — you're not left managing the technical side alone." },
     ],
   },
   // TODO: confirm AWS Partner tier/competency status before adding any badge

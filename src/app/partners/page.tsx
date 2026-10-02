@@ -58,7 +58,7 @@ export default function PartnersPage() {
                         <div>
                           <h3 className="font-semibold mb-1 flex items-center gap-1">
                             {partner.name}
-                            {partner.brandSlug && (
+                            {(partner.brandSlug || partner.solutionSlug) && (
                               <ArrowUpRight className="h-3.5 w-3.5 text-brand-red" />
                             )}
                           </h3>
@@ -70,6 +70,10 @@ export default function PartnersPage() {
                       <FadeIn key={partner.name} delay={0.05 * i}>
                         {partner.brandSlug ? (
                           <Link href={`/brands/${partner.brandSlug}`} className="block h-full group">
+                            {card}
+                          </Link>
+                        ) : partner.solutionSlug ? (
+                          <Link href={`/solutions/${partner.solutionSlug}`} className="block h-full group">
                             {card}
                           </Link>
                         ) : (
