@@ -62,24 +62,30 @@ export default function Header() {
               </svg>
             </button>
             {solOpen && (
-              <div className="absolute top-full left-0 mt-2 w-[560px] bg-brand-dark border border-white/10 rounded-xl shadow-2xl p-4 z-50">
-                <Link
-                  href="/solutions"
-                  className="block px-3 py-2 mb-1 text-sm text-brand-red font-medium hover:bg-white/5 rounded-lg transition-colors"
-                >
-                  All Solutions &rarr;
-                </Link>
-                <div className="border-t border-white/5 mb-2" />
-                <div className="grid grid-cols-2 gap-x-2 gap-y-0.5">
-                  {dropdownSolutions.map((sol) => (
-                    <Link
-                      key={sol.slug}
-                      href={`/solutions/${sol.slug}`}
-                      className="block px-3 py-2 text-sm text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
-                    >
-                      {sol.name}
-                    </Link>
-                  ))}
+              // Zero-gap bridge: top-full + pt-2 keeps the hoverable area
+              // unbroken between the button and the card below (the old
+              // mt-2 left an unpainted gap where the mouse could trigger
+              // onMouseLeave before reaching the links).
+              <div className="absolute top-full left-0 pt-2 w-[560px] z-50">
+                <div className="bg-brand-dark border border-white/10 rounded-xl shadow-2xl p-4">
+                  <Link
+                    href="/solutions"
+                    className="block px-3 py-2 mb-1 text-sm text-brand-red font-medium hover:bg-white/5 rounded-lg transition-colors"
+                  >
+                    All Solutions &rarr;
+                  </Link>
+                  <div className="border-t border-white/5 mb-2" />
+                  <div className="grid grid-cols-2 gap-x-2 gap-y-0.5">
+                    {dropdownSolutions.map((sol) => (
+                      <Link
+                        key={sol.slug}
+                        href={`/solutions/${sol.slug}`}
+                        className="block px-3 py-2 text-sm text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
+                      >
+                        {sol.name}
+                      </Link>
+                    ))}
+                  </div>
                 </div>
               </div>
             )}
