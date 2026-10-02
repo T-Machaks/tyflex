@@ -525,6 +525,54 @@ export const solutions: Solution[] = [
       { question: "Who hosts and supports our CommCare program after go-live?", answer: "We handle ongoing hosting and technical support after launch, so your program keeps running reliably as it scales — you're not left managing the technical side alone." },
     ],
   },
+  {
+    slug: "smartphone-financing",
+    name: "Smartphone Financing (EMI)",
+    shortDescription:
+      "EMI smartphone financing for retailers — sell phones on flexible monthly installments with secure remote device-lock protection against missed payments, powered by Smart Mobile Finance.",
+    tagline:
+      "Let customers pay for a smartphone in installments while your business stays protected — Tyflex deploys the Smart Mobile Finance EMI device-lock platform so retailers can finance phones with confidence.",
+    icon: "Lock",
+    badges: ["EMI Device Financing", "Remote Lock Protection", "No Bank Account Needed", "24/7 Support"],
+    keywords: [
+      "smartphone financing Zimbabwe",
+      "buy phone on installments Zimbabwe",
+      "EMI phone financing",
+      "phone lock app for retailers",
+      "device financing platform",
+      "Smart Mobile Finance Zimbabwe",
+      "sell phones on credit Zimbabwe",
+      "mobile phone installment plan",
+    ],
+    features: [
+      { icon: "Lock", title: "Remote Device Lock", description: "If a customer misses a payment, the financed phone can be remotely locked — blocking normal use until the account is brought current, protecting your business from default." },
+      { icon: "CreditCard", title: "Flexible EMI Plans", description: "Structure monthly installment plans that let customers who don't qualify for traditional credit still afford a smartphone, growing your addressable market." },
+      { icon: "ShieldCheck", title: "Tamper & Factory-Reset Protection", description: "Financed devices are protected against factory resets, USB-based unlocking and other workarounds, so the lock can't simply be bypassed." },
+      { icon: "MessageSquare", title: "Automated Payment Reminders", description: "Customers get automatic reminders before a payment is due, reducing missed payments before they happen." },
+      { icon: "Users", title: "Retailer Dashboard", description: "Track every financed device, customer balance and payment status from one dashboard, across single or multi-branch operations." },
+      { icon: "Smartphone", title: "Works Across 25+ Brands", description: "Compatible with 25+ Android smartphone brands, so you're not limited to a single device line when offering financing." },
+    ],
+    useCases: [
+      { title: "Independent Phone Retailers", description: "Shops selling phones who want to offer installment plans without carrying the default risk themselves." },
+      { title: "Electronics & Telecom Chains", description: "Multi-branch retailers centralizing financed-device tracking and collections across every store." },
+      { title: "Underbanked & First-Time Borrowers", description: "Reach customers without a bank account or formal credit history who can still qualify for device financing." },
+    ],
+    relatedProducts: [
+      { name: "EMI-Ready Android Smartphones", description: "Android smartphones from leading brands, ready to enrol in your EMI financing program — compatible across 25+ device brands." },
+      { name: "In-Store POS & Checkout Terminals", description: "Pair device financing sign-up with our Hardware-as-a-Service POS terminals, so sales and installment enrolment happen from the same counter." },
+      { name: "Backup Power for Retail Counters", description: "Line-interactive UPS units to keep your point-of-sale and financing dashboard running through power outages.", productId: "hikvision-ds-ups1000-sa" },
+    ],
+    faqs: [
+      { question: "What is EMI smartphone financing?", answer: "EMI (equated monthly installment) financing lets a customer pay for a smartphone in fixed monthly amounts instead of the full price upfront. The Smart Mobile Finance platform we deploy protects the retailer by allowing the device to be remotely locked if a payment is missed." },
+      { question: "What happens if a customer misses a payment?", answer: "The customer gets automated reminders before and around the due date. If a payment is still missed, the device can be remotely locked to normal use — emergency calling stays available — until the account is brought up to date." },
+      { question: "Do customers need a bank account or credit history to qualify?", answer: "No — this is one of the platform's core advantages. Retailers can extend device financing to customers without a bank account or formal credit history, widening who can afford a smartphone." },
+      { question: "Which phone brands are supported?", answer: "The platform is compatible with 25+ Android smartphone brands, so you're not locked into financing a single device line — we can help source compatible stock." },
+      { question: "Can I manage financing across multiple store branches?", answer: "Yes — the retailer dashboard tracks every financed device, customer and payment centrally, so multi-branch operations get one view instead of per-store spreadsheets." },
+    ],
+    ctaHeading: "Ready to offer smartphone financing?",
+    ctaDescription: "Every rollout is sized to your store count and device range — no published pricing here. Talk to us and we'll scope an EMI financing setup that fits your business.",
+    ctaButtonLabel: "Talk to Us About Pricing",
+  },
   // TODO: confirm AWS Partner tier/competency status before adding any badge
   // or certification language to this page — copy below deliberately makes
   // no claims beyond "our AWS partnership".

@@ -164,4 +164,13 @@ export const partners: Partner[] = [
     solutionSlug: "commcare",
     logo: "/partners/commcare.svg",
   },
+  {
+    name: "Smart Mobile Finance",
+    category: "Cloud & Software",
+    description:
+      "EMI device-lock platform we deploy so Zimbabwean phone retailers can finance smartphones to customers on flexible installments, even without a bank account.",
+    icon: "Lock",
+    solutionSlug: "smartphone-financing",
+    logo: "/partners/smartmobilefinance.png",
+  },
 ];
