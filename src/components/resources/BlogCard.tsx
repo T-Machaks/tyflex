@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import GlassCard from "@/components/ui/GlassCard";
 import DynamicIcon from "@/components/ui/DynamicIcon";
@@ -8,11 +9,22 @@ function formatDate(iso: string): string {
 }
 
 export default function BlogCard({ post }: { post: BlogPostMeta }) {
+  const cover = post.gallery?.[0];
   return (
     <Link href={`/resources/blog/${post.slug}`} className="block h-full">
       <GlassCard className="h-full flex flex-col overflow-hidden">
         <div className="relative h-36 flex items-center justify-center bg-gradient-to-br from-white/10 to-white/[0.02] border-b border-white/5">
-          <DynamicIcon name={post.icon} className="h-12 w-12 text-brand-red/40" strokeWidth={1.25} />
+          {cover ? (
+            <Image
+              src={cover}
+              alt={post.title}
+              fill
+              sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+              className="object-cover"
+            />
+          ) : (
+            <DynamicIcon name={post.icon} className="h-12 w-12 text-brand-red/40" strokeWidth={1.25} />
+          )}
           <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-sm border border-white/10 text-[11px] text-gray-200">
             {post.category}
           </span>
