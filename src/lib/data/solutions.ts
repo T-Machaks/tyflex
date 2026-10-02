@@ -21,6 +21,8 @@ export interface RelatedProduct {
 export interface SolutionFAQ {
   question: string;
   answer: string;
+  /** Optional citation/verification link shown under the answer, e.g. a directory listing. */
+  link?: { label: string; href: string };
 }
 
 export interface BrandGroup {
@@ -512,7 +514,11 @@ export const solutions: Solution[] = [
       { name: "Networking for Field & Program Offices", description: "Routers, switches and Wi-Fi gear to connect program offices so synced CommCare data reaches your server reliably." },
     ],
     faqs: [
-      { question: "Is Tyflex an official CommCare partner?", answer: "Yes — Tyflex is a Dimagi-vetted Certified Provider, listed in CommCare's official implementer directory as an independent partner who designs, builds and supports CommCare programs." },
+      {
+        question: "Is Tyflex an official CommCare partner?",
+        answer: "Yes — Tyflex is a Dimagi-vetted Certified Provider, listed in CommCare's official implementer directory as an independent partner who designs, builds and supports CommCare programs.",
+        link: { label: "Verify Tyflex in the CommCare implementer directory", href: "https://commcare.dimagi.com/support/implementers/?q=zimbabwe#directory" },
+      },
       { question: "Does CommCare work without internet access?", answer: "Yes — CommCare's mobile app is offline-first: field workers can collect data and complete workflows with no connection, and everything syncs automatically the next time the device goes online." },
       { question: "Can you help us move from paper forms to CommCare?", answer: "Yes — we design your CommCare case types, forms and workflows around how your program already runs, so the switch from paper is structured around your existing process, not a generic template." },
       { question: "Do you provide training for field staff?", answer: "Yes — training and onboarding for field workers, supervisors and administrators is part of every CommCare deployment we run, not a separate add-on." },

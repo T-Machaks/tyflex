@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, ArrowUpRight } from "lucide-react";
 
 export interface FAQItem {
   question: string;
   answer: string;
+  link?: { label: string; href: string };
 }
 
 interface FAQAccordionProps {
@@ -44,6 +45,17 @@ export default function FAQAccordion({ faqs }: FAQAccordionProps) {
                   className="overflow-hidden"
                 >
                   <p className="px-5 pb-4 text-sm text-gray-400 leading-relaxed">{faq.answer}</p>
+                  {faq.link && (
+                    <a
+                      href={faq.link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mx-5 mb-4 -mt-1 inline-flex items-center gap-1 text-sm text-brand-red hover:underline"
+                    >
+                      {faq.link.label}
+                      <ArrowUpRight className="h-3.5 w-3.5" />
+                    </a>
+                  )}
                 </motion.div>
               )}
             </AnimatePresence>
