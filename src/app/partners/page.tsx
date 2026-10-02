@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import GlassCard from "@/components/ui/GlassCard";
@@ -52,9 +53,21 @@ export default function PartnersPage() {
                   {items.map((partner, i) => {
                     const card = (
                       <GlassCard className="p-6 h-full flex gap-4">
-                        <div className="h-11 w-11 rounded-lg bg-brand-red/10 flex items-center justify-center shrink-0">
-                          <DynamicIcon name={partner.icon} className="h-5 w-5 text-brand-red" />
-                        </div>
+                        {partner.logo ? (
+                          <div className="h-11 w-16 rounded-lg bg-white flex items-center justify-center shrink-0 p-1.5">
+                            <Image
+                              src={partner.logo}
+                              alt={`${partner.name} logo`}
+                              width={120}
+                              height={40}
+                              className="h-full w-full object-contain"
+                            />
+                          </div>
+                        ) : (
+                          <div className="h-11 w-11 rounded-lg bg-brand-red/10 flex items-center justify-center shrink-0">
+                            <DynamicIcon name={partner.icon} className="h-5 w-5 text-brand-red" />
+                          </div>
+                        )}
                         <div>
                           <h3 className="font-semibold mb-1 flex items-center gap-1">
                             {partner.name}
