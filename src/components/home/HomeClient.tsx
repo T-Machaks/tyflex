@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -43,6 +44,7 @@ const solutionTabs = [
       "Enterprise-grade voice communications with crystal-clear calls, auto-attendants, and unified messaging. Reduce phone costs by up to 60%.",
     features: ["HD voice quality", "Auto-attendant & IVR", "Call recording & analytics", "Mobile & desktop apps"],
     href: "/solutions/ucaas",
+    image: "/home/solutions/voip.png",
   },
   {
     name: "AutoID Solutions",
@@ -51,6 +53,7 @@ const solutionTabs = [
       "Barcode scanning, mobile computing, rugged field devices, and label and line matrix printing for warehousing, retail, and logistics.",
     features: ["Handheld & fixed scanners", "Rugged mobile computers", "Label printing", "Line matrix printing"],
     href: "/solutions/autoid",
+    image: "/home/solutions/autoid.jpg",
   },
   {
     name: "POS Systems",
@@ -59,6 +62,7 @@ const solutionTabs = [
       "Hardware-as-a-Service point-of-sale — terminals, scanners, and printers on a monthly subscription with no upfront cost. Outright purchase also available.",
     features: ["Zero upfront cost", "Device, support & replacement included", "Touch screen terminals", "Offline mode"],
     href: "/solutions/pos-systems",
+    image: "/home/solutions/pos.jpg",
   },
   {
     name: "Networking",
@@ -67,6 +71,7 @@ const solutionTabs = [
       "Enterprise networking infrastructure built for performance and security. From structured cabling to managed switches, firewalls, and Hikvision infrastructure.",
     features: ["Structured cabling", "Managed switches", "Firewalls & security", "Wi-Fi coverage"],
     href: "/solutions/networking",
+    image: "/home/solutions/networking.jpg",
   },
   {
     name: "AWS Cloud Solutions",
@@ -75,6 +80,7 @@ const solutionTabs = [
       "Cloud migration, AI-driven productivity, security and compliance, and day-to-day operations — powered by our AWS partnership.",
     features: ["Workload migration", "AI productivity & CX", "Security & compliance", "Monitoring & cost management"],
     href: "/solutions/aws-cloud-solutions",
+    image: "/home/solutions/aws-cloud.jpg",
   },
   {
     name: "Smart Building Solutions",
@@ -83,6 +89,7 @@ const solutionTabs = [
       "Hikvision-powered network cameras, sensors, access control, and commercial displays — one integrated system for offices, retail, and warehouses.",
     features: ["Network cameras", "Access control", "Environmental sensors", "Commercial displays"],
     href: "/solutions/smart-building",
+    image: "/home/solutions/smart-building.jpg",
   },
 ];
 
@@ -240,8 +247,16 @@ export default function HomeClient() {
                   <GradientButton href={active.href}>Learn More</GradientButton>
                 </div>
                 <div className="hidden md:flex items-center justify-center">
-                  <div className="w-full h-64 rounded-xl bg-gradient-to-br from-white/5 to-white/[0.02] border border-white/5 flex items-center justify-center">
-                    <ActiveIcon className="h-20 w-20 text-brand-red/25" strokeWidth={1.25} />
+                  <div className="relative w-full h-64 rounded-xl overflow-hidden border border-white/5">
+                    <Image
+                      src={active.image}
+                      alt={`${active.name} at Tyflex`}
+                      fill
+                      sizes="(min-width: 768px) 40vw, 100vw"
+                      className="object-cover"
+                      priority={activeTab === 0}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/5 to-transparent" />
                   </div>
                 </div>
               </motion.div>
