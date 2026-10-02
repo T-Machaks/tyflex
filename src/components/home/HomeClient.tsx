@@ -44,7 +44,7 @@ const solutionTabs = [
       "Enterprise-grade voice communications with crystal-clear calls, auto-attendants, and unified messaging. Reduce phone costs by up to 60%.",
     features: ["HD voice quality", "Auto-attendant & IVR", "Call recording & analytics", "Mobile & desktop apps"],
     href: "/solutions/ucaas",
-    image: "/home/solutions/voip.png",
+    image: "/home/solutions/voip.jpg",
   },
   {
     name: "AutoID Solutions",
