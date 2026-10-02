@@ -53,7 +53,7 @@ const solutionTabs = [
       "Barcode scanning, mobile computing, rugged field devices, and label and line matrix printing for warehousing, retail, and logistics.",
     features: ["Handheld & fixed scanners", "Rugged mobile computers", "Label printing", "Line matrix printing"],
     href: "/solutions/autoid",
-    image: "/home/solutions/autoid-v2.jpg",
+    image: "/home/solutions/autoid-v3.jpg",
     badge: { image: "/webstore/autoid/honeywell-pm45.png", label: "Honeywell PM45" },
   },
   {
