@@ -54,6 +54,7 @@ const solutionTabs = [
     features: ["Handheld & fixed scanners", "Rugged mobile computers", "Label printing", "Line matrix printing"],
     href: "/solutions/autoid",
     image: "/home/solutions/autoid.jpg",
+    badge: { image: "/webstore/autoid/honeywell-pm45.png", label: "Honeywell PM45" },
   },
   {
     name: "POS Systems",
@@ -257,6 +258,14 @@ export default function HomeClient() {
                       priority={activeTab === 0}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/5 to-transparent" />
+                    {active.badge && (
+                      <div className="absolute bottom-3 right-3 flex items-center gap-2 bg-white rounded-lg pl-2 pr-3 py-1.5 shadow-lg">
+                        <div className="relative h-8 w-8 shrink-0">
+                          <Image src={active.badge.image} alt={active.badge.label} fill className="object-contain" />
+                        </div>
+                        <span className="text-[11px] font-medium text-gray-700 whitespace-nowrap">{active.badge.label}</span>
+                      </div>
+                    )}
                   </div>
                 </div>
               </motion.div>
