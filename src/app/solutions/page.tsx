@@ -13,6 +13,14 @@ export const metadata = buildMetadata({
   description:
     "Explore Tyflex' full range of technology solutions for Zimbabwean businesses — UCaaS, 3CX, networking, POS, ERP, cloud, and enterprise messaging.",
   path: "/solutions",
+  keywords: [
+    "VoIP solutions Zimbabwe",
+    "VoIP PBX Zimbabwe",
+    "VoIP hardware Zimbabwe",
+    "technology solutions Zimbabwe",
+    "networking solutions Zimbabwe",
+    "AWS cloud solutions Zimbabwe",
+  ],
 });
 
 export default function SolutionsPage() {

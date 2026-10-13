@@ -116,6 +116,16 @@ export const solutions: Solution[] = [
       "Unified communications and VoIP, deployed the way that suits your business — run a PBX in your own server room, extend it to the cloud in a hybrid setup, or go fully hosted.",
     icon: "Phone",
     badges: ["Flexible Deployment", "HD Voice", "Auto-Attendant", "Mobile Apps"],
+    keywords: [
+      "VoIP solutions Zimbabwe",
+      "VoIP PBX Zimbabwe",
+      "business VoIP Zimbabwe",
+      "VoIP hardware Zimbabwe",
+      "IP phone system Zimbabwe",
+      "unified communications Zimbabwe",
+      "hosted PBX Zimbabwe",
+      "VoIP phone system Harare",
+    ],
     features: [
       { icon: "Server", title: "On-Premise, Hybrid, or Cloud", description: "Keep your PBX fully on-site for complete control, extend it to the cloud as a hybrid setup, or go fully hosted — the deployment model is your choice, not ours." },
       { icon: "Phone", title: "HD Voice Quality", description: "Crystal-clear calls over your existing internet connection — no dedicated phone lines required." },
@@ -167,6 +177,16 @@ export const solutions: Solution[] = [
     // discoverable via the hub grid, footer, sitemap, and the cross-link
     // from the UCaaS page instead. Confirmed with the client before changing.
     hideFromNavDropdown: true,
+    keywords: [
+      "3CX Zimbabwe",
+      "3CX phone system Zimbabwe",
+      "3CX PBX",
+      "VoIP PBX software",
+      "3CX certified partner Zimbabwe",
+      "cloud phone system Zimbabwe",
+      "business phone system Zimbabwe",
+      "3CX hosting Zimbabwe",
+    ],
     features: [
       { icon: "PhoneCall", title: "All-in-One Platform", description: "Voice calls, video meetings, and messaging in a single system — no juggling separate tools." },
       { icon: "Video", title: "Free Video Conferencing", description: "Host video meetings for up to 250 participants with screen sharing, at no extra cost." },
@@ -311,6 +331,16 @@ export const solutions: Solution[] = [
       "Connect your existing phone system to the cloud with reliable, cost-effective SIP trunk lines.",
     icon: "Radio",
     badges: ["PBX Connectivity", "Local & Int'l Rates", "Redundant Routing", "Easy Migration"],
+    keywords: [
+      "SIP trunking Zimbabwe",
+      "SIP trunk provider Zimbabwe",
+      "VoIP SIP trunks",
+      "PBX SIP connectivity",
+      "VoIP PBX Zimbabwe",
+      "SIP gateway Zimbabwe",
+      "cloud SIP trunk",
+      "VoIP termination Zimbabwe",
+    ],
     features: [
       { icon: "Radio", title: "Direct PBX Connectivity", description: "Bring SIP trunks straight into your existing PBX — no need to replace hardware." },
       { icon: "Receipt", title: "Competitive Local & International Rates", description: "Lower call costs than traditional lines, with transparent per-minute billing." },
@@ -377,6 +407,16 @@ export const solutions: Solution[] = [
       "A fully hosted phone system with no on-site hardware — managed, maintained, and backed up entirely in the cloud.",
     icon: "PhoneOutgoing",
     badges: ["Zero Hardware", "Instant Scaling", "99.9% Uptime", "Managed by Tyflex"],
+    keywords: [
+      "cloud PBX Zimbabwe",
+      "hosted PBX Zimbabwe",
+      "VoIP PBX hosting",
+      "virtual PBX Zimbabwe",
+      "cloud phone system Zimbabwe",
+      "hosted business phone system",
+      "PBX in the cloud",
+      "cloud telephony Zimbabwe",
+    ],
     features: [
       { icon: "Cloud", title: "Zero On-Site Hardware", description: "Your PBX runs entirely in the cloud, removing the need for a physical server or box on-site." },
       { icon: "Settings", title: "Instant Extension Scaling", description: "Add new users and extensions in minutes as your team grows — no hardware order needed." },
