@@ -23,10 +23,16 @@ export function generateStaticParams() {
 export function generateMetadata({ params }: BlogPostPageProps): Metadata {
   const post = getPostBySlug(params.slug);
   if (!post) return {};
+  const coverSrc = post.meta.gallery?.[0];
   return buildMetadata({
     title: `${post.meta.title} | Tyflex Blog`,
     description: post.meta.description,
     path: `/resources/blog/${post.meta.slug}`,
+    // Falls back to the site-wide default (src/app/opengraph-image.tsx) when
+    // this post has no gallery — buildMetadata only sets openGraph.images
+    // when an image is actually passed, which is what lets Next's own
+    // file-convention fallback keep working for every other post.
+    image: coverSrc ? { url: coverSrc, alt: post.meta.galleryAlt?.[0] ?? post.meta.title } : undefined,
   });
 }
 
@@ -126,12 +132,12 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
         <FadeIn delay={0.2}>
           {post.meta.gallery && post.meta.gallery.length > 0 ? (
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-10">
-              {post.meta.gallery.map((src) => (
+              {post.meta.gallery.map((src, i) => (
                 /* eslint-disable-next-line @next/next/no-img-element */
                 <img
                   key={src}
                   src={src}
-                  alt=""
+                  alt={post.meta.galleryAlt?.[i] ?? post.meta.title}
                   loading="lazy"
                   className="aspect-[4/3] w-full rounded-xl object-cover border border-white/5 bg-white/5"
                 />

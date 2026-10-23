@@ -17,7 +17,7 @@ export default function BlogCard({ post }: { post: BlogPostMeta }) {
           {cover ? (
             <Image
               src={cover}
-              alt={post.title}
+              alt={post.galleryAlt?.[0] ?? post.title}
               fill
               sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
               className="object-cover"

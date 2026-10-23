@@ -18,6 +18,8 @@ export interface BlogPostMeta {
   readingTime: string;
   /** Optional photo gallery — public paths, rendered as a grid on the post. */
   gallery?: string[];
+  /** Optional per-image alt text, parallel to `gallery` by index — a missing or short entry falls back to the post title at render time (see BlogCard/[slug]/page.tsx), never to an empty string. */
+  galleryAlt?: string[];
 }
 
 export interface BlogPost {
@@ -43,6 +45,7 @@ function readPostFile(filename: string): BlogPost {
       icon: (data.icon ?? "FileText") as IconName,
       readingTime: readingTime(content).text,
       gallery: Array.isArray(data.gallery) ? (data.gallery as string[]) : undefined,
+      galleryAlt: Array.isArray(data.galleryAlt) ? (data.galleryAlt as string[]) : undefined,
     },
   };
 }
