@@ -15,14 +15,15 @@ import { brandSlugForProductBrand } from "@/lib/data/brands";
 import { buildMetadata } from "@/lib/seo";
 
 interface ProductPageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 export function generateStaticParams() {
   return products.map((p) => ({ id: p.id }));
 }
 
-export function generateMetadata({ params }: ProductPageProps): Metadata {
+export async function generateMetadata(props: ProductPageProps): Promise<Metadata> {
+  const params = await props.params;
   const product = getProductById(params.id);
   if (!product) return {};
   const title = product.brand
@@ -44,7 +45,8 @@ export function generateMetadata({ params }: ProductPageProps): Metadata {
   });
 }
 
-export default function ProductPage({ params }: ProductPageProps) {
+export default async function ProductPage(props: ProductPageProps) {
+  const params = await props.params;
   const product = getProductById(params.id);
   if (!product) notFound();
 

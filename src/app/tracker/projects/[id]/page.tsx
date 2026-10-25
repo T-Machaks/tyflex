@@ -10,17 +10,19 @@ import UpdatesFeed from "@/components/tracker/UpdatesFeed";
 import FadeIn from "@/components/motion/FadeIn";
 
 interface ProjectPageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
-export function generateMetadata({ params }: ProjectPageProps): Metadata {
+export async function generateMetadata(props: ProjectPageProps): Promise<Metadata> {
+  const params = await props.params;
   const project = getProjectById(params.id);
   return {
     title: project ? `${project.title} | Tyflex Project Tracker` : "Project | Tyflex Project Tracker",
   };
 }
 
-export default async function ProjectDetailPage({ params }: ProjectPageProps) {
+export default async function ProjectDetailPage(props: ProjectPageProps) {
+  const params = await props.params;
   const session = await getPortalSession();
   if (!session || session.user.role !== "admin") redirect("/portal");
 

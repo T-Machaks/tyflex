@@ -6,9 +6,10 @@ export const metadata: Metadata = {
 };
 
 interface PortalPageProps {
-  searchParams: { callbackUrl?: string; error?: string };
+  searchParams: Promise<{ callbackUrl?: string; error?: string }>;
 }
 
-export default function PortalPage({ searchParams }: PortalPageProps) {
+export default async function PortalPage(props: PortalPageProps) {
+  const searchParams = await props.searchParams;
   return <PortalLoginClient callbackUrl={searchParams.callbackUrl} error={searchParams.error} />;
 }

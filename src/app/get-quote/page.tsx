@@ -9,10 +9,11 @@ export const metadata = buildMetadata({
 });
 
 interface GetQuotePageProps {
-  searchParams: { product?: string };
+  searchParams: Promise<{ product?: string }>;
 }
 
-export default function GetQuotePage({ searchParams }: GetQuotePageProps) {
+export default async function GetQuotePage(props: GetQuotePageProps) {
+  const searchParams = await props.searchParams;
   return (
     <div className="pt-32 pb-24">
       <div className="max-w-7xl mx-auto px-6">

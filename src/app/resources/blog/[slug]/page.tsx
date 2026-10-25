@@ -13,14 +13,15 @@ import { getAllPostsMeta, getPostBySlug, getRelatedPosts } from "@/lib/blog";
 import { buildMetadata } from "@/lib/seo";
 
 interface BlogPostPageProps {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 export function generateStaticParams() {
   return getAllPostsMeta().map((p) => ({ slug: p.slug }));
 }
 
-export function generateMetadata({ params }: BlogPostPageProps): Metadata {
+export async function generateMetadata(props: BlogPostPageProps): Promise<Metadata> {
+  const params = await props.params;
   const post = getPostBySlug(params.slug);
   if (!post) return {};
   const coverSrc = post.meta.gallery?.[0];
@@ -65,7 +66,8 @@ const mdxComponents = {
   ),
 };
 
-export default function BlogPostPage({ params }: BlogPostPageProps) {
+export default async function BlogPostPage(props: BlogPostPageProps) {
+  const params = await props.params;
   const post = getPostBySlug(params.slug);
   if (!post) notFound();
 

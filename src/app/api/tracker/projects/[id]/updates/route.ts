@@ -4,10 +4,11 @@ import { addUpdateSchema } from "@/lib/tracker/validation";
 import { addStatusUpdate, getProjectById } from "@/lib/tracker/projects";
 
 interface RouteParams {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
-export async function POST(request: NextRequest, { params }: RouteParams) {
+export async function POST(request: NextRequest, props: RouteParams) {
+  const params = await props.params;
   const auth = await requireAdminSession();
   if ("response" in auth) return auth.response;
 

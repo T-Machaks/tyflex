@@ -8,17 +8,19 @@ import InvoiceDetailClient from "@/components/accounts/InvoiceDetailClient";
 import FadeIn from "@/components/motion/FadeIn";
 
 interface InvoicePageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
-export function generateMetadata({ params }: InvoicePageProps): Metadata {
+export async function generateMetadata(props: InvoicePageProps): Promise<Metadata> {
+  const params = await props.params;
   const invoice = getInvoiceById(params.id);
   return {
     title: invoice ? `${invoice.invoiceNumber} | Tyflex Billing` : "Invoice | Tyflex Billing",
   };
 }
 
-export default async function InvoiceDetailPage({ params }: InvoicePageProps) {
+export default async function InvoiceDetailPage(props: InvoicePageProps) {
+  const params = await props.params;
   const session = await getPortalSession();
   if (!session || session.user.role !== "admin") redirect("/portal");
 

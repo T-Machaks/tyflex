@@ -4,11 +4,12 @@ import { canAccessDocument, getDocumentById } from "@/lib/portal/documents";
 import { getDownloadUrl } from "@/lib/portal/storage";
 
 interface RouteParams {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 /** Mints a time-limited download URL for a document the session is authorized to see. */
-export async function GET(_request: NextRequest, { params }: RouteParams) {
+export async function GET(_request: NextRequest, props: RouteParams) {
+  const params = await props.params;
   const session = await getPortalSession();
   if (!session) {
     return NextResponse.json({ error: "Unauthorized." }, { status: 401 });

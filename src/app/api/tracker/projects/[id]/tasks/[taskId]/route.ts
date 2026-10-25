@@ -4,10 +4,11 @@ import { updateTaskSchema } from "@/lib/tracker/validation";
 import { updateTask } from "@/lib/tracker/projects";
 
 interface RouteParams {
-  params: { id: string; taskId: string };
+  params: Promise<{ id: string; taskId: string }>;
 }
 
-export async function PATCH(request: NextRequest, { params }: RouteParams) {
+export async function PATCH(request: NextRequest, props: RouteParams) {
+  const params = await props.params;
   const auth = await requireAdminSession();
   if ("response" in auth) return auth.response;
 

@@ -4,10 +4,11 @@ import { updateClientSchema } from "@/lib/accounts/validation";
 import { getClientById, updateClient } from "@/lib/accounts/clients";
 
 interface RouteParams {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
-export async function PATCH(request: NextRequest, { params }: RouteParams) {
+export async function PATCH(request: NextRequest, props: RouteParams) {
+  const params = await props.params;
   const auth = await requireAdminSession();
   if ("response" in auth) return auth.response;
 

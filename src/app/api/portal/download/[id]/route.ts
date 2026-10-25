@@ -4,7 +4,7 @@ import { getDocumentById } from "@/lib/portal/documents";
 import { readLocalFile } from "@/lib/portal/storage";
 
 interface RouteParams {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 /**
@@ -13,7 +13,8 @@ interface RouteParams {
  * check (the token itself, created only for documents the requesting
  * session was already authorized to see, is the authorization).
  */
-export async function GET(request: NextRequest, { params }: RouteParams) {
+export async function GET(request: NextRequest, props: RouteParams) {
+  const params = await props.params;
   const token = request.nextUrl.searchParams.get("token");
   if (!token) {
     return NextResponse.json({ error: "Missing download token." }, { status: 401 });

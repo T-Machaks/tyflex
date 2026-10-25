@@ -14,14 +14,15 @@ import { COMPANY } from "@/lib/constants";
 import { buildMetadata } from "@/lib/seo";
 
 interface Props {
-  params: { sub: string };
+  params: Promise<{ sub: string }>;
 }
 
 export function generateStaticParams() {
   return awsSolutions.map((s) => ({ sub: s.slug }));
 }
 
-export function generateMetadata({ params }: Props): Metadata {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
   const s = getAwsSolution(params.sub);
   if (!s) return {};
   return buildMetadata({
@@ -31,7 +32,8 @@ export function generateMetadata({ params }: Props): Metadata {
   });
 }
 
-export default function AwsSolutionPage({ params }: Props) {
+export default async function AwsSolutionPage(props: Props) {
+  const params = await props.params;
   const s = getAwsSolution(params.sub);
   if (!s) notFound();
 

@@ -16,14 +16,15 @@ import { COMPANY } from "@/lib/constants";
 import { buildMetadata } from "@/lib/seo";
 
 interface Props {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 export function generateStaticParams() {
   return brands.map((b) => ({ slug: b.slug }));
 }
 
-export function generateMetadata({ params }: Props): Metadata {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
   const brand = getBrandBySlug(params.slug);
   if (!brand) return {};
   return buildMetadata({
@@ -34,7 +35,8 @@ export function generateMetadata({ params }: Props): Metadata {
   });
 }
 
-export default function BrandPage({ params }: Props) {
+export default async function BrandPage(props: Props) {
+  const params = await props.params;
   const brand = getBrandBySlug(params.slug);
   if (!brand) notFound();
 

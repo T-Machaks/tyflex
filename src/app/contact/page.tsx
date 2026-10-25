@@ -9,10 +9,11 @@ export const metadata = buildMetadata({
 });
 
 interface ContactPageProps {
-  searchParams: { subject?: string };
+  searchParams: Promise<{ subject?: string }>;
 }
 
-export default function ContactPage({ searchParams }: ContactPageProps) {
+export default async function ContactPage(props: ContactPageProps) {
+  const searchParams = await props.searchParams;
   return (
     <div className="pt-32 pb-24">
       <div className="max-w-7xl mx-auto px-6">

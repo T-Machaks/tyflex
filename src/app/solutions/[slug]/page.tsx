@@ -17,14 +17,15 @@ import { awsSolutions, awsThemes } from "@/lib/data/aws-solutions";
 import { buildMetadata } from "@/lib/seo";
 
 interface SolutionPageProps {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 export function generateStaticParams() {
   return solutions.map((s) => ({ slug: s.slug }));
 }
 
-export function generateMetadata({ params }: SolutionPageProps): Metadata {
+export async function generateMetadata(props: SolutionPageProps): Promise<Metadata> {
+  const params = await props.params;
   const solution = getSolutionBySlug(params.slug);
   if (!solution) return {};
   return buildMetadata({
@@ -35,7 +36,8 @@ export function generateMetadata({ params }: SolutionPageProps): Metadata {
   });
 }
 
-export default function SolutionPage({ params }: SolutionPageProps) {
+export default async function SolutionPage(props: SolutionPageProps) {
+  const params = await props.params;
   const solution = getSolutionBySlug(params.slug);
   if (!solution) notFound();
 
