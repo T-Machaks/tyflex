@@ -6,11 +6,18 @@ import type { IconName } from "@/lib/icon-map";
 
 const BLOG_DIR = path.join(process.cwd(), "content", "blog");
 
+export interface BlogFaqEntry {
+  question: string;
+  answer: string;
+}
+
 export interface BlogPostMeta {
   slug: string;
   title: string;
   description: string;
   date: string;
+  /** Optional last-updated date (ISO), for BlogPosting's dateModified — falls back to `date` when absent. */
+  dateModified?: string;
   author: string;
   category: string;
   tags: string[];
@@ -20,6 +27,8 @@ export interface BlogPostMeta {
   gallery?: string[];
   /** Optional per-image alt text, parallel to `gallery` by index — a missing or short entry falls back to the post title at render time (see BlogCard/[slug]/page.tsx), never to an empty string. */
   galleryAlt?: string[];
+  /** Optional FAQ entries, mirrored into the post's FAQPage JSON-LD — keep this in sync with any FAQ section written in the MDX body, since it isn't derived from the content automatically. */
+  faq?: BlogFaqEntry[];
 }
 
 export interface BlogPost {
@@ -39,6 +48,7 @@ function readPostFile(filename: string): BlogPost {
       title: data.title,
       description: data.description,
       date: data.date,
+      dateModified: typeof data.dateModified === "string" ? data.dateModified : undefined,
       author: data.author ?? "Tyflex Team",
       category: data.category,
       tags: data.tags ?? [],
@@ -46,6 +56,7 @@ function readPostFile(filename: string): BlogPost {
       readingTime: readingTime(content).text,
       gallery: Array.isArray(data.gallery) ? (data.gallery as string[]) : undefined,
       galleryAlt: Array.isArray(data.galleryAlt) ? (data.galleryAlt as string[]) : undefined,
+      faq: Array.isArray(data.faq) ? (data.faq as BlogFaqEntry[]) : undefined,
     },
   };
 }

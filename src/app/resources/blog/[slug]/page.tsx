@@ -11,6 +11,7 @@ import GradientButton from "@/components/ui/GradientButton";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import { getAllPostsMeta, getPostBySlug, getRelatedPosts } from "@/lib/blog";
 import { buildMetadata } from "@/lib/seo";
+import { COMPANY } from "@/lib/constants";
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -72,6 +73,7 @@ export default async function BlogPostPage(props: BlogPostPageProps) {
   if (!post) notFound();
 
   const related = getRelatedPosts(post.meta);
+  const coverSrc = post.meta.gallery?.[0];
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -79,13 +81,39 @@ export default async function BlogPostPage(props: BlogPostPageProps) {
     headline: post.meta.title,
     description: post.meta.description,
     datePublished: post.meta.date,
+    dateModified: post.meta.dateModified ?? post.meta.date,
     author: { "@type": "Person", name: post.meta.author },
-    publisher: { "@type": "Organization", name: "Tyflex" },
+    publisher: {
+      "@type": "Organization",
+      name: "Tyflex",
+      logo: { "@type": "ImageObject", url: `${COMPANY.url}/logo.png` },
+    },
+    ...(coverSrc ? { image: `${COMPANY.url}${coverSrc}` } : {}),
   };
+
+  // FAQPage schema mirrors any FAQ entries from frontmatter. Kept for machine
+  // readability / AI-answer-engine visibility — Google deprecated the classic
+  // expandable FAQ rich result in May 2026, so this should not be expected to
+  // produce that UI in Google Search.
+  const faqSchema =
+    post.meta.faq && post.meta.faq.length > 0
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: post.meta.faq.map((f) => ({
+            "@type": "Question",
+            name: f.question,
+            acceptedAnswer: { "@type": "Answer", text: f.answer },
+          })),
+        }
+      : undefined;
 
   return (
     <div className="pt-32 pb-24">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      {faqSchema && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      )}
       <BreadcrumbJsonLd
         items={[
           { name: "Home", path: "/" },
