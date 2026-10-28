@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import remarkGfm from "remark-gfm";
 import { ArrowLeft, ArrowRight, Calendar, Clock, User } from "lucide-react";
 import FadeIn from "@/components/motion/FadeIn";
 import DynamicIcon from "@/components/ui/DynamicIcon";
@@ -55,10 +56,31 @@ const mdxComponents = {
   ul: (props: React.HTMLAttributes<HTMLUListElement>) => (
     <ul className="space-y-2 mb-5 list-disc list-inside text-gray-300" {...props} />
   ),
+  ol: (props: React.OlHTMLAttributes<HTMLOListElement>) => (
+    <ol className="space-y-2 mb-5 list-decimal list-inside text-gray-300" {...props} />
+  ),
   li: (props: React.LiHTMLAttributes<HTMLLIElement>) => <li className="leading-relaxed" {...props} />,
   strong: (props: React.HTMLAttributes<HTMLElement>) => <strong className="text-white font-semibold" {...props} />,
   a: (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
     <a className="text-brand-red hover:underline" {...props} />
+  ),
+  table: (props: React.HTMLAttributes<HTMLTableElement>) => (
+    <div className="mb-5 overflow-x-auto rounded-xl border border-white/5">
+      <table className="w-full text-sm" {...props} />
+    </div>
+  ),
+  thead: (props: React.HTMLAttributes<HTMLTableSectionElement>) => (
+    <thead className="bg-white/[0.02]" {...props} />
+  ),
+  tbody: (props: React.HTMLAttributes<HTMLTableSectionElement>) => <tbody {...props} />,
+  tr: (props: React.HTMLAttributes<HTMLTableRowElement>) => (
+    <tr className="border-b border-white/5 last:border-0" {...props} />
+  ),
+  th: (props: React.ThHTMLAttributes<HTMLTableCellElement>) => (
+    <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500" {...props} />
+  ),
+  td: (props: React.TdHTMLAttributes<HTMLTableCellElement>) => (
+    <td className="px-4 py-3 align-top text-gray-300" {...props} />
   ),
   YouTube: ({ youtubeId, label }: { youtubeId: string; label: string }) => (
     <div className="my-8">
@@ -182,7 +204,11 @@ export default async function BlogPostPage(props: BlogPostPageProps) {
 
         <FadeIn delay={0.25}>
           <article>
-            <MDXRemote source={post.content} components={mdxComponents} />
+            <MDXRemote
+              source={post.content}
+              components={mdxComponents}
+              options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
+            />
           </article>
         </FadeIn>
 
