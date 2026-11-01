@@ -1,12 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Playfair_Display } from "next/font/google";
+import localFont from "next/font/local";
 import { COMPANY } from "@/lib/constants";
 import "./paida.css";
 
-// Self-hosted by next/font (no third-party request), two weights only to keep the payload small.
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  weight: ["600", "700"],
+// Bundled latin subset of Playfair Display (SIL OFL, variable 600-700) — no network fetch at build time.
+const playfair = localFont({
+  src: "./fonts/PlayfairDisplay-latin.woff2",
+  weight: "600 700",
   variable: "--font-playfair",
   display: "swap",
 });
