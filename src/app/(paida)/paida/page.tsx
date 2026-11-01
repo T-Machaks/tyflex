@@ -4,9 +4,11 @@ import Image from "next/image";
 import { COMPANY } from "@/lib/constants";
 import { loadContent } from "@/lib/paida/content";
 import { listApproved } from "@/lib/paida/tributes";
+import { listThanks } from "@/lib/paida/contributions";
 import type { SupportMethod } from "@/lib/paida/schema";
 import { formatDate, intlDigits, mapsHref, safeUrl, telHref, waHref, youtubeId } from "@/lib/paida/util";
 import AddToCalendar from "@/components/paida/AddToCalendar";
+import ContributionForm from "@/components/paida/ContributionForm";
 import CopyButton from "@/components/paida/CopyButton";
 import Gallery from "@/components/paida/Gallery";
 import ShareBar from "@/components/paida/ShareBar";
@@ -66,7 +68,7 @@ function PaymentCard({ m, contactName }: { m: SupportMethod; contactName?: strin
 }
 
 export default async function PaidaPage() {
-  const [c, tributes] = await Promise.all([getContent(), listApproved()]);
+  const [c, tributes, thanks] = await Promise.all([getContent(), listApproved(), listThanks()]);
 
   const dates = [formatDate(c.born), formatDate(c.died)].filter(Boolean).join(" – ");
   const heroSrc = safeUrl(c.heroImage) || "/paida/og.jpg";
@@ -188,6 +190,19 @@ export default async function PaidaPage() {
                 abroad.map((m) => <PaymentCard key={m.id} m={m} contactName={m.phone ? contactNameFor(m.phone) : undefined} />)
               ) : (
                 <p className="muted">Details for family abroad coming soon. 💗</p>
+              )}
+
+              <ContributionForm />
+
+              {thanks.length > 0 && (
+                <>
+                  <p className="sub">Thank you to…</p>
+                  <ul className="thanks">
+                    {thanks.map((n) => (
+                      <li key={n}>{n}</li>
+                    ))}
+                  </ul>
+                </>
               )}
             </div>
           </section>

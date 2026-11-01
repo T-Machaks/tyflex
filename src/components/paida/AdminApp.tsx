@@ -2,9 +2,10 @@
 
 import { useEffect, useState, type ReactNode } from "react";
 import type { PaidaContent, Tribute } from "@/lib/paida/schema";
+import ContributionsAdmin from "./ContributionsAdmin";
 import { resizeImage } from "./resizeImage";
 
-type Tab = "basics" | "updates" | "program" | "support" | "story" | "voice" | "gallery" | "contacts" | "tributes" | "json";
+type Tab = "basics" | "updates" | "program" | "support" | "story" | "voice" | "gallery" | "contacts" | "tributes" | "contributions" | "json";
 const TABS: [Tab, string][] = [
   ["basics", "Basics"],
   ["updates", "Updates"],
@@ -15,6 +16,7 @@ const TABS: [Tab, string][] = [
   ["gallery", "Gallery"],
   ["contacts", "Contacts"],
   ["tributes", "Tributes"],
+  ["contributions", "Contributions"],
   ["json", "Advanced"],
 ];
 
@@ -280,6 +282,7 @@ export default function AdminApp({ initial, storageReady }: { initial: PaidaCont
         )}
 
         {tab === "tributes" && <TributesAdmin />}
+        {tab === "contributions" && <ContributionsAdmin />}
 
         {tab === "json" && (
           <div className="tform">
