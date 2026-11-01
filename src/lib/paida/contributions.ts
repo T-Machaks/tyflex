@@ -5,10 +5,9 @@ import { deleteObject, getObject, listKeys, putObject } from "./store";
 
 /**
  * One JSON object per contribution (contributions/<id>.json), same pattern as tributes.
- * Everything in here is PRIVATE. The public page only ever reads thanks.json, which
- * contains display names of confirmed, opted-in contributors and nothing else.
+ * Everything in here is PRIVATE. The public page only ever reads the notification feed
+ * (see feed.ts), which holds display names of confirmed, opted-in contributors and nothing else.
  */
-const THANKS_KEY = "contributions-thanks.json";
 
 // eslint-disable-next-line no-control-regex
 const clean = (s: string) => s.replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g, "").trim();
@@ -47,32 +46,6 @@ export async function listContributions(): Promise<Contribution[]> {
   return all.filter((c): c is Contribution => c !== null).sort((a, b) => b.createdAt.localeCompare(a.createdAt));
 }
 
-/** Public thank-you list: display names only, for confirmed contributors who opted in. */
-export async function listThanks(): Promise<string[]> {
-  try {
-    const buf = await getObject(THANKS_KEY);
-    const names = buf ? (JSON.parse(buf.toString("utf8")) as unknown) : [];
-    return Array.isArray(names) ? names.filter((n): n is string => typeof n === "string") : [];
-  } catch (err) {
-    console.error("[paida] could not load thank-you list:", err);
-    return [];
-  }
-}
-
-async function rebuildThanks(): Promise<void> {
-  const seen = new Set<string>();
-  const names: string[] = [];
-  // Oldest first so the list reads in the order people gave.
-  for (const c of (await listContributions()).reverse()) {
-    if (c.status !== "confirmed" || !c.showName) continue;
-    const k = c.name.toLowerCase();
-    if (seen.has(k)) continue;
-    seen.add(k);
-    names.push(c.name);
-  }
-  await putObject(THANKS_KEY, JSON.stringify(names), "application/json");
-}
-
 export async function createContribution(
   input: ContributionInput,
   opts: { source: "web" | "manual"; status?: Contribution["status"]; note?: string } = { source: "web" }
@@ -85,14 +58,14 @@ export async function createContribution(
     note: opts.note ?? "",
     createdAt: new Date().toISOString(),
   };
+  if (c.status === "confirmed") c.confirmedAt = c.createdAt;
   await putObject(key(c.id), JSON.stringify(c), "application/json");
-  if (c.status === "confirmed") await rebuildThanks();
   return c;
 }
 
 export const contributionPatch = contributionFields
   .partial()
-  .extend({ status: z.enum(["pending", "confirmed", "rejected"]).optional(), note: str(300).optional() });
+  .extend({ status: z.enum(["pending", "confirmed", "rejected"]).optional(), note: str(300).optional(), feedHidden: z.boolean().optional() });
 
 /**
  * Validates a partial update. Zod applies field defaults to missing keys even under
@@ -108,15 +81,20 @@ export function parsePatch(raw: unknown): z.infer<typeof contributionPatch> {
 export async function updateContribution(id: string, patch: z.infer<typeof contributionPatch>): Promise<Contribution | null> {
   const buf = await getObject(key(id));
   if (!buf) return null;
-  const next = { ...(JSON.parse(buf.toString("utf8")) as Contribution), ...patch, id };
+  const prev = JSON.parse(buf.toString("utf8")) as Contribution;
+  const next = { ...prev, ...patch, id };
+  if (next.status === "confirmed" && prev.status !== "confirmed") next.confirmedAt = new Date().toISOString();
   await putObject(key(id), JSON.stringify(next), "application/json");
-  await rebuildThanks();
   return next;
+}
+
+export async function getContribution(id: string): Promise<Contribution | null> {
+  const buf = await getObject(key(id));
+  return buf ? (JSON.parse(buf.toString("utf8")) as Contribution) : null;
 }
 
 export async function deleteContribution(id: string): Promise<void> {
   await deleteObject(key(id));
-  await rebuildThanks();
 }
 
 // ── CSV export ──────────────────────────────────────────────────────────────

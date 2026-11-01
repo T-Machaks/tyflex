@@ -2,23 +2,19 @@
 
 import { useEffect, useState, type ReactNode } from "react";
 import type { PaidaContent, Tribute } from "@/lib/paida/schema";
+import AccountPanel from "./AccountPanel";
+import ActivityAdmin from "./ActivityAdmin";
 import ContributionsAdmin from "./ContributionsAdmin";
+import FeedAdmin from "./FeedAdmin";
+import TeamAdmin from "./TeamAdmin";
 import { resizeImage } from "./resizeImage";
+import { ROLE_LABEL, TABS_FOR_ROLE, type AdminTab as Tab, type Role } from "@/lib/paida/roles";
 
-type Tab = "basics" | "updates" | "program" | "support" | "story" | "voice" | "gallery" | "contacts" | "tributes" | "contributions" | "json";
-const TABS: [Tab, string][] = [
-  ["basics", "Basics"],
-  ["updates", "Updates"],
-  ["program", "Program"],
-  ["support", "Support"],
-  ["story", "Her Story"],
-  ["voice", "Her Voice"],
-  ["gallery", "Gallery"],
-  ["contacts", "Contacts"],
-  ["tributes", "Tributes"],
-  ["contributions", "Contributions"],
-  ["json", "Advanced"],
-];
+const TAB_LABELS: Record<Tab, string> = {
+  basics: "Basics", updates: "Updates", program: "Program", support: "Support", story: "Her Story", voice: "Her Voice",
+  gallery: "Gallery", contacts: "Contacts", tributes: "Tributes", notifications: "Notifications", contributions: "Contributions",
+  activity: "Activity", team: "Team", json: "Advanced",
+};
 
 const uid = () => crypto.randomUUID();
 
@@ -76,9 +72,11 @@ async function upload(file: File, kind: "hero" | "gallery") {
   return json;
 }
 
-export default function AdminApp({ initial, storageReady }: { initial: PaidaContent; storageReady: boolean }) {
+export default function AdminApp({ initial, storageReady, me }: { initial: PaidaContent; storageReady: boolean; me: { name: string; role: Role } }) {
   const [c, setC] = useState<PaidaContent>(initial);
-  const [tab, setTab] = useState<Tab>("basics");
+  // Hiding tabs is only for convenience — every API route enforces the role on the server.
+  const tabs = TABS_FOR_ROLE[me.role];
+  const [tab, setTab] = useState<Tab>(tabs[0]);
   const [msg, setMsg] = useState("");
   const [err, setErr] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -128,8 +126,9 @@ export default function AdminApp({ initial, storageReady }: { initial: PaidaCont
     <div className="admin">
       <h1 style={{ fontSize: "1.6rem" }}>Paida page — admin</h1>
       <p className="muted small" style={{ margin: "0.3rem 0 0" }}>
-        Leave any field empty and it disappears from the page. <a href="/paida" target="_blank" rel="noopener">View page ↗</a>
+        Signed in as <strong>{me.name}</strong> ({ROLE_LABEL[me.role]}). Leave any field empty and it disappears from the page. <a href="/paida" target="_blank" rel="noopener">View page ↗</a>
       </p>
+      {me.role !== "owner" && <AccountPanel />}
       {!storageReady && <p className="status err">Storage is not configured (AWS_REGION + S3_BUCKET_NAME) — saving will fail.</p>}
 
       <div className="savebar">
@@ -139,8 +138,8 @@ export default function AdminApp({ initial, storageReady }: { initial: PaidaCont
       </div>
 
       <div className="tabs" role="tablist">
-        {TABS.map(([id, label]) => (
-          <button key={id} aria-pressed={tab === id} onClick={() => { setTab(id); if (id === "json") setJson(JSON.stringify(c, null, 2)); }}>{label}</button>
+        {tabs.map((id) => (
+          <button key={id} aria-pressed={tab === id} onClick={() => { setTab(id); if (id === "json") setJson(JSON.stringify(c, null, 2)); }}>{TAB_LABELS[id]}</button>
         ))}
       </div>
 
@@ -281,8 +280,11 @@ export default function AdminApp({ initial, storageReady }: { initial: PaidaCont
             </>)} />
         )}
 
-        {tab === "tributes" && <TributesAdmin />}
+        {tab === "tributes" && <TributesAdmin canDelete={me.role !== "editor"} />}
+        {tab === "notifications" && <FeedAdmin />}
         {tab === "contributions" && <ContributionsAdmin />}
+        {tab === "activity" && <ActivityAdmin />}
+        {tab === "team" && <TeamAdmin />}
 
         {tab === "json" && (
           <div className="tform">
@@ -296,7 +298,7 @@ export default function AdminApp({ initial, storageReady }: { initial: PaidaCont
   );
 }
 
-function TributesAdmin() {
+function TributesAdmin({ canDelete }: { canDelete: boolean }) {
   const [items, setItems] = useState<Tribute[] | null>(null);
   const [error, setError] = useState("");
 
@@ -337,7 +339,7 @@ function TributesAdmin() {
           <div className="btn-row" style={{ margin: 0 }}>
             {t.status !== "approved" && <button className="btn" onClick={() => setStatus(t.id, "approved")}>✓ Approve</button>}
             {t.status === "approved" && <button className="btn ghost" onClick={() => setStatus(t.id, "hidden")}>Hide</button>}
-            <button className="btn ghost" onClick={() => remove(t.id)}>Delete</button>
+            {canDelete && <button className="btn ghost" onClick={() => remove(t.id)}>Delete</button>}
           </div>
         </div>
       ))}

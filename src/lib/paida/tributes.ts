@@ -47,22 +47,27 @@ export async function createTribute(input: {
   return tribute;
 }
 
-export async function setTributeStatus(id: string, status: Tribute["status"]): Promise<boolean> {
+/** Returns the updated tribute, or null if it does not exist. */
+export async function setTributeStatus(id: string, status: Tribute["status"]): Promise<Tribute | null> {
   const buf = await getObject(`tributes/${id}.json`);
-  if (!buf) return false;
-  const tribute = JSON.parse(buf.toString("utf8")) as Tribute;
-  await putObject(`tributes/${id}.json`, JSON.stringify({ ...tribute, status }), "application/json");
+  if (!buf) return null;
+  const tribute = { ...(JSON.parse(buf.toString("utf8")) as Tribute), status };
+  await putObject(`tributes/${id}.json`, JSON.stringify(tribute), "application/json");
   await rebuildApproved();
-  return true;
+  return tribute;
 }
 
-export async function deleteTribute(id: string): Promise<void> {
+/** Deletes a tribute and its photo; returns the author's name for the activity log. */
+export async function deleteTribute(id: string): Promise<string | null> {
   const buf = await getObject(`tributes/${id}.json`);
+  let name: string | null = null;
   if (buf) {
-    const { photo } = JSON.parse(buf.toString("utf8")) as Tribute;
-    const photoKey = photo ? mediaKey(photo) : null;
+    const t = JSON.parse(buf.toString("utf8")) as Tribute;
+    name = t.name;
+    const photoKey = t.photo ? mediaKey(t.photo) : null;
     if (photoKey) await deleteObject(photoKey);
   }
   await deleteObject(`tributes/${id}.json`);
   await rebuildApproved();
+  return name;
 }
