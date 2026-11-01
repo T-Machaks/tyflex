@@ -42,7 +42,7 @@ export interface TeamMember {
   name: string;
   phone: string;
   email: string;
-  role: "admin" | "editor";
+  role: Role;
   status: "active" | "invited";
   inviteExpiresAt: string | null;
   createdAt: string;

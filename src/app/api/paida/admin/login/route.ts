@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { ADMIN_COOKIE, SESSION_SECONDS, adminConfigured, checkOwnerPassword, cookieOptions, issueSession, ownerSessionVersion } from "@/lib/paida/auth";
+import { ADMIN_COOKIE, SESSION_SECONDS, checkOwnerPassword, cookieOptions, issueSession, ownerLoginEnabled, ownerSessionVersion } from "@/lib/paida/auth";
 import { logActivity } from "@/lib/paida/activity";
 import { allow, clearFailures, clientIp, lockRemaining, registerFailure } from "@/lib/paida/ratelimit";
 import type { Role } from "@/lib/paida/roles";
@@ -35,8 +35,8 @@ export async function POST(req: Request) {
   let who: { id: string; name: string; role: Role };
 
   if (isOwner) {
-    if (!adminConfigured()) return fail("PAIDA_ADMIN_PASSWORD is not set on the server.", 503);
-    if (!checkOwnerPassword(password)) return wrong();
+    // Disabled or not configured: behave exactly like a wrong password so nothing is revealed.
+    if (!ownerLoginEnabled() || !checkOwnerPassword(password)) return wrong();
     token = issueSession("owner", ownerSessionVersion());
     who = { id: "owner", name: "Owner", role: "owner" };
   } else {

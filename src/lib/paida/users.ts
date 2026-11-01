@@ -2,7 +2,7 @@ import crypto, { randomUUID } from "crypto";
 import bcrypt from "bcryptjs";
 import { intlDigits } from "./util";
 import { deleteObject, getObject, listKeys, putObject } from "./store";
-import type { TeamMember } from "./roles";
+import type { Role, TeamMember } from "./roles";
 
 /**
  * Admin users and one-time invites, stored in S3 under paida/admin/ (dev: .paida-data/).
@@ -14,7 +14,7 @@ export interface StoredUser {
   name: string;
   phone: string; // normalised international digits, or ""
   email: string; // lower-case, or ""
-  role: "admin" | "editor";
+  role: Role;
   passwordHash: string; // "" until the invite is accepted
   sessionVersion: number; // bumped to end every existing session
   createdAt: string;
@@ -70,7 +70,7 @@ async function saveUser(u: StoredUser) {
   await putObject(userKey(u.id), JSON.stringify(u), "application/json");
 }
 
-export async function createUser(input: { name: string; phone: string; email: string; role: "admin" | "editor" }): Promise<StoredUser> {
+export async function createUser(input: { name: string; phone: string; email: string; role: Role }): Promise<StoredUser> {
   const { phone } = normalizeIdentifier(input.phone);
   const email = input.email.trim().toLowerCase();
   const user: StoredUser = {

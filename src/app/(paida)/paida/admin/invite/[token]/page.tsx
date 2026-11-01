@@ -17,7 +17,7 @@ export default async function InvitePage({ params }: { params: Promise<{ token: 
           <>
             <h1 style={{ fontSize: "1.6rem" }}>Welcome, {found.user.name}</h1>
             <p className="muted" style={{ margin: "0.4rem 0 0" }}>
-              You&apos;ve been invited to help look after Paida&apos;s page as {found.user.role === "admin" ? "an" : "an"} <strong>{ROLE_LABEL[found.user.role]}</strong>. Choose
+              You&apos;ve been invited to help look after Paida&apos;s page as {found.user.role === "admin" || found.user.role === "owner" ? "an" : "an"} <strong>{ROLE_LABEL[found.user.role]}</strong>. Choose
               your own password to get started. You&apos;ll sign in with your {found.user.email ? "email" : "phone number"}.
             </p>
             <InviteAccept token={token} />

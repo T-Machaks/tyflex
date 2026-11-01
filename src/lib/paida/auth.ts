@@ -24,6 +24,13 @@ function ownerPassword(): string | null {
 
 export const adminConfigured = () => ownerPassword() !== null;
 
+/**
+ * The shared "owner" bootstrap login can be switched off with PAIDA_OWNER_LOGIN=disabled once
+ * real Owner accounts exist (Team tab). When disabled, the password is ignored and every
+ * existing bootstrap session stops working at once.
+ */
+export const ownerLoginEnabled = () => process.env.PAIDA_OWNER_LOGIN !== "disabled" && ownerPassword() !== null;
+
 export function checkOwnerPassword(attempt: string): boolean {
   const expected = ownerPassword();
   if (!expected) return false;
@@ -56,7 +63,7 @@ export async function getSession(): Promise<Session | null> {
   if (!payload?.uid) return null;
 
   if (payload.uid === "owner") {
-    if (!ownerPassword() || payload.sv !== ownerSessionVersion()) return null;
+    if (!ownerLoginEnabled() || payload.sv !== ownerSessionVersion()) return null;
     return { id: "owner", name: "Owner", role: "owner" };
   }
   const user = await getUser(payload.uid);
