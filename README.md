@@ -100,3 +100,23 @@ portal to function against live services instead of their dev fallbacks.
   redesign, or remove it is still pending.
 - Images use `next/image` for the logo (the only raster asset in the UI);
   everything else is inline SVG icons (Lucide).
+
+## `/paida` — family memorial page
+
+A private, self-contained page (own root layout under `src/app/(paida)/`; no Tyflex header, footer, chat or branding), marked `noindex,nofollow` and left out of the sitemap. Existing site pages live unchanged under `src/app/(site)/` — the route group only exists so `/paida` can have its own layout; URLs are the same.
+
+**Where content lives.** `content/paida.json` is the bundled starter content (sample placeholders). Once you save from the admin page, your edits are stored in S3 (`paida/content.json` in `S3_BUCKET_NAME`) and take over; the seed is only used until then. Tributes (`paida/tributes/*.json`, plus `paida/approved.json`) and uploaded photos (`paida/media/…`) use the same bucket. In local dev with no S3 configured, everything is written to a gitignored `.paida-data/` folder instead. **Empty fields and empty sections hide themselves**, so publish now and fill in later.
+
+**Set the admin password.** Set `PAIDA_ADMIN_PASSWORD` in the Amplify environment variables (see `.env.example`) and redeploy. In local dev with it unset, the password is `paida-dev`. The compute role needs `s3:GetObject`, `PutObject`, `DeleteObject` and `ListBucket` on `paida/*` in the bucket.
+
+**Edit content.** Go to `/paida/admin`, sign in, edit any tab (Basics, Updates, Program, Support, Her Story, Her Voice, Gallery, Contacts), then press **Save changes** — the live page updates immediately. "Advanced" shows the whole document as JSON for bulk edits/backup.
+
+**Upload photos.** Hero photo: Basics tab (also generates the 1200×630 WhatsApp link-preview image), or replace `public/paida/hero.jpg` in the repo (a placeholder is included). Gallery photos: Gallery tab; photos are resized in the browser and again on the server (WebP, EXIF stripped).
+
+**Approve tributes.** Visitors' tributes (name, relationship, message, optional photo) stay hidden until you open **Tributes** in the admin and press **Approve**. You can also Hide or Delete. Spam protection: hidden honeypot field, per-IP and global rate limits (in-memory, per server instance), link filtering, and a cap on the pending queue.
+
+**Contributions.** In "Support the Family", visitors can tap "I've sent my contribution" and submit their name, amount/currency, method, reference, date sent, relationship, an optional message and phone, and whether to appear on the thank-you list. Spam protection matches tributes (honeypot, rate limits, pending cap). Each submission is stored privately as `paida/contributions/<id>.json`. The public page only ever receives the display names of **confirmed** contributors who opted in (`paida/contributions-thanks.json`) — never amounts, methods, phones, references, messages or totals. In `/paida/admin` → **Contributions** you can filter by status/method, search by name or reference, Confirm / Reject / edit, **Add manually** (cash handed over in person), see confirmed totals per currency (admin only; pending shown as a count), and **Export CSV** (UTF-8 with BOM; text cells starting with `=`, `+`, `-` or `@` are neutralised, and phone/reference digits are kept as text so Excel keeps leading zeros).
+
+**Printable program.** `/paida/program` is a clean print view (browser Print → Save as PDF).
+
+**`paida.tyflex.co.zw`.** `next.config.js` 301-redirects that host to `https://tyflex.co.zw/paida`. The request has to reach this app first: in Amplify → Hosting → Domain management, add the `paida` subdomain to this app (Amplify shows the CNAME record to create), or create a `CNAME paida → <this app's CloudFront/Amplify domain>`.

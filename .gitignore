@@ -5,6 +5,9 @@ out/
 .env.local
 .env*.local
 
+# Local-disk fallback for the /paida memorial page content, tributes and photos (dev only)
+.paida-data/
+
 # Local-disk fallback for the document portal's file storage (dev only —
 # used when S3 isn't configured; see src/lib/portal/storage.ts)
 .portal-uploads/
