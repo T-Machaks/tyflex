@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Two root layouts exist ((site) and (paida)), so 404s need app/global-not-found.tsx,
+  // which renders the Tyflex chrome for unmatched URLs and notFound() calls.
+  experimental: { globalNotFound: true },
   // Deployed on AWS Amplify in full SSR mode — no static export, no basePath.
   images: {
     remotePatterns: [
