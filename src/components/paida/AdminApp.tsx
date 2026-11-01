@@ -1,0 +1,343 @@
+"use client";
+
+import { useEffect, useState, type ReactNode } from "react";
+import type { PaidaContent, Tribute } from "@/lib/paida/schema";
+import { resizeImage } from "./resizeImage";
+
+type Tab = "basics" | "updates" | "program" | "support" | "story" | "voice" | "gallery" | "contacts" | "tributes" | "json";
+const TABS: [Tab, string][] = [
+  ["basics", "Basics"],
+  ["updates", "Updates"],
+  ["program", "Program"],
+  ["support", "Support"],
+  ["story", "Her Story"],
+  ["voice", "Her Voice"],
+  ["gallery", "Gallery"],
+  ["contacts", "Contacts"],
+  ["tributes", "Tributes"],
+  ["json", "Advanced"],
+];
+
+const uid = () => crypto.randomUUID();
+
+function Field({ label, value, onChange, type = "text", multiline, placeholder, hint }: {
+  label: string; value: string; onChange: (v: string) => void; type?: string; multiline?: boolean; placeholder?: string; hint?: string;
+}) {
+  return (
+    <label>
+      {label}
+      {multiline ? (
+        <textarea value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder} rows={5} />
+      ) : (
+        <input type={type} value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder} />
+      )}
+      {hint && <span className="muted small" style={{ fontWeight: 400 }}>{hint}</span>}
+    </label>
+  );
+}
+
+/** Generic editable list with add / remove / reorder. */
+function ListEditor<T extends { id: string }>({ items, onChange, blank, addLabel, render }: {
+  items: T[]; onChange: (items: T[]) => void; blank: () => T; addLabel: string; render: (item: T, patch: (p: Partial<T>) => void) => ReactNode;
+}) {
+  const move = (i: number, d: number) => {
+    const next = [...items];
+    const j = i + d;
+    if (j < 0 || j >= next.length) return;
+    [next[i], next[j]] = [next[j], next[i]];
+    onChange(next);
+  };
+  return (
+    <div>
+      {items.map((item, i) => (
+        <div key={item.id} className="row">
+          {render(item, (p) => onChange(items.map((x, k) => (k === i ? { ...x, ...p } : x))))}
+          <div className="btn-row" style={{ margin: 0 }}>
+            <button type="button" className="btn ghost" onClick={() => move(i, -1)} disabled={i === 0} aria-label="Move up">↑</button>
+            <button type="button" className="btn ghost" onClick={() => move(i, 1)} disabled={i === items.length - 1} aria-label="Move down">↓</button>
+            <button type="button" className="btn ghost" onClick={() => confirm("Remove this item?") && onChange(items.filter((_, k) => k !== i))}>Remove</button>
+          </div>
+        </div>
+      ))}
+      <button type="button" className="btn" onClick={() => onChange([...items, blank()])}>＋ {addLabel}</button>
+    </div>
+  );
+}
+
+async function upload(file: File, kind: "hero" | "gallery") {
+  const body = new FormData();
+  body.set("file", await resizeImage(file, kind === "hero" ? 1600 : 2000, 0.85));
+  body.set("kind", kind);
+  const res = await fetch("/api/paida/admin/upload", { method: "POST", body });
+  const json = (await res.json().catch(() => ({}))) as { ok?: boolean; message?: string; src: string; thumb?: string; ogSrc?: string; w: number; h: number };
+  if (!res.ok || !json.ok) throw new Error(json.message || "Upload failed");
+  return json;
+}
+
+export default function AdminApp({ initial, storageReady }: { initial: PaidaContent; storageReady: boolean }) {
+  const [c, setC] = useState<PaidaContent>(initial);
+  const [tab, setTab] = useState<Tab>("basics");
+  const [msg, setMsg] = useState("");
+  const [err, setErr] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [json, setJson] = useState("");
+  const set = (p: Partial<PaidaContent>) => setC((prev) => ({ ...prev, ...p }));
+  const say = (m: string, isErr = false) => { setMsg(m); setErr(isErr); };
+
+  async function save() {
+    setBusy(true);
+    say("Saving…");
+    const res = await fetch("/api/paida/admin/content", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(c) });
+    const out = (await res.json().catch(() => ({}))) as { ok?: boolean; message?: string; content?: PaidaContent };
+    if (res.ok && out.ok && out.content) { setC(out.content); say("✓ Saved — the live page is updated."); }
+    else say(out.message || "Could not save.", true);
+    setBusy(false);
+  }
+
+  async function logout() {
+    await fetch("/api/paida/admin/logout", { method: "POST" });
+    window.location.reload();
+  }
+
+  async function uploadHero(file?: File) {
+    if (!file) return;
+    say("Uploading hero photo…");
+    try {
+      const r = await upload(file, "hero");
+      set({ heroImage: r.src, ogImage: r.ogSrc ?? "" });
+      say("Hero photo uploaded — press Save to publish it.");
+    } catch (e) { say(e instanceof Error ? e.message : "Upload failed", true); }
+  }
+
+  async function uploadGallery(files: FileList | null) {
+    if (!files?.length) return;
+    const added: PaidaContent["gallery"] = [];
+    for (const [i, f] of Array.from(files).entries()) {
+      say(`Uploading ${i + 1} of ${files.length}…`);
+      try {
+        const r = await upload(f, "gallery");
+        added.push({ id: uid(), src: r.src, thumb: r.thumb ?? r.src, caption: "", w: r.w, h: r.h });
+      } catch (e) { say(e instanceof Error ? e.message : "Upload failed", true); }
+    }
+    if (added.length) { setC((prev) => ({ ...prev, gallery: [...prev.gallery, ...added] })); say(`${added.length} photo(s) added — press Save to publish.`); }
+  }
+
+  return (
+    <div className="admin">
+      <h1 style={{ fontSize: "1.6rem" }}>Paida page — admin</h1>
+      <p className="muted small" style={{ margin: "0.3rem 0 0" }}>
+        Leave any field empty and it disappears from the page. <a href="/paida" target="_blank" rel="noopener">View page ↗</a>
+      </p>
+      {!storageReady && <p className="status err">Storage is not configured (AWS_REGION + S3_BUCKET_NAME) — saving will fail.</p>}
+
+      <div className="savebar">
+        <button className="btn" onClick={save} disabled={busy}>💾 Save changes</button>
+        <button className="btn ghost" onClick={logout}>Sign out</button>
+        <span role="status" className={err ? "status err" : "status"}>{msg}</span>
+      </div>
+
+      <div className="tabs" role="tablist">
+        {TABS.map(([id, label]) => (
+          <button key={id} aria-pressed={tab === id} onClick={() => { setTab(id); if (id === "json") setJson(JSON.stringify(c, null, 2)); }}>{label}</button>
+        ))}
+      </div>
+
+      <div className="card">
+        {tab === "basics" && (
+          <div className="tform">
+            <Field label="Full name" value={c.name} onChange={(v) => set({ name: v })} />
+            <Field label="Nickname" value={c.nickname} onChange={(v) => set({ nickname: v })} />
+            <Field label="Born" type="date" value={c.born} onChange={(v) => set({ born: v })} />
+            <Field label="Passed away" type="date" value={c.died} onChange={(v) => set({ died: v })} />
+            <Field label="Tagline" value={c.tagline} onChange={(v) => set({ tagline: v })} />
+            <Field label="WhatsApp share message" multiline value={c.shareText} onChange={(v) => set({ shareText: v })} hint="The page link is added after this text." />
+            <label>
+              Hero photo
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              {c.heroImage && <img src={c.heroImage} alt="" width={140} height={140} style={{ borderRadius: 12, objectFit: "cover" }} />}
+              <input type="file" accept="image/*" onChange={(e) => uploadHero(e.target.files?.[0])} />
+              <span className="muted small" style={{ fontWeight: 400 }}>
+                Or replace the file public/paida/hero.jpg in the repo. Uploading here also makes the link-preview image for WhatsApp.
+              </span>
+            </label>
+          </div>
+        )}
+
+        {tab === "updates" && (
+          <ListEditor items={c.updates} onChange={(updates) => set({ updates })} addLabel="Add update"
+            blank={() => ({ id: uid(), date: new Date().toISOString().slice(0, 10), title: "", body: "" })}
+            render={(u, p) => (<>
+              <Field label="Date" type="date" value={u.date} onChange={(v) => p({ date: v })} />
+              <Field label="Headline" value={u.title} onChange={(v) => p({ title: v })} />
+              <Field label="Details" multiline value={u.body} onChange={(v) => p({ body: v })} />
+            </>)} />
+        )}
+
+        {tab === "program" && (
+          <ListEditor items={c.program} onChange={(program) => set({ program })} addLabel="Add event"
+            blank={() => ({ id: uid(), title: "", date: "", time: "", endTime: "", venue: "", address: "", mapsUrl: "", livestreamUrl: "", notes: "" })}
+            render={(e, p) => (<>
+              <Field label="Event" value={e.title} onChange={(v) => p({ title: v })} placeholder="Church service" />
+              <Field label="Date" type="date" value={e.date} onChange={(v) => p({ date: v })} />
+              <Field label="Start time" type="time" value={e.time} onChange={(v) => p({ time: v })} hint="Harare time. Needed for exact calendar entries." />
+              <Field label="End time (optional)" type="time" value={e.endTime} onChange={(v) => p({ endTime: v })} />
+              <Field label="Venue" value={e.venue} onChange={(v) => p({ venue: v })} />
+              <Field label="Address" value={e.address} onChange={(v) => p({ address: v })} />
+              <Field label="Google Maps link" value={e.mapsUrl} onChange={(v) => p({ mapsUrl: v })} hint="Optional — a search link is built from venue + address if empty." />
+              <Field label="Livestream link" value={e.livestreamUrl} onChange={(v) => p({ livestreamUrl: v })} />
+              <Field label="Notes" multiline value={e.notes} onChange={(v) => p({ notes: v })} />
+            </>)} />
+        )}
+
+        {tab === "support" && (
+          <div className="tform">
+            <Field label="Message above the payment details" multiline value={c.supportIntro} onChange={(v) => set({ supportIntro: v })} />
+            {(["supportLocal", "supportAbroad"] as const).map((key) => (
+              <div key={key}>
+                <h3 style={{ margin: "0.5rem 0" }}>{key === "supportLocal" ? "🇿🇼 In Zimbabwe" : "🌍 Outside Zimbabwe"}</h3>
+                <ListEditor items={c[key]} onChange={(v) => set({ [key]: v })} addLabel="Add payment method"
+                  blank={() => ({ id: uid(), label: "", details: "", copyText: "", link: "", linkLabel: "", phone: "" })}
+                  render={(m, p) => (<>
+                    <Field label="Name" value={m.label} onChange={(v) => p({ label: v })} placeholder="EcoCash, Mukuru, Bank transfer…" />
+                    <Field label="Details" multiline value={m.details} onChange={(v) => p({ details: v })} />
+                    <Field label="Text to copy" value={m.copyText} onChange={(v) => p({ copyText: v })} hint="Number or account details for the copy button." />
+                    <Field label="Link" value={m.link} onChange={(v) => p({ link: v })} />
+                    <Field label="Link button label" value={m.linkLabel} onChange={(v) => p({ linkLabel: v })} />
+                    <Field label="Phone (adds Call / WhatsApp buttons)" value={m.phone} onChange={(v) => p({ phone: v })} />
+                  </>)} />
+              </div>
+            ))}
+            <p className="muted small">Do not enter amounts or targets — the page deliberately shows no fundraising progress.</p>
+          </div>
+        )}
+
+        {tab === "story" && (
+          <div className="tform">
+            <Field label="Her story" multiline value={c.storyText} onChange={(v) => set({ storyText: v })} hint="Blank lines make new paragraphs." />
+            <h3>Life moments</h3>
+            <ListEditor items={c.timeline} onChange={(timeline) => set({ timeline })} addLabel="Add moment"
+              blank={() => ({ id: uid(), year: "", caption: "" })}
+              render={(t, p) => (<>
+                <Field label="Year" value={t.year} onChange={(v) => p({ year: v })} />
+                <Field label="Caption" value={t.caption} onChange={(v) => p({ caption: v })} />
+              </>)} />
+          </div>
+        )}
+
+        {tab === "voice" && (
+          <div className="tform">
+            <Field label="Channel name" value={c.channelName} onChange={(v) => set({ channelName: v })} />
+            <Field label="Channel link" value={c.channelUrl} onChange={(v) => set({ channelUrl: v })} />
+            <h3>Featured videos</h3>
+            <ListEditor items={c.videos} onChange={(videos) => set({ videos })} addLabel="Add video"
+              blank={() => ({ id: uid(), url: "", title: "" })}
+              render={(v, p) => (<>
+                <Field label="YouTube link" value={v.url} onChange={(x) => p({ url: x })} placeholder="https://www.youtube.com/watch?v=…" />
+                <Field label="Title" value={v.title} onChange={(x) => p({ title: x })} />
+              </>)} />
+            <h3>Social links</h3>
+            <ListEditor items={c.social} onChange={(social) => set({ social })} addLabel="Add link"
+              blank={() => ({ id: uid(), label: "", url: "" })}
+              render={(s, p) => (<>
+                <Field label="Name" value={s.label} onChange={(x) => p({ label: x })} placeholder="Instagram, TikTok…" />
+                <Field label="Link" value={s.url} onChange={(x) => p({ url: x })} />
+              </>)} />
+          </div>
+        )}
+
+        {tab === "gallery" && (
+          <div className="tform">
+            <label>
+              Add photos
+              <input type="file" accept="image/*" multiple onChange={(e) => { uploadGallery(e.target.files); e.target.value = ""; }} />
+              <span className="muted small" style={{ fontWeight: 400 }}>Photos are resized automatically. Press Save after uploading.</span>
+            </label>
+            <div className="thumbs">
+              {c.gallery.map((g, i) => (
+                <div key={g.id} className="row">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={g.thumb || g.src} alt="" loading="lazy" />
+                  <input type="text" value={g.caption} placeholder="Caption" aria-label="Caption" onChange={(e) => set({ gallery: c.gallery.map((x, k) => (k === i ? { ...x, caption: e.target.value } : x)) })} />
+                  <div className="btn-row" style={{ margin: 0 }}>
+                    <button type="button" className="btn ghost" disabled={i === 0} onClick={() => { const n = [...c.gallery]; [n[i - 1], n[i]] = [n[i], n[i - 1]]; set({ gallery: n }); }} aria-label="Move earlier">←</button>
+                    <button type="button" className="btn ghost" disabled={i === c.gallery.length - 1} onClick={() => { const n = [...c.gallery]; [n[i + 1], n[i]] = [n[i], n[i + 1]]; set({ gallery: n }); }} aria-label="Move later">→</button>
+                    <button type="button" className="btn ghost" onClick={() => confirm("Remove this photo?") && set({ gallery: c.gallery.filter((_, k) => k !== i) })} aria-label="Remove photo">✕</button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {tab === "contacts" && (
+          <ListEditor items={c.contacts} onChange={(contacts) => set({ contacts })} addLabel="Add contact"
+            blank={() => ({ id: uid(), name: "", role: "", phone: "" })}
+            render={(p0, p) => (<>
+              <Field label="Name" value={p0.name} onChange={(v) => p({ name: v })} />
+              <Field label="Role" value={p0.role} onChange={(v) => p({ role: v })} placeholder="Funeral arrangements" />
+              <Field label="Phone / WhatsApp" value={p0.phone} onChange={(v) => p({ phone: v })} hint="Numbers starting with 0 are treated as Zimbabwe (+263)." />
+            </>)} />
+        )}
+
+        {tab === "tributes" && <TributesAdmin />}
+
+        {tab === "json" && (
+          <div className="tform">
+            <p className="muted small" style={{ margin: 0 }}>Full content as JSON — for bulk edits or backup. Apply, then Save.</p>
+            <textarea value={json} onChange={(e) => setJson(e.target.value)} rows={18} spellCheck={false} style={{ fontFamily: "monospace", fontSize: 13 }} />
+            <button className="btn ghost" onClick={() => { try { setC(JSON.parse(json)); say("JSON applied — press Save to publish."); } catch { say("That is not valid JSON.", true); } }}>Apply JSON</button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function TributesAdmin() {
+  const [items, setItems] = useState<Tribute[] | null>(null);
+  const [error, setError] = useState("");
+
+  async function refresh() {
+    const res = await fetch("/api/paida/admin/tributes");
+    const out = (await res.json().catch(() => ({}))) as { ok?: boolean; tributes?: Tribute[]; message?: string };
+    if (out.ok && out.tributes) setItems(out.tributes);
+    else setError(out.message || "Could not load tributes (the bucket role may need s3:ListBucket).");
+  }
+  useEffect(() => { refresh(); }, []);
+
+  async function setStatus(id: string, status: Tribute["status"]) {
+    await fetch("/api/paida/admin/tributes", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id, status }) });
+    refresh();
+  }
+  async function remove(id: string) {
+    if (!confirm("Delete this tribute permanently?")) return;
+    await fetch(`/api/paida/admin/tributes?id=${id}`, { method: "DELETE" });
+    refresh();
+  }
+
+  if (error) return <p className="status err">{error}</p>;
+  if (!items) return <p>Loading…</p>;
+  if (items.length === 0) return <p className="muted">No tributes yet.</p>;
+
+  const order = { pending: 0, approved: 1, hidden: 2 } as const;
+  return (
+    <div>
+      {[...items].sort((a, b) => order[a.status] - order[b.status]).map((t) => (
+        <div key={t.id} className="row">
+          <div>
+            <strong>{t.name}</strong> {t.relationship && <span className="muted">· {t.relationship}</span>} <span className="badge">{t.status}</span>
+            <div className="muted small">{new Date(t.createdAt).toLocaleString("en-GB")}</div>
+          </div>
+          <p style={{ margin: 0, whiteSpace: "pre-line" }}>{t.message}</p>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          {t.photo && <img src={t.photo} alt="" width={160} style={{ borderRadius: 10 }} loading="lazy" />}
+          <div className="btn-row" style={{ margin: 0 }}>
+            {t.status !== "approved" && <button className="btn" onClick={() => setStatus(t.id, "approved")}>✓ Approve</button>}
+            {t.status === "approved" && <button className="btn ghost" onClick={() => setStatus(t.id, "hidden")}>Hide</button>}
+            <button className="btn ghost" onClick={() => remove(t.id)}>Delete</button>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}

@@ -10,6 +10,14 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      // Family memorial page lives at /paida; the vanity subdomain 301s to it.
+      // (Needs paida.tyflex.co.zw attached to this Amplify app — see README.)
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "paida.tyflex.co.zw" }],
+        destination: "https://tyflex.co.zw/paida",
+        statusCode: 301,
+      },
       // Barcode & Scanning renamed to AutoID (expanded scope: mobile computing,
       // rugged devices, line matrix printing) â€” Phase 1 content restructure.
       {

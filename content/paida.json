@@ -1,0 +1,92 @@
+{
+  "name": "Paidamoyo Machakaire",
+  "nickname": "Paida",
+  "born": "",
+  "died": "",
+  "tagline": "Forever smiling. Forever loved. 💗",
+  "heroImage": "/paida/hero.jpg",
+  "ogImage": "/paida/og.jpg",
+  "shareText": "Celebrating the life of our dear Paida. Program, updates and how to support the family:",
+  "updates": [],
+  "program": [],
+  "supportIntro": "Every contribution, big or small, helps carry the family through this time.",
+  "supportLocal": [
+    {
+      "id": "ecocash",
+      "label": "EcoCash",
+      "details": "Send to Rufaro",
+      "copyText": "0771 517 577",
+      "link": "",
+      "linkLabel": "",
+      "phone": "0771 517 577"
+    }
+  ],
+  "supportAbroad": [
+    {
+      "id": "mukuru",
+      "label": "Mukuru",
+      "details": "",
+      "copyText": "",
+      "link": "",
+      "linkLabel": "",
+      "phone": ""
+    },
+    {
+      "id": "worldremit",
+      "label": "WorldRemit",
+      "details": "",
+      "copyText": "",
+      "link": "",
+      "linkLabel": "",
+      "phone": ""
+    },
+    {
+      "id": "bank",
+      "label": "Bank transfer",
+      "details": "",
+      "copyText": "",
+      "link": "",
+      "linkLabel": "",
+      "phone": ""
+    },
+    {
+      "id": "paypal",
+      "label": "PayPal",
+      "details": "",
+      "copyText": "",
+      "link": "",
+      "linkLabel": "",
+      "phone": ""
+    },
+    {
+      "id": "other",
+      "label": "Other",
+      "details": "",
+      "copyText": "",
+      "link": "",
+      "linkLabel": "",
+      "phone": ""
+    }
+  ],
+  "storyText": "",
+  "timeline": [],
+  "channelName": "Simply Paidaa",
+  "channelUrl": "https://www.youtube.com/c/simplypaidaa",
+  "videos": [],
+  "social": [
+    {
+      "id": "facebook",
+      "label": "Facebook",
+      "url": "https://www.facebook.com/paida.machakaire/"
+    }
+  ],
+  "gallery": [],
+  "contacts": [
+    {
+      "id": "rufaro",
+      "name": "Rufaro",
+      "role": "Contributions",
+      "phone": "0771 517 577"
+    }
+  ]
+}
