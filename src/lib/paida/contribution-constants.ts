@@ -33,4 +33,6 @@ export interface Contribution {
   source: "web" | "manual";
   note: string; // internal, admin only
   createdAt: string; // ISO
+  confirmedAt?: string; // ISO, set when first confirmed (used for the public "x hours ago")
+  feedHidden?: boolean; // admin removed this person from the public notification feed
 }

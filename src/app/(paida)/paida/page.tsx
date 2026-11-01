@@ -4,12 +4,13 @@ import Image from "next/image";
 import { COMPANY } from "@/lib/constants";
 import { loadContent } from "@/lib/paida/content";
 import { listApproved } from "@/lib/paida/tributes";
-import { listThanks } from "@/lib/paida/contributions";
+import { listFeed, relativeTime } from "@/lib/paida/feed";
 import type { SupportMethod } from "@/lib/paida/schema";
 import { formatDate, intlDigits, mapsHref, safeUrl, telHref, waHref, youtubeId } from "@/lib/paida/util";
 import AddToCalendar from "@/components/paida/AddToCalendar";
 import ContributionForm from "@/components/paida/ContributionForm";
 import CopyButton from "@/components/paida/CopyButton";
+import FeedTicker from "@/components/paida/FeedTicker";
 import Gallery from "@/components/paida/Gallery";
 import ShareBar from "@/components/paida/ShareBar";
 import TributeForm from "@/components/paida/TributeForm";
@@ -68,7 +69,7 @@ function PaymentCard({ m, contactName }: { m: SupportMethod; contactName?: strin
 }
 
 export default async function PaidaPage() {
-  const [c, tributes, thanks] = await Promise.all([getContent(), listApproved(), listThanks()]);
+  const [c, tributes, feed] = await Promise.all([getContent(), listApproved(), listFeed()]);
 
   const dates = [formatDate(c.born), formatDate(c.died)].filter(Boolean).join(" – ");
   const heroSrc = safeUrl(c.heroImage) || "/paida/og.jpg";
@@ -76,6 +77,14 @@ export default async function PaidaPage() {
   const events = c.program.filter((e) => e.title);
   const local = c.supportLocal.filter(hasMethod);
   const abroad = c.supportAbroad.filter(hasMethod);
+  // Soft notification feed: finished sentences + relative time only. No amounts, methods, phones,
+  // references or messages ever reach this page (the feed file doesn't contain them).
+  const now = Date.now();
+  const feedLines = feed.map((f, i) => ({
+    id: String(i),
+    text: f.line ? `${f.name} — ${f.line}` : `${f.name} sent love and support to the family`,
+    when: relativeTime(f.at, now),
+  }));
   const showSupport = local.length > 0 || c.supportAbroad.length > 0 || Boolean(c.supportIntro);
   const timeline = c.timeline.filter((t) => t.caption);
   const photos = c.gallery.filter((g) => safeUrl(g.src));
@@ -103,6 +112,7 @@ export default async function PaidaPage() {
         {c.name && <h1>{c.name}</h1>}
         {dates && <p className="dates">{dates}</p>}
         {c.tagline && <p className="tagline">{c.tagline}</p>}
+        {feedLines.length > 0 && <FeedTicker items={feedLines.slice(0, 5).map((f) => `💗 ${f.text} · ${f.when}`)} />}
       </header>
 
       <main className="wrap">
@@ -173,7 +183,7 @@ export default async function PaidaPage() {
         {showSupport && (
           <section className="section" id="support" aria-labelledby="support-h">
             <div className="card">
-              <h2 id="support-h">Support the Family</h2>
+              <h2 id="support-h">Ways to help</h2>
               {c.supportIntro && <p style={{ margin: 0 }}>{c.supportIntro}</p>}
 
               {local.length > 0 && (
@@ -194,15 +204,29 @@ export default async function PaidaPage() {
 
               <ContributionForm />
 
-              {thanks.length > 0 && (
-                <>
-                  <p className="sub">Thank you to…</p>
-                  <ul className="thanks">
-                    {thanks.map((n) => (
-                      <li key={n}>{n}</li>
+              {feedLines.length > 0 && (
+                <div className="feed" aria-label="Love and support for the family">
+                  <p className="sub">💗 With love</p>
+                  <ul className="feed-list">
+                    {feedLines.slice(0, 5).map((f) => (
+                      <li key={f.id}>
+                        <span>💗 {f.text}</span> <time>{f.when}</time>
+                      </li>
                     ))}
                   </ul>
-                </>
+                  {feedLines.length > 5 && (
+                    <details className="feed-more">
+                      <summary>{`See all (${feedLines.length})`}</summary>
+                      <ul className="feed-list">
+                        {feedLines.slice(5).map((f) => (
+                          <li key={f.id}>
+                            <span>💗 {f.text}</span> <time>{f.when}</time>
+                          </li>
+                        ))}
+                      </ul>
+                    </details>
+                  )}
+                </div>
               )}
             </div>
           </section>
@@ -319,7 +343,7 @@ export default async function PaidaPage() {
 
       <footer className="pfoot">With love, the Machakaire family 💗</footer>
 
-      <ShareBar url={PAGE_URL} text={shareText} showSupport={showSupport} />
+      <ShareBar url={PAGE_URL} text={shareText} showProgram={events.length > 0} showSupport={showSupport} />
     </>
   );
 }

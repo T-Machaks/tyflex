@@ -30,7 +30,7 @@ export default function ContributionForm() {
 
   return (
     <details className="pay contrib" id="contribution">
-      <summary className="btn" style={{ listStyle: "none" }}>
+      <summary className="btn ghost" style={{ listStyle: "none" }}>
         💗 I&apos;ve sent my contribution
       </summary>
 
