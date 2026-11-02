@@ -61,7 +61,7 @@ export default function TeamAdmin() {
         <label>Email<input type="text" inputMode="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} /></label>
         <label>Role
           <select value={form.role} onChange={(e) => setForm({ ...form, role: e.target.value })}>
-            <option value="editor">Editor</option><option value="admin">Admin</option>
+            <option value="editor">Editor</option><option value="admin">Admin</option><option value="owner">Owner (full access, can manage the team)</option>
           </select>
         </label>
         <button className="btn" disabled={!form.name.trim() || (!form.phone.trim() && !form.email.trim())} onClick={async () => {
@@ -71,7 +71,7 @@ export default function TeamAdmin() {
         <span role="status" className="muted small">{msg}</span>
       </div>
 
-      <div className="row"><strong>The Owner</strong><span className="muted small">You — signs in with “owner” and the server password. Cannot be changed here.</span></div>
+      <div className="row"><strong>Shared owner login</strong><span className="muted small">Signs in as “owner” with the server password (PAIDA_ADMIN_PASSWORD). Once you and any other Owners have personal logins, switch it off with PAIDA_OWNER_LOGIN=disabled.</span></div>
 
       {team.length === 0 && <p className="muted">No one has been added yet.</p>}
       {team.map((m) => (
@@ -85,9 +85,11 @@ export default function TeamAdmin() {
             </div>
           </div>
           <div className="btn-row" style={{ margin: 0 }}>
-            <select aria-label={`Role for ${m.name}`} value={m.role} onChange={(e) => call("PATCH", { id: m.id, role: e.target.value })} style={{ width: "auto" }}>
-              <option value="editor">Editor</option><option value="admin">Admin</option>
-            </select>
+            {m.role !== "owner" && (
+              <select aria-label={`Role for ${m.name}`} value={m.role} onChange={(e) => call("PATCH", { id: m.id, role: e.target.value })} style={{ width: "auto" }}>
+                <option value="editor">Editor</option><option value="admin">Admin</option>
+              </select>
+            )}
             <button className="btn ghost" onClick={async () => {
               if (!confirm(`Reset access for ${m.name}? Their password stops working, they are signed out everywhere, and you get a new invite link.`)) return;
               const out = await call("PATCH", { id: m.id, reset: true });

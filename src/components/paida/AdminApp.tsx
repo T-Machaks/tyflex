@@ -72,7 +72,7 @@ async function upload(file: File, kind: "hero" | "gallery") {
   return json;
 }
 
-export default function AdminApp({ initial, storageReady, me }: { initial: PaidaContent; storageReady: boolean; me: { name: string; role: Role } }) {
+export default function AdminApp({ initial, storageReady, me }: { initial: PaidaContent; storageReady: boolean; me: { name: string; role: Role; shared: boolean } }) {
   const [c, setC] = useState<PaidaContent>(initial);
   // Hiding tabs is only for convenience — every API route enforces the role on the server.
   const tabs = TABS_FOR_ROLE[me.role];
@@ -128,7 +128,13 @@ export default function AdminApp({ initial, storageReady, me }: { initial: Paida
       <p className="muted small" style={{ margin: "0.3rem 0 0" }}>
         Signed in as <strong>{me.name}</strong> ({ROLE_LABEL[me.role]}). Leave any field empty and it disappears from the page. <a href="/paida" target="_blank" rel="noopener">View page ↗</a>
       </p>
-      {me.role !== "owner" && <AccountPanel />}
+      {me.shared ? (
+        <p className="muted small" style={{ margin: "0.4rem 0 0" }}>
+          You&apos;re on the shared owner login. Add yourself as an Owner in <strong>Team</strong> to get a personal login.
+        </p>
+      ) : (
+        <AccountPanel />
+      )}
       {!storageReady && <p className="status err">Storage is not configured (AWS_REGION + S3_BUCKET_NAME) — saving will fail.</p>}
 
       <div className="savebar">

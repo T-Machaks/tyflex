@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-export default function AdminLogin({ configured }: { configured: boolean }) {
+export default function AdminLogin({ ownerLoginEnabled }: { ownerLoginEnabled: boolean }) {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
@@ -28,7 +28,6 @@ export default function AdminLogin({ configured }: { configured: boolean }) {
     <div className="admin">
       <div className="card" style={{ maxWidth: 420, margin: "3rem auto" }}>
         <h1 style={{ fontSize: "1.6rem" }}>Paida page — sign in</h1>
-        {!configured && <p className="status err">The owner password is not set on the server (PAIDA_ADMIN_PASSWORD). Team members can still sign in.</p>}
         <form className="tform" onSubmit={onSubmit}>
           <label>
             Phone or email
@@ -46,9 +45,11 @@ export default function AdminLogin({ configured }: { configured: boolean }) {
               {error}
             </p>
           )}
-          <p className="muted small" style={{ margin: 0 }}>
-            Site owner: type <strong>owner</strong> as the phone or email.
-          </p>
+          {ownerLoginEnabled && (
+            <p className="muted small" style={{ margin: 0 }}>
+              Shared owner login: type <strong>owner</strong> as the phone or email.
+            </p>
+          )}
         </form>
       </div>
     </div>

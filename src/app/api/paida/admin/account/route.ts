@@ -4,11 +4,11 @@ import { logActivity } from "@/lib/paida/activity";
 import { allow, clientIp } from "@/lib/paida/ratelimit";
 import { getUser, hashPassword, passwordProblem, updateUser, verifyPassword } from "@/lib/paida/users";
 
-/** Change your own password (Admins and Editors). The Owner's password is the server environment variable. */
+/** Change your own password. (The shared bootstrap owner login has none: its password is a server environment variable.) */
 export async function POST(req: Request) {
   const session = await getSession();
   if (!session) return NextResponse.json({ ok: false, message: "Please sign in again." }, { status: 401 });
-  if (session.role === "owner") return NextResponse.json({ ok: false, message: "The Owner password is set on the server (PAIDA_ADMIN_PASSWORD)." }, { status: 400 });
+  if (session.id === "owner") return NextResponse.json({ ok: false, message: "The shared owner login has no personal password. Add yourself as an Owner in the Team tab." }, { status: 400 });
   if (!allow(`pw:${session.id}:${clientIp(req)}`, 5, 10 * 60_000)) return NextResponse.json({ ok: false, message: "Too many attempts." }, { status: 429 });
 
   const { currentPassword, newPassword } = (await req.json().catch(() => ({}))) as { currentPassword?: string; newPassword?: string };
