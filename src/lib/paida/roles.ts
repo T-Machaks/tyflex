@@ -12,7 +12,7 @@ export const atLeast = (role: Role, min: Role) => ROLE_RANK[role] >= ROLE_RANK[m
  * Everything else (payment details, contacts, hero, links, basics) needs Admin.
  * Enforced on the server in the content API, not just by hiding tabs.
  */
-export const EDITOR_CONTENT_FIELDS = ["updates", "program", "storyText", "timeline", "gallery"] as const;
+export const EDITOR_CONTENT_FIELDS = ["updates", "program", "aboutText", "aboutPhoto", "storyText", "timeline", "gallery"] as const;
 
 /** Section label for each content field, used for readable activity-log lines. */
 export const FIELD_SECTION: Record<string, string> = {
@@ -20,6 +20,7 @@ export const FIELD_SECTION: Record<string, string> = {
   updates: "Updates",
   program: "Program",
   supportIntro: "Support details", supportLocal: "Support details", supportAbroad: "Support details",
+  aboutText: "About Paida", aboutPhoto: "About Paida",
   storyText: "Her Story", timeline: "Her Story",
   channelName: "Her Voice", channelUrl: "Her Voice", videos: "Her Voice", social: "Her Voice",
   gallery: "Gallery",
@@ -27,14 +28,14 @@ export const FIELD_SECTION: Record<string, string> = {
 };
 
 export type AdminTab =
-  | "basics" | "updates" | "program" | "support" | "story" | "voice" | "gallery" | "contacts"
+  | "basics" | "updates" | "program" | "about" | "support" | "story" | "voice" | "gallery" | "contacts"
   | "tributes" | "notifications" | "contributions" | "activity" | "team" | "json";
 
 /** Which tabs each role sees. The API enforces the same rules independently. */
 export const TABS_FOR_ROLE: Record<Role, AdminTab[]> = {
-  editor: ["updates", "program", "story", "gallery", "tributes", "notifications"],
-  admin: ["basics", "updates", "program", "support", "story", "voice", "gallery", "contacts", "tributes", "notifications", "contributions", "activity", "json"],
-  owner: ["basics", "updates", "program", "support", "story", "voice", "gallery", "contacts", "tributes", "notifications", "contributions", "activity", "team", "json"],
+  editor: ["updates", "program", "about", "story", "gallery", "tributes", "notifications"],
+  admin: ["basics", "updates", "program", "about", "support", "story", "voice", "gallery", "contacts", "tributes", "notifications", "contributions", "activity", "json"],
+  owner: ["basics", "updates", "program", "about", "support", "story", "voice", "gallery", "contacts", "tributes", "notifications", "contributions", "activity", "team", "json"],
 };
 
 export interface TeamMember {

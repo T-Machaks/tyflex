@@ -12,7 +12,7 @@ import { ROLE_LABEL, TABS_FOR_ROLE, type AdminTab as Tab, type Role } from "@/li
 
 const TAB_LABELS: Record<Tab, string> = {
   basics: "Basics", updates: "Updates", program: "Program", support: "Support", story: "Her Story", voice: "Her Voice",
-  gallery: "Gallery", contacts: "Contacts", tributes: "Tributes", notifications: "Notifications", contributions: "Contributions",
+  about: "About", gallery: "Gallery", contacts: "Contacts", tributes: "Tributes", notifications: "Notifications", contributions: "Contributions",
   activity: "Activity", team: "Team", json: "Advanced",
 };
 
@@ -215,6 +215,36 @@ export default function AdminApp({ initial, storageReady, me }: { initial: Paida
               </div>
             ))}
             <p className="muted small">Do not enter amounts or targets — the page deliberately shows no fundraising progress.</p>
+          </div>
+        )}
+
+        {tab === "about" && (
+          <div className="tform">
+            <p className="muted small" style={{ margin: 0 }}>
+              A short note (2–4 sentences) that appears just above “Ways to help”, with a small portrait. Leave it empty to hide it. The full story goes in <strong>Her Story</strong>.
+            </p>
+            <label>
+              About Paida
+              <textarea value={c.aboutText} maxLength={700} rows={5} onChange={(e) => set({ aboutText: e.target.value })} />
+              <span className="muted small" style={{ fontWeight: 400 }}>{c.aboutText.length}/700 characters</span>
+            </label>
+            <label>
+              Portrait
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={c.aboutPhoto || c.heroImage} alt="" width={96} height={96} style={{ borderRadius: "50%", objectFit: "cover" }} />
+              <input type="file" accept="image/*" onChange={async (e) => {
+                const f = e.target.files?.[0];
+                if (!f) return;
+                say("Uploading portrait…");
+                try { const r = await upload(f, "gallery"); set({ aboutPhoto: r.src }); say("Portrait uploaded — press Save to publish it."); }
+                catch (x) { say(x instanceof Error ? x.message : "Upload failed", true); }
+                e.target.value = "";
+              }} />
+              <span className="muted small" style={{ fontWeight: 400 }}>
+                {c.aboutPhoto ? "Using the photo you uploaded." : "Using her main photo."}{" "}
+                {c.aboutPhoto && <button type="button" className="btn ghost" style={{ minHeight: 32, padding: "0.1rem 0.7rem" }} onClick={() => set({ aboutPhoto: "" })}>Use her main photo instead</button>}
+              </span>
+            </label>
           </div>
         )}
 

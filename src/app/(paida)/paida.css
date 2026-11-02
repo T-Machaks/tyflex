@@ -119,6 +119,11 @@ details.acc > .acc-body { padding: 0 1.25rem 1.25rem; }
 .two { display: grid; grid-template-columns: 2fr 1fr; gap: 0.6rem; }
 label.check { display: flex; align-items: center; gap: 0.6rem; font-weight: 600; }
 label.check input { width: 22px; height: 22px; accent-color: var(--burgundy); }
+.about { display: flex; gap: 1rem; align-items: flex-start; }
+.about img { width: 88px; height: 88px; flex: none; border-radius: 50%; object-fit: cover; border: 3px solid var(--burgundy); background: var(--blush-deep); }
+.about h2 { margin-bottom: 0.4rem; }
+.about p { margin: 0; white-space: pre-line; }
+@media (max-width: 360px) { .about { flex-direction: column; } }
 .feed { margin-top: 0.4rem; }
 .feed-list { list-style: none; margin: 0.4rem 0 0; padding: 0; display: grid; gap: 0.45rem; }
 .feed-list li { display: flex; justify-content: space-between; align-items: baseline; gap: 0.75rem; flex-wrap: wrap; color: var(--plum); font-size: 0.95rem; }
