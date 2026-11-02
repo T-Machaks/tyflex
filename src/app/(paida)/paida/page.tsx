@@ -87,6 +87,9 @@ export default async function PaidaPage() {
   }));
   const showSupport = local.length > 0 || c.supportAbroad.length > 0 || Boolean(c.supportIntro);
   const timeline = c.timeline.filter((t) => t.caption);
+  // Short "About" note: hidden unless the family has written something. Photo defaults to her main one.
+  const aboutText = c.aboutText.trim();
+  const aboutSrc = safeUrl(c.aboutPhoto) || heroSrc;
   const photos = c.gallery.filter((g) => safeUrl(g.src));
   const videos = c.videos.flatMap((v) => {
     const id = youtubeId(v.url);
@@ -178,6 +181,23 @@ export default async function PaidaPage() {
               </div>
             </div>
           </details>
+        )}
+
+        {aboutText && (
+          <section className="section" id="about" aria-labelledby="about-h">
+            <div className="card about">
+              {aboutSrc.startsWith("/api/") ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={aboutSrc} alt="" width={176} height={176} loading="lazy" decoding="async" />
+              ) : (
+                <Image src={aboutSrc} alt="" width={176} height={176} sizes="88px" />
+              )}
+              <div>
+                <h2 id="about-h">About {c.nickname || c.name || "her"}</h2>
+                <p>{aboutText}</p>
+              </div>
+            </div>
+          </section>
         )}
 
         {showSupport && (

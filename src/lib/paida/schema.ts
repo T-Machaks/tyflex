@@ -54,6 +54,8 @@ export const paidaContentSchema = z.object({
   supportLocal: z.array(method).max(10).default([]),
   supportAbroad: z.array(method).max(15).default([]),
 
+  aboutText: text(700),
+  aboutPhoto: link,
   storyText: text(8000),
   timeline: z.array(z.object({ id: text(64), year: text(10), caption: text(300) })).max(60).default([]),
 
