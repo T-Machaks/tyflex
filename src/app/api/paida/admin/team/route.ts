@@ -22,9 +22,17 @@ const noStore = { "Cache-Control": "no-store" };
 const ID = /^[0-9a-f-]{36}$/i;
 const role = z.enum(["owner", "admin", "editor"]);
 
+// Our own hostnames. Anything else falls back to the canonical URL.
+const OWN_HOSTS = new Set(["tyflex.co.zw", "www.tyflex.co.zw", "paida.tyflex.co.zw"]);
+
+/**
+ * Builds the invite link from the real request host. Requests reaching us via either of our hostnames
+ * get the clean subdomain link (nginx serves /admin there); in dev it uses the request's own origin.
+ */
 function inviteUrl(req: Request, token: string) {
-  const origin = process.env.NODE_ENV === "production" ? COMPANY.url : new URL(req.url).origin;
-  return `${origin}/paida/admin/invite/${token}`;
+  if (process.env.NODE_ENV !== "production") return `${new URL(req.url).origin}/paida/admin/invite/${token}`;
+  const host = (req.headers.get("x-forwarded-host") || req.headers.get("host") || "").split(",")[0].trim().toLowerCase();
+  return OWN_HOSTS.has(host) ? `https://paida.tyflex.co.zw/admin/invite/${token}` : `${COMPANY.url}/paida/admin/invite/${token}`;
 }
 
 export async function GET() {
