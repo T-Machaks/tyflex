@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { randomUUID } from "crypto";
 import { requireRole } from "@/lib/paida/auth";
 import { logActivity } from "@/lib/paida/activity";
+import { revalidatePath } from "next/cache";
+import { loadContent, saveContent } from "@/lib/paida/content";
 import { toOgJpeg, toWebp, toWebpTarget } from "@/lib/paida/images";
 import { putObject } from "@/lib/paida/store";
 import { mediaUrl } from "@/lib/paida/util";
@@ -45,6 +47,14 @@ export async function POST(req: Request) {
       const thumb = await toWebp(input, 480, 68);
       await putObject(`media/${kind}/${id}-t.webp`, thumb.buffer, "image/webp");
       out.thumb = mediaUrl(`media/${kind}/${id}-t.webp`);
+    }
+    if (kind === "gallery") {
+      // Add it to the gallery right away, so an upload can never be lost to a missed "Save" or a reload.
+      const entry = { id, src: String(out.src), thumb: String(out.thumb), caption: "", w: full.width, h: full.height };
+      const current = await loadContent();
+      if (!current.gallery.some((g) => g.id === id)) await saveContent({ ...current, gallery: [...current.gallery, entry] });
+      out.entry = entry;
+      revalidatePath("/paida");
     }
     await logActivity(gate.session, kind === "hero" ? "uploaded a new hero photo" : "uploaded a photo to the Gallery");
     return NextResponse.json(out);
