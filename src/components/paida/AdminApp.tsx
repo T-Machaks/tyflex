@@ -224,7 +224,7 @@ export default function AdminApp({ initial, storageReady, me }: { initial: Paida
         {tab === "support" && (
           <div className="tform">
             <Field label="Message above the payment details" multiline value={c.supportIntro} onChange={(v) => set({ supportIntro: v })} />
-            <p className="warn" style={{ margin: 0 }}>⚠️ The page always shows: “Only send to the accounts listed here. The family will never ask you to pay anywhere else.”</p>
+            <Field label="Gentle note above the payment methods" multiline value={c.paymentNote} onChange={(v) => set({ paymentNote: v })} hint="Shown softly above the accounts. Leave empty to hide it. Owner and Admin can edit this; only the Owner can change the accounts themselves." />
             <h3 style={{ margin: "0.5rem 0" }}>Payment methods</h3>
             {me.role !== "owner" ? (
               <>

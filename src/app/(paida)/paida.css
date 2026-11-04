@@ -116,6 +116,7 @@ details.acc > .acc-body { padding: 0 1.25rem 1.25rem; }
 .kv .k { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); min-width: 7.5rem; font-weight: 700; }
 .kv .v { flex: 1 1 8rem; font-weight: 600; word-break: break-word; }
 .btn.sm { min-height: 34px; padding: 0.2rem 0.7rem; font-size: 0.85rem; }
+.soft-note { margin: 0.9rem 0 0; padding: 0.75rem 0.95rem; border-radius: 14px; background: #fff8e1; border: 1px solid #f3e0a5; color: var(--plum); font-weight: 500; }
 .warn { margin: 0.9rem 0 0; padding: 0.7rem 0.9rem; border-radius: 12px; background: #fff4e5; border: 2px solid #f0b86a; color: #5a3200; font-weight: 600; }
 .verified { margin: 0.7rem 0 0; font-size: 0.82rem; color: var(--muted); }
 .when.mine { color: var(--burgundy); text-transform: none; letter-spacing: 0; }

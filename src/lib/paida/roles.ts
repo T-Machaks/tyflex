@@ -19,7 +19,7 @@ export const FIELD_SECTION: Record<string, string> = {
   name: "Basics", nickname: "Basics", born: "Basics", died: "Basics", tagline: "Basics", heroImage: "Basics", ogImage: "Basics", shareText: "Basics",
   updates: "Updates",
   program: "Program",
-  supportIntro: "Support intro",
+  supportIntro: "Support intro", paymentNote: "Payment note",
   aboutText: "About Paida", aboutPhoto: "About Paida",
   storyText: "Her Story", timeline: "Her Story",
   alsoShared: "Also shared on",
