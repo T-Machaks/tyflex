@@ -255,9 +255,11 @@ export default async function PaidaPage() {
               <h2 id="support-h">Ways to help</h2>
               {c.supportIntro && <p style={{ margin: 0 }}>{c.supportIntro}</p>}
 
-              <p className="warn" role="note">
-                ⚠️ Only send to the accounts listed here. The family will never ask you to pay anywhere else.
-              </p>
+              {c.paymentNote.trim() && (
+                <p className="soft-note" role="note">
+                  {c.paymentNote.trim()}
+                </p>
+              )}
               {methods.length > 0 ? (
                 methods.map((m) => <PaymentCard key={m.id} m={m} contactName={m.phone ? contactNameFor(m.phone) : undefined} />)
               ) : (

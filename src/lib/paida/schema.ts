@@ -1,6 +1,9 @@
 import { z } from "zod";
 import { TZ_IDS } from "./time";
 
+export const DEFAULT_PAYMENT_NOTE =
+  "💛 Please use the accounts below, or any arrangement you've already made directly with the family. If anyone asks you to pay somewhere new, check with Tare or Kudzi first.";
+
 const text = (max = 500) => z.string().max(max).default("");
 const isoDate = z.string().regex(/^(\d{4}-\d{2}-\d{2})?$/, "Use YYYY-MM-DD").default("");
 const clock = z.string().regex(/^(\d{2}:\d{2})?$/, "Use HH:MM (24-hour)").default("");
@@ -74,6 +77,8 @@ export const paidaContentSchema = z.object({
     .default([]),
 
   supportIntro: text(600),
+  // Gentle note above the payment methods. A missing value uses the default; empty hides it.
+  paymentNote: z.string().max(500).default(DEFAULT_PAYMENT_NOTE),
   paymentMethods: z.array(paymentMethod).max(20).default([]),
   // Legacy (pre-structured) lists: read once for migration into paymentMethods, never written back.
   supportLocal: z.array(method).max(10).default([]),
