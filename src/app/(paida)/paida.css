@@ -137,6 +137,7 @@ label.check input { width: 22px; height: 22px; accent-color: var(--burgundy); }
 .feed-list li { display: flex; justify-content: space-between; align-items: baseline; gap: 0.75rem; flex-wrap: wrap; color: var(--plum); font-size: 0.95rem; }
 .feed-list time { color: var(--muted); font-size: 0.8rem; white-space: nowrap; }
 .feed-more > summary { cursor: pointer; margin-top: 0.6rem; color: var(--burgundy); font-weight: 600; font-size: 0.9rem; }
+.also { text-align: center; margin: 0.25rem auto 0; font-size: 0.9rem; color: var(--muted); }
 .ticker { margin: 0.9rem auto 0; max-width: 28rem; min-height: 1.5rem; font-size: 0.9rem; color: var(--muted); }
 @media (prefers-reduced-motion: no-preference) { .ticker span { animation: fadeIn 1.2s ease both; } }
 .gentle { text-align: center; font-family: var(--font-playfair), Georgia, serif; font-style: italic; margin: 1.1rem 0 0; color: var(--burgundy); }

@@ -22,6 +22,7 @@ export const FIELD_SECTION: Record<string, string> = {
   supportIntro: "Support intro",
   aboutText: "About Paida", aboutPhoto: "About Paida",
   storyText: "Her Story", timeline: "Her Story",
+  alsoShared: "Also shared on",
   channelName: "Her Voice", channelUrl: "Her Voice", videos: "Her Voice", social: "Her Voice",
   gallery: "Gallery",
   contacts: "Contacts",

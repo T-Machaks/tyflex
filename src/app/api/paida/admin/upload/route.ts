@@ -2,15 +2,16 @@ import { NextResponse } from "next/server";
 import { randomUUID } from "crypto";
 import { requireRole } from "@/lib/paida/auth";
 import { logActivity } from "@/lib/paida/activity";
-import { toOgJpeg, toWebp } from "@/lib/paida/images";
+import { toOgJpeg, toWebp, toWebpTarget } from "@/lib/paida/images";
 import { putObject } from "@/lib/paida/store";
 import { mediaUrl } from "@/lib/paida/util";
 
-const MAX_BYTES = 8 * 1024 * 1024;
+const MAX_BYTES = 15 * 1024 * 1024;
+const EXT: Record<string, string> = { "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp", "image/heic": "heic", "image/heif": "heif", "image/gif": "gif" };
 
 /**
  * Multipart upload (field "file", field "kind" = "hero" | "gallery").
- * Returns optimised WebP URLs; hero also returns a 1200×630 JPEG for link previews.
+ * Returns optimised WebP URLs (originals are kept under originals/); hero also returns a 1200×630 JPEG for link previews.
  * Editors may upload gallery photos; the hero photo is part of Basics and needs Admin.
  */
 export async function POST(req: Request) {
@@ -25,13 +26,16 @@ export async function POST(req: Request) {
     if (!adminGate.ok) return adminGate.res;
   }
   if (!(file instanceof File) || file.size === 0) return NextResponse.json({ ok: false, message: "No file." }, { status: 400 });
-  if (file.size > MAX_BYTES) return NextResponse.json({ ok: false, message: "File too large (8 MB max)." }, { status: 400 });
+  if (file.size > MAX_BYTES) return NextResponse.json({ ok: false, message: "File too large (15 MB max)." }, { status: 400 });
 
   try {
     const input = Buffer.from(await file.arrayBuffer());
     const id = randomUUID();
-    const full = await toWebp(input, kind === "hero" ? 1200 : 1600, 78);
+    // Gallery photos are fitted to 1600px wide and about 300 KB; hero stays 1200px.
+    const full = kind === "hero" ? await toWebp(input, 1200, 78) : await toWebpTarget(input, 1600, 300 * 1024);
     await putObject(`media/${kind}/${id}.webp`, full.buffer, "image/webp");
+    // Keep the untouched original (not served publicly) so nothing is ever lost to resizing.
+    await putObject(`originals/${kind}/${id}.${EXT[file.type] ?? "bin"}`, input, file.type || "application/octet-stream");
     const out: Record<string, unknown> = { ok: true, src: mediaUrl(`media/${kind}/${id}.webp`), w: full.width, h: full.height };
 
     if (kind === "hero") {

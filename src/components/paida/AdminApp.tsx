@@ -65,7 +65,7 @@ function ListEditor<T extends { id: string }>({ items, onChange, blank, addLabel
 
 async function upload(file: File, kind: "hero" | "gallery") {
   const body = new FormData();
-  body.set("file", await resizeImage(file, kind === "hero" ? 1600 : 2000, 0.85));
+  body.set("file", file.size <= 14 * 1024 * 1024 ? file : await resizeImage(file, 4000, 0.9)); // the server resizes for the page and keeps the original
   body.set("kind", kind);
   const res = await fetch("/api/paida/admin/upload", { method: "POST", body });
   const json = (await res.json().catch(() => ({}))) as { ok?: boolean; message?: string; src: string; thumb?: string; ogSrc?: string; w: number; h: number };
@@ -145,6 +145,7 @@ export default function AdminApp({ initial, storageReady, me }: { initial: Paida
 
       <div className="savebar">
         <button className="btn" onClick={save} disabled={busy}>💾 Save changes</button>
+        {me.role === "owner" && <a className="btn ghost" href="/api/paida/admin/archive" title="Everything: data, photos and the untouched originals">⬇ Full archive (ZIP)</a>}
         <button className="btn ghost" onClick={logout}>Sign out</button>
         <span role="status" className={err ? "status err" : "status"}>{msg}</span>
       </div>
@@ -164,6 +165,13 @@ export default function AdminApp({ initial, storageReady, me }: { initial: Paida
             <Field label="Passed away" type="date" value={c.died} onChange={(v) => set({ died: v })} />
             <Field label="Tagline" value={c.tagline} onChange={(v) => set({ tagline: v })} />
             <Field label="WhatsApp share message" multiline value={c.shareText} onChange={(v) => set({ shareText: v })} hint="The page link is added after this text." />
+            <h3 style={{ margin: "0.5rem 0 0" }}>Also shared on</h3>
+            <ListEditor items={c.alsoShared} onChange={(alsoShared) => set({ alsoShared })} addLabel="Add link"
+              blank={() => ({ id: uid(), label: "", url: "" })}
+              render={(s, p) => (<>
+                <Field label="Where (e.g. Facebook, YouTube)" value={s.label} onChange={(v) => p({ label: v })} />
+                <Field label="Link" value={s.url} onChange={(v) => p({ url: v })} />
+              </>)} />
             <label>
               Hero photo
               {/* eslint-disable-next-line @next/next/no-img-element */}

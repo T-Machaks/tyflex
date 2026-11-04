@@ -132,6 +132,7 @@ export default async function PaidaPage() {
     return id ? [{ ...v, vid: id }] : [];
   });
   const social = c.social.filter((s) => s.label && safeUrl(s.url));
+  const alsoShared = c.alsoShared.filter((s) => s.label && safeUrl(s.url));
   const channel = safeUrl(c.channelUrl);
   const contacts = c.contacts.filter((p) => p.name);
   const contactNameFor = (phone: string) => contacts.find((p) => p.phone && intlDigits(p.phone) === intlDigits(phone))?.name;
@@ -153,6 +154,20 @@ export default async function PaidaPage() {
         {c.tagline && <p className="tagline">{c.tagline}</p>}
         {feedLines.length > 0 && <FeedTicker items={feedLines.slice(0, 5).map((f) => `💗 ${f.text} · ${f.when}`)} />}
       </header>
+
+      {alsoShared.length > 0 && (
+        <p className="also wrap">
+          Also shared on:{" "}
+          {alsoShared.map((s, i) => (
+            <span key={s.id}>
+              {i > 0 && " · "}
+              <a href={safeUrl(s.url)!} target="_blank" rel="noopener noreferrer">
+                {s.label}
+              </a>
+            </span>
+          ))}
+        </p>
+      )}
 
       <main className="wrap">
         {updates.length > 0 && (

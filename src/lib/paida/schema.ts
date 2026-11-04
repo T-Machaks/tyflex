@@ -88,6 +88,7 @@ export const paidaContentSchema = z.object({
   channelUrl: link,
   videos: z.array(z.object({ id: text(64), url: link, title: text(150) })).max(24).default([]),
   social: z.array(z.object({ id: text(64), label: text(60), url: link })).max(12).default([]),
+  alsoShared: z.array(z.object({ id: text(64), label: text(60), url: link })).max(8).default([]),
 
   gallery: z
     .array(
