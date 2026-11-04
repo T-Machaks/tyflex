@@ -68,7 +68,7 @@ async function upload(file: File, kind: "hero" | "gallery") {
   body.set("file", file.size <= 14 * 1024 * 1024 ? file : await resizeImage(file, 4000, 0.9)); // the server resizes for the page and keeps the original
   body.set("kind", kind);
   const res = await fetch("/api/paida/admin/upload", { method: "POST", body });
-  const json = (await res.json().catch(() => ({}))) as { ok?: boolean; message?: string; src: string; thumb?: string; ogSrc?: string; w: number; h: number };
+  const json = (await res.json().catch(() => ({}))) as { ok?: boolean; message?: string; src: string; thumb?: string; ogSrc?: string; w: number; h: number; entry?: PaidaContent["gallery"][number] };
   if (!res.ok || !json.ok) throw new Error(json.message || "Upload failed");
   return json;
 }
@@ -117,15 +117,22 @@ export default function AdminApp({ initial, storageReady, me }: { initial: Paida
 
   async function uploadGallery(files: FileList | null) {
     if (!files?.length) return;
-    const added: PaidaContent["gallery"] = [];
+    // Each photo is added to the live gallery by the server as soon as it uploads, and appears here at once.
+    let done = 0;
+    const failed: string[] = [];
     for (const [i, f] of Array.from(files).entries()) {
       say(`Uploading ${i + 1} of ${files.length}…`);
       try {
         const r = await upload(f, "gallery");
-        added.push({ id: uid(), src: r.src, thumb: r.thumb ?? r.src, caption: "", w: r.w, h: r.h });
-      } catch (e) { say(e instanceof Error ? e.message : "Upload failed", true); }
+        const entry = r.entry ?? { id: uid(), src: r.src, thumb: r.thumb ?? r.src, caption: "", w: r.w, h: r.h };
+        setC((prev) => (prev.gallery.some((g) => g.id === entry.id) ? prev : { ...prev, gallery: [...prev.gallery, entry] }));
+        done++;
+      } catch (e) {
+        failed.push(`${f.name} (${e instanceof Error ? e.message : "failed"})`);
+      }
     }
-    if (added.length) { setC((prev) => ({ ...prev, gallery: [...prev.gallery, ...added] })); say(`${added.length} photo(s) added — press Save to publish.`); }
+    if (failed.length) say(`${done} added and live. ${failed.length} did not upload: ${failed.join("; ")}`, true);
+    else say(`✓ ${done} photo${done === 1 ? "" : "s"} added — already live on the page.`);
   }
 
   return (
@@ -340,7 +347,7 @@ export default function AdminApp({ initial, storageReady, me }: { initial: Paida
             <label>
               Add photos
               <input type="file" accept="image/*" multiple onChange={(e) => { uploadGallery(e.target.files); e.target.value = ""; }} />
-              <span className="muted small" style={{ fontWeight: 400 }}>Photos are resized automatically. Press Save after uploading.</span>
+              <span className="muted small" style={{ fontWeight: 400 }}>Photos go live as soon as they upload (resized automatically; the originals are kept). Use Save only after removing photos or editing captions.</span>
             </label>
             <div className="thumbs">
               {c.gallery.map((g, i) => (
