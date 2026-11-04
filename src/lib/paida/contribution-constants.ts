@@ -1,20 +1,15 @@
 // Shared by server code and client components — keep free of server-only imports.
 
-export const CURRENCIES = ["USD", "ZWG", "ZAR", "GBP", "Other"] as const;
+export const CURRENCIES = ["USD", "NZD", "AUD", "ZWG", "ZAR", "GBP", "Other"] as const;
 
-export const METHODS = [
-  { id: "ecocash", label: "EcoCash (to Rufaro)" },
-  { id: "mukuru", label: "Mukuru" },
-  { id: "worldremit", label: "WorldRemit" },
-  { id: "bank", label: "Bank transfer" },
+/** Always available alongside the saved payment methods. */
+export const FIXED_METHODS = [
   { id: "cash", label: "Cash" },
   { id: "other", label: "Other" },
 ] as const;
 
-export type MethodId = (typeof METHODS)[number]["id"];
 export type ContributionStatus = "pending" | "confirmed" | "rejected";
 
-export const methodLabel = (id: string) => METHODS.find((m) => m.id === id)?.label ?? id;
 
 /** Private record: never sent to visitors. Only confirmed + opted-in names are ever published. */
 export interface Contribution {
@@ -23,7 +18,8 @@ export interface Contribution {
   phone: string;
   amount: number;
   currency: string; // ISO-ish code, upper-case
-  method: MethodId;
+  method: string; // a saved payment method id, or "cash" / "other"
+  methodLabel: string; // its name when it was sent, e.g. "FNB (Allan)"
   reference: string;
   dateSent: string; // YYYY-MM-DD
   relationship: string;

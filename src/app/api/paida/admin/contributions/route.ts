@@ -10,10 +10,13 @@ import {
   getContribution,
   listContributions,
   parsePatch,
+  resolveMethod,
   toCsv,
   updateContribution,
 } from "@/lib/paida/contributions";
+import { loadContent, usableMethods } from "@/lib/paida/content";
 import { rebuildFeed } from "@/lib/paida/feed";
+import { listUsers } from "@/lib/paida/users";
 
 // Everything here is Admin-or-above: Editors never see amounts, phones, references, totals or the export.
 const ID = /^[0-9a-f-]{36}$/i;
@@ -44,7 +47,15 @@ export async function GET(req: Request) {
       },
     });
   }
-  return NextResponse.json({ ok: true, contributions: items }, { headers: noStore });
+  // Channels (saved payment methods + Cash/Other) with who confirms each, for the filter and forms.
+  const [content, users] = await Promise.all([loadContent(), listUsers()]);
+  const names = new Map<string, string>([["owner", "Owner"], ...users.map((u): [string, string] => [u.id, u.name])]);
+  const methods = [
+    ...usableMethods(content).map((m) => ({ id: m.id, label: m.label.trim(), confirmerId: m.confirmerId, confirmerName: names.get(m.confirmerId) ?? "" })),
+    { id: "cash", label: "Cash", confirmerId: "", confirmerName: "" },
+    { id: "other", label: "Other", confirmerId: "", confirmerName: "" },
+  ];
+  return NextResponse.json({ ok: true, contributions: items, methods }, { headers: noStore });
 }
 
 /** Add a contribution by hand (e.g. cash handed over in person). Confirmed by default. */
@@ -54,6 +65,9 @@ export async function POST(req: Request) {
   try {
     const body = (await req.json()) as Record<string, unknown>;
     const input = contributionFields.parse(body);
+    const method = resolveMethod(await loadContent(), input.method);
+    if (!method) return NextResponse.json({ ok: false, message: "method: choose one of the saved payment methods, Cash or Other" }, { status: 400 });
+    input.methodLabel = method.label;
     const status = ["pending", "confirmed", "rejected"].includes(String(body.status)) ? (body.status as "pending" | "confirmed" | "rejected") : "confirmed";
     const note = typeof body.note === "string" ? body.note.slice(0, 300) : "";
     const created = await createContribution(input, { source: "manual", status, note });
@@ -74,6 +88,11 @@ export async function PATCH(req: Request) {
     const { id, patch } = (await req.json()) as { id?: string; patch?: unknown };
     if (!id || !ID.test(id)) return NextResponse.json({ ok: false, message: "Bad request." }, { status: 400 });
     const parsed = parsePatch(patch);
+    if (parsed.method !== undefined) {
+      const method = resolveMethod(await loadContent(), parsed.method);
+      if (!method) return NextResponse.json({ ok: false, message: "method: choose one of the saved payment methods, Cash or Other" }, { status: 400 });
+      parsed.methodLabel = method.label;
+    }
     const updated = await updateContribution(id, parsed);
     if (updated) {
       const what =

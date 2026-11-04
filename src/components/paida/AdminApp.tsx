@@ -9,10 +9,11 @@ import FeedAdmin from "./FeedAdmin";
 import TeamAdmin from "./TeamAdmin";
 import { resizeImage } from "./resizeImage";
 import { ROLE_LABEL, TABS_FOR_ROLE, type AdminTab as Tab, type Role } from "@/lib/paida/roles";
+import { TIMEZONES } from "@/lib/paida/time";
 
 const TAB_LABELS: Record<Tab, string> = {
   basics: "Basics", updates: "Updates", program: "Program", support: "Support", story: "Her Story", voice: "Her Voice",
-  about: "About", gallery: "Gallery", contacts: "Contacts", tributes: "Tributes", notifications: "Notifications", contributions: "Contributions",
+  about: "About", gallery: "Gallery", contacts: "Contacts", tributes: "Memories & messages", notifications: "Notifications", contributions: "Contributions",
   activity: "Activity", team: "Team", json: "Advanced",
 };
 
@@ -72,7 +73,7 @@ async function upload(file: File, kind: "hero" | "gallery") {
   return json;
 }
 
-export default function AdminApp({ initial, storageReady, me }: { initial: PaidaContent; storageReady: boolean; me: { name: string; role: Role; shared: boolean } }) {
+export default function AdminApp({ initial, storageReady, me }: { initial: PaidaContent; storageReady: boolean; me: { id: string; name: string; role: Role; shared: boolean } }) {
   const [c, setC] = useState<PaidaContent>(initial);
   // Hiding tabs is only for convenience — every API route enforces the role on the server.
   const tabs = TABS_FOR_ROLE[me.role];
@@ -81,6 +82,11 @@ export default function AdminApp({ initial, storageReady, me }: { initial: Paida
   const [err, setErr] = useState(false);
   const [busy, setBusy] = useState(false);
   const [json, setJson] = useState("");
+  const [team, setTeam] = useState<{ id: string; name: string; role: string }[]>([]);
+  useEffect(() => {
+    if (me.role !== "owner") return;
+    fetch("/api/paida/admin/team", { cache: "no-store" }).then((r) => r.json()).then((o: { team?: { id: string; name: string; role: string }[] }) => setTeam((o.team ?? []).filter((t) => t.role !== "editor"))).catch(() => {});
+  }, [me.role]);
   const set = (p: Partial<PaidaContent>) => setC((prev) => ({ ...prev, ...p }));
   const say = (m: string, isErr = false) => { setMsg(m); setErr(isErr); };
 
@@ -172,21 +178,32 @@ export default function AdminApp({ initial, storageReady, me }: { initial: Paida
 
         {tab === "updates" && (
           <ListEditor items={c.updates} onChange={(updates) => set({ updates })} addLabel="Add update"
-            blank={() => ({ id: uid(), date: new Date().toISOString().slice(0, 10), title: "", body: "" })}
+            blank={() => ({ id: uid(), date: new Date().toISOString().slice(0, 10), title: "", body: "", visibility: "public" as const })}
             render={(u, p) => (<>
               <Field label="Date" type="date" value={u.date} onChange={(v) => p({ date: v })} />
               <Field label="Headline" value={u.title} onChange={(v) => p({ title: v })} />
               <Field label="Details" multiline value={u.body} onChange={(v) => p({ body: v })} />
+              <label>Who can see this?
+                <select value={u.visibility} onChange={(e) => p({ visibility: e.target.value as "public" | "family" })}>
+                  <option value="public">Public — shown on the page</option>
+                  <option value="family">Family only (admins) — never shown publicly</option>
+                </select>
+              </label>
             </>)} />
         )}
 
         {tab === "program" && (
           <ListEditor items={c.program} onChange={(program) => set({ program })} addLabel="Add event"
-            blank={() => ({ id: uid(), title: "", date: "", time: "", endTime: "", venue: "", address: "", mapsUrl: "", livestreamUrl: "", notes: "" })}
+            blank={() => ({ id: uid(), title: "", date: "", time: "", endTime: "", timezone: "Pacific/Auckland" as const, venue: "", address: "", mapsUrl: "", livestreamUrl: "", notes: "" })}
             render={(e, p) => (<>
               <Field label="Event" value={e.title} onChange={(v) => p({ title: v })} placeholder="Church service" />
               <Field label="Date" type="date" value={e.date} onChange={(v) => p({ date: v })} />
-              <Field label="Start time" type="time" value={e.time} onChange={(v) => p({ time: v })} hint="Harare time. Needed for exact calendar entries." />
+              <label>Time zone of this event
+                <select value={e.timezone} onChange={(ev) => p({ timezone: ev.target.value as typeof e.timezone })}>
+                  {TIMEZONES.map((t) => <option key={t.id} value={t.id}>{t.label}</option>)}
+                </select>
+              </label>
+              <Field label="Start time" type="time" value={e.time} onChange={(v) => p({ time: v })} hint="In the time zone above. Visitors automatically also see it in their own time." />
               <Field label="End time (optional)" type="time" value={e.endTime} onChange={(v) => p({ endTime: v })} />
               <Field label="Venue" value={e.venue} onChange={(v) => p({ venue: v })} />
               <Field label="Address" value={e.address} onChange={(v) => p({ address: v })} />
@@ -199,21 +216,49 @@ export default function AdminApp({ initial, storageReady, me }: { initial: Paida
         {tab === "support" && (
           <div className="tform">
             <Field label="Message above the payment details" multiline value={c.supportIntro} onChange={(v) => set({ supportIntro: v })} />
-            {(["supportLocal", "supportAbroad"] as const).map((key) => (
-              <div key={key}>
-                <h3 style={{ margin: "0.5rem 0" }}>{key === "supportLocal" ? "🇿🇼 In Zimbabwe" : "🌍 Outside Zimbabwe"}</h3>
-                <ListEditor items={c[key]} onChange={(v) => set({ [key]: v })} addLabel="Add payment method"
-                  blank={() => ({ id: uid(), label: "", details: "", copyText: "", link: "", linkLabel: "", phone: "" })}
+            <p className="warn" style={{ margin: 0 }}>⚠️ The page always shows: “Only send to the accounts listed here. The family will never ask you to pay anywhere else.”</p>
+            <h3 style={{ margin: "0.5rem 0" }}>Payment methods</h3>
+            {me.role !== "owner" ? (
+              <>
+                <p className="muted small" style={{ margin: 0 }}>Only the Owner can change payment details — this protects the family from anyone redirecting contributions. You can see what is currently published:</p>
+                {c.paymentMethods.map((m) => (
+                  <div key={m.id} className="row">
+                    <strong>{m.flag && `${m.flag} · `}{m.label}</strong>
+                    <span className="small" style={{ whiteSpace: "pre-line" }}>{[m.bank, m.accountName, m.number, m.branchSwift, m.type, m.details].filter(Boolean).join("\n")}</span>
+                    <span className="muted small">{m.verifiedBy ? `Last verified by ${m.verifiedBy}, ${m.verifiedAt.slice(0, 10)}` : "Not verified yet"}</span>
+                  </div>
+                ))}
+              </>
+            ) : (
+              <>
+                <p className="muted small" style={{ margin: 0 }}>
+                  Shown on the page in this order. Saving a change stamps “Last verified by {me.name}” automatically; use “Re-verify” after double-checking a method that has not changed. Every change is written to the Activity log with the old and new values.
+                </p>
+                <ListEditor items={c.paymentMethods} onChange={(paymentMethods) => set({ paymentMethods })} addLabel="Add payment method"
+                  blank={() => ({ id: uid(), flag: "", label: "", bank: "", accountName: "", number: "", branchSwift: "", type: "", details: "", link: "", linkLabel: "", phone: "", confirmerId: "", verifiedBy: "", verifiedAt: "" })}
                   render={(m, p) => (<>
-                    <Field label="Name" value={m.label} onChange={(v) => p({ label: v })} placeholder="EcoCash, Mukuru, Bank transfer…" />
-                    <Field label="Details" multiline value={m.details} onChange={(v) => p({ details: v })} />
-                    <Field label="Text to copy" value={m.copyText} onChange={(v) => p({ copyText: v })} hint="Number or account details for the copy button." />
-                    <Field label="Link" value={m.link} onChange={(v) => p({ link: v })} />
-                    <Field label="Link button label" value={m.linkLabel} onChange={(v) => p({ linkLabel: v })} />
+                    <Field label="Name shown (e.g. NZ bank (Kudzi), FNB (Allan), EcoCash (Rufaro))" value={m.label} onChange={(v) => p({ label: v })} />
+                    <Field label="Country code for the flag" value={m.flag} onChange={(v) => p({ flag: v.toUpperCase().slice(0, 2) })} hint="Two letters, e.g. NZ, ZA, ZW, GB, AU. Leave empty for a globe." />
+                    <Field label="Bank" value={m.bank} onChange={(v) => p({ bank: v })} />
+                    <Field label="Account name" value={m.accountName} onChange={(v) => p({ accountName: v })} />
+                    <Field label="Account / wallet number" value={m.number} onChange={(v) => p({ number: v })} />
+                    <Field label="Branch code / SWIFT" value={m.branchSwift} onChange={(v) => p({ branchSwift: v })} />
+                    <Field label="Account type" value={m.type} onChange={(v) => p({ type: v })} placeholder="Savings, Cheque, Mobile wallet…" />
+                    <Field label="Other details (one per line, “Label: value”)" multiline value={m.details} onChange={(v) => p({ details: v })} hint="Every line gets its own Copy button on the page." />
                     <Field label="Phone (adds Call / WhatsApp buttons)" value={m.phone} onChange={(v) => p({ phone: v })} />
+                    <Field label="Link (optional)" value={m.link} onChange={(v) => p({ link: v })} />
+                    <Field label="Link button label" value={m.linkLabel} onChange={(v) => p({ linkLabel: v })} />
+                    <label>Who confirms contributions sent this way?
+                      <select value={m.confirmerId} onChange={(e) => p({ confirmerId: e.target.value })}>
+                        <option value="">Nobody assigned</option>
+                        {team.map((t) => <option key={t.id} value={t.id}>{t.name} ({t.role})</option>)}
+                      </select>
+                    </label>
+                    <span className="muted small">{m.verifiedBy ? `Last verified by ${m.verifiedBy}, ${m.verifiedAt.slice(0, 10)}` : "Not verified yet — saving stamps it with your name."}</span>
+                    <button type="button" className="btn ghost" onClick={() => p({ reverify: true } as never)}>✓ Re-verify (I checked these details)</button>
                   </>)} />
-              </div>
-            ))}
+              </>
+            )}
             <p className="muted small">Do not enter amounts or targets — the page deliberately shows no fundraising progress.</p>
           </div>
         )}
@@ -318,7 +363,7 @@ export default function AdminApp({ initial, storageReady, me }: { initial: Paida
 
         {tab === "tributes" && <TributesAdmin canDelete={me.role !== "editor"} />}
         {tab === "notifications" && <FeedAdmin />}
-        {tab === "contributions" && <ContributionsAdmin />}
+        {tab === "contributions" && <ContributionsAdmin meId={me.id} />}
         {tab === "activity" && <ActivityAdmin />}
         {tab === "team" && <TeamAdmin />}
 
@@ -342,7 +387,7 @@ function TributesAdmin({ canDelete }: { canDelete: boolean }) {
     const res = await fetch("/api/paida/admin/tributes");
     const out = (await res.json().catch(() => ({}))) as { ok?: boolean; tributes?: Tribute[]; message?: string };
     if (out.ok && out.tributes) setItems(out.tributes);
-    else setError(out.message || "Could not load tributes (the bucket role may need s3:ListBucket).");
+    else setError(out.message || "Could not load memories (the bucket role may need s3:ListBucket).");
   }
   useEffect(() => { refresh(); }, []);
 
@@ -351,14 +396,14 @@ function TributesAdmin({ canDelete }: { canDelete: boolean }) {
     refresh();
   }
   async function remove(id: string) {
-    if (!confirm("Delete this tribute permanently?")) return;
+    if (!confirm("Delete this post permanently?")) return;
     await fetch(`/api/paida/admin/tributes?id=${id}`, { method: "DELETE" });
     refresh();
   }
 
   if (error) return <p className="status err">{error}</p>;
   if (!items) return <p>Loading…</p>;
-  if (items.length === 0) return <p className="muted">No tributes yet.</p>;
+  if (items.length === 0) return <p className="muted">No memories yet.</p>;
 
   const order = { pending: 0, approved: 1, hidden: 2 } as const;
   return (
@@ -366,7 +411,7 @@ function TributesAdmin({ canDelete }: { canDelete: boolean }) {
       {[...items].sort((a, b) => order[a.status] - order[b.status]).map((t) => (
         <div key={t.id} className="row">
           <div>
-            <strong>{t.name}</strong> {t.relationship && <span className="muted">· {t.relationship}</span>} <span className="badge">{t.status}</span>
+            <strong>{t.name}</strong> {t.relationship && <span className="muted">· {t.relationship}</span>} <span className="badge">{t.status}</span> {t.flag && <span className="badge">held: {t.flag}</span>}
             <div className="muted small">{new Date(t.createdAt).toLocaleString("en-GB")}</div>
           </div>
           <p style={{ margin: 0, whiteSpace: "pre-line" }}>{t.message}</p>

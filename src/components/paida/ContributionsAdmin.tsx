@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { CURRENCIES, METHODS, methodLabel, type Contribution, type ContributionStatus } from "@/lib/paida/contribution-constants";
+import { CURRENCIES, type Contribution, type ContributionStatus } from "@/lib/paida/contribution-constants";
+
+interface Channel { id: string; label: string; confirmerId: string; confirmerName: string }
 
 const today = () => new Date().toISOString().slice(0, 10);
 const fmt = (n: number) => n.toLocaleString("en-GB", { minimumFractionDigits: 0, maximumFractionDigits: 2 });
@@ -9,7 +11,7 @@ const fmt = (n: number) => n.toLocaleString("en-GB", { minimumFractionDigits: 0,
 type Draft = Pick<Contribution, "name" | "phone" | "amount" | "currency" | "method" | "reference" | "dateSent" | "relationship" | "message" | "showName" | "note">;
 const blank = (): Draft => ({ name: "", phone: "", amount: 0, currency: "USD", method: "cash", reference: "", dateSent: today(), relationship: "", message: "", showName: true, note: "" });
 
-function Fields({ d, set }: { d: Draft; set: (p: Partial<Draft>) => void }) {
+function Fields({ d, set, channels }: { d: Draft; set: (p: Partial<Draft>) => void; channels: Channel[] }) {
   return (
     <div className="tform" style={{ marginTop: 0 }}>
       <label>Name<input type="text" value={d.name} onChange={(e) => set({ name: e.target.value })} /></label>
@@ -22,8 +24,8 @@ function Fields({ d, set }: { d: Draft; set: (p: Partial<Draft>) => void }) {
         </label>
       </div>
       <label>Method
-        <select value={d.method} onChange={(e) => set({ method: e.target.value as Draft["method"] })}>
-          {METHODS.map((m) => <option key={m.id} value={m.id}>{m.label}</option>)}
+        <select value={d.method} onChange={(e) => set({ method: e.target.value })}>
+          {channels.map((m) => <option key={m.id} value={m.id}>{m.label}</option>)}
         </select>
       </label>
       <label>Reference<input type="text" value={d.reference} onChange={(e) => set({ reference: e.target.value })} /></label>
@@ -36,8 +38,9 @@ function Fields({ d, set }: { d: Draft; set: (p: Partial<Draft>) => void }) {
   );
 }
 
-export default function ContributionsAdmin() {
+export default function ContributionsAdmin({ meId }: { meId: string }) {
   const [items, setItems] = useState<Contribution[] | null>(null);
+  const [channels, setChannels] = useState<Channel[]>([]);
   const [error, setError] = useState("");
   const [msg, setMsg] = useState("");
   const [status, setStatus] = useState<"all" | ContributionStatus>("all");
@@ -49,8 +52,8 @@ export default function ContributionsAdmin() {
 
   async function refresh() {
     const res = await fetch("/api/paida/admin/contributions", { cache: "no-store" });
-    const out = (await res.json().catch(() => ({}))) as { ok?: boolean; contributions?: Contribution[]; message?: string };
-    if (out.ok && out.contributions) { setItems(out.contributions); setError(""); }
+    const out = (await res.json().catch(() => ({}))) as { ok?: boolean; contributions?: Contribution[]; methods?: Channel[]; message?: string };
+    if (out.ok && out.contributions) { setItems(out.contributions); setChannels(out.methods ?? []); setError(""); }
     else setError(out.message || "Could not load contributions (the bucket role may need s3:ListBucket).");
   }
   useEffect(() => { refresh(); }, []);
@@ -73,15 +76,17 @@ export default function ContributionsAdmin() {
   }, [items]);
   const pendingCount = (items ?? []).filter((c) => c.status === "pending").length;
 
+  // "My channel": contributions sent via a payment method I am assigned to confirm.
+  const mine = useMemo(() => new Set(channels.filter((m) => m.confirmerId === meId).map((m) => m.id)), [channels, meId]);
   const shown = useMemo(() => {
     const needle = q.trim().toLowerCase();
     return (items ?? []).filter(
       (c) =>
         (status === "all" || c.status === status) &&
-        (method === "all" || c.method === method) &&
+        (method === "all" || (method === "mine" ? mine.has(c.method) : c.method === method)) &&
         (!needle || c.name.toLowerCase().includes(needle) || c.reference.toLowerCase().includes(needle))
     );
-  }, [items, status, method, q]);
+  }, [items, status, method, q, mine]);
 
   if (error) return <p className="status err">{error}</p>;
   if (!items) return <p>Loading…</p>;
@@ -107,7 +112,7 @@ export default function ContributionsAdmin() {
       {adding && (
         <div className="row">
           <h2 style={{ fontSize: "1.1rem" }}>Add a contribution (e.g. cash handed over)</h2>
-          <Fields d={draft} set={(p) => setDraft((d) => ({ ...d, ...p }))} />
+          <Fields d={draft} set={(p) => setDraft((d) => ({ ...d, ...p }))} channels={channels} />
           <button className="btn" onClick={async () => { if (await call("POST", { ...draft, status: "confirmed" })) { setDraft(blank()); setAdding(false); } }}>Save as confirmed</button>
         </div>
       )}
@@ -118,9 +123,9 @@ export default function ContributionsAdmin() {
             <option value="all">All</option><option value="pending">Pending</option><option value="confirmed">Confirmed</option><option value="rejected">Rejected</option>
           </select>
         </label>
-        <label>Method
+        <label>Channel
           <select value={method} onChange={(e) => setMethod(e.target.value)}>
-            <option value="all">All</option>{METHODS.map((m) => <option key={m.id} value={m.id}>{m.label}</option>)}
+            <option value="all">All</option>{mine.size > 0 && <option value="mine">★ My channel</option>}{channels.map((m) => <option key={m.id} value={m.id}>{m.label}</option>)}
           </select>
         </label>
         <label style={{ gridColumn: "1 / -1" }}>Search name or reference
@@ -134,10 +139,10 @@ export default function ContributionsAdmin() {
         return (
           <div key={c.id} className="row">
             <div>
-              <strong>{c.name}</strong> · {fmt(c.amount)} {c.currency} · {methodLabel(c.method)}{" "}
+              <strong>{c.name}</strong> · {fmt(c.amount)} {c.currency} · {c.methodLabel || c.method}{" "}
               <span className="badge">{c.status}</span>{c.source === "manual" && <> <span className="badge">manual</span></>}
               <div className="muted small">
-                {c.reference && <>Ref {c.reference} · </>}sent {c.dateSent} · received {new Date(c.createdAt).toLocaleString("en-GB")}
+                {channels.find((m) => m.id === c.method)?.confirmerName && <>Confirmer: {channels.find((m) => m.id === c.method)?.confirmerName} · </>}{c.reference && <>Ref {c.reference} · </>}sent {c.dateSent} · received {new Date(c.createdAt).toLocaleString("en-GB")}
                 {c.relationship && <> · {c.relationship}</>}{!c.showName && <> · name hidden</>}
               </div>
               {c.message && <p style={{ margin: "0.3rem 0 0", whiteSpace: "pre-line" }}>{c.message}</p>}
@@ -150,7 +155,7 @@ export default function ContributionsAdmin() {
             </div>
             {d && (
               <>
-                <Fields d={d} set={(p) => setEdits((e) => ({ ...e, [c.id]: { ...e[c.id], ...p } }))} />
+                <Fields d={d} set={(p) => setEdits((e) => ({ ...e, [c.id]: { ...e[c.id], ...p } }))} channels={channels} />
                 <div className="btn-row" style={{ margin: 0 }}>
                   <button className="btn" onClick={async () => { if (await call("PATCH", { id: c.id, patch: d })) setEdits((e) => Object.fromEntries(Object.entries(e).filter(([k]) => k !== c.id))); }}>Save changes</button>
                   <button className="btn ghost" onClick={() => confirm("Delete this record permanently?") && call("DELETE", undefined, `/api/paida/admin/contributions?id=${c.id}`)}>Delete</button>

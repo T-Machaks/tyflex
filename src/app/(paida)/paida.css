@@ -111,6 +111,14 @@ details.acc > .acc-body { padding: 0 1.25rem 1.25rem; }
 /* ── Support ────────────────────────────────────── */
 .pay { border: 2px dashed var(--blush-deep); border-radius: 14px; padding: 1rem; margin-top: 0.8rem; }
 .pay h2 { margin-bottom: 0.2rem; }
+.kv { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; padding: 0.3rem 0; border-top: 1px solid var(--blush); }
+.kv:first-of-type { border-top: 0; }
+.kv .k { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); min-width: 7.5rem; font-weight: 700; }
+.kv .v { flex: 1 1 8rem; font-weight: 600; word-break: break-word; }
+.btn.sm { min-height: 34px; padding: 0.2rem 0.7rem; font-size: 0.85rem; }
+.warn { margin: 0.9rem 0 0; padding: 0.7rem 0.9rem; border-radius: 12px; background: #fff4e5; border: 2px solid #f0b86a; color: #5a3200; font-weight: 600; }
+.verified { margin: 0.7rem 0 0; font-size: 0.82rem; color: var(--muted); }
+.when.mine { color: var(--burgundy); text-transform: none; letter-spacing: 0; }
 .pay .number { font-size: 1.35rem; font-weight: 700; letter-spacing: 0.02em; word-break: break-word; }
 .sub { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--rose); margin: 1rem 0 0; }
 .contrib { margin-top: 1rem; }

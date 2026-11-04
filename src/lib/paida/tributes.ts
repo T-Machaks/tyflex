@@ -36,14 +36,27 @@ async function rebuildApproved(): Promise<void> {
   await putObject(APPROVED_KEY, JSON.stringify(approved), "application/json");
 }
 
+/**
+ * Memories & messages publish straight away. If `flag` is set (a link, flagged word, etc.)
+ * the post is held as "pending" for an admin instead.
+ */
 export async function createTribute(input: {
   name: string;
   relationship: string;
   message: string;
   photo: string;
+  flag?: string | null;
 }): Promise<Tribute> {
-  const tribute: Tribute = { id: randomUUID(), ...input, createdAt: new Date().toISOString(), status: "pending" };
+  const { flag, ...rest } = input;
+  const tribute: Tribute = {
+    id: randomUUID(),
+    ...rest,
+    createdAt: new Date().toISOString(),
+    status: flag ? "pending" : "approved",
+    ...(flag ? { flag } : {}),
+  };
   await putObject(`tributes/${tribute.id}.json`, JSON.stringify(tribute), "application/json");
+  if (tribute.status === "approved") await rebuildApproved();
   return tribute;
 }
 

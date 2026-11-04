@@ -10,64 +10,6 @@
   "updates": [],
   "program": [],
   "supportIntro": "If you would like to help the family during this time, here is how. Your presence, prayers and messages mean just as much.",
-  "supportLocal": [
-    {
-      "id": "ecocash",
-      "label": "EcoCash",
-      "details": "Send to Rufaro",
-      "copyText": "0771 517 577",
-      "link": "",
-      "linkLabel": "",
-      "phone": "0771 517 577"
-    }
-  ],
-  "supportAbroad": [
-    {
-      "id": "mukuru",
-      "label": "Mukuru",
-      "details": "",
-      "copyText": "",
-      "link": "",
-      "linkLabel": "",
-      "phone": ""
-    },
-    {
-      "id": "worldremit",
-      "label": "WorldRemit",
-      "details": "",
-      "copyText": "",
-      "link": "",
-      "linkLabel": "",
-      "phone": ""
-    },
-    {
-      "id": "bank",
-      "label": "Bank transfer",
-      "details": "",
-      "copyText": "",
-      "link": "",
-      "linkLabel": "",
-      "phone": ""
-    },
-    {
-      "id": "paypal",
-      "label": "PayPal",
-      "details": "",
-      "copyText": "",
-      "link": "",
-      "linkLabel": "",
-      "phone": ""
-    },
-    {
-      "id": "other",
-      "label": "Other",
-      "details": "",
-      "copyText": "",
-      "link": "",
-      "linkLabel": "",
-      "phone": ""
-    }
-  ],
   "aboutText": "",
   "aboutPhoto": "",
   "storyText": "",
@@ -89,6 +31,25 @@
       "name": "Rufaro",
       "role": "Contributions",
       "phone": "0771 517 577"
+    }
+  ],
+  "paymentMethods": [
+    {
+      "id": "ecocash",
+      "flag": "ZW",
+      "label": "EcoCash (Rufaro)",
+      "bank": "",
+      "accountName": "Rufaro",
+      "number": "0771 517 577",
+      "branchSwift": "",
+      "type": "Mobile wallet",
+      "details": "",
+      "link": "",
+      "linkLabel": "",
+      "phone": "0771 517 577",
+      "confirmerId": "",
+      "verifiedBy": "",
+      "verifiedAt": ""
     }
   ]
 }

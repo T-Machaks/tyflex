@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { allow, clientIp } from "@/lib/paida/ratelimit";
 import { canWrite } from "@/lib/paida/store";
-import { contributionFields, createContribution, listContributions } from "@/lib/paida/contributions";
+import { loadContent } from "@/lib/paida/content";
+import { contributionFields, createContribution, listContributions, resolveMethod } from "@/lib/paida/contributions";
 
 const MAX_PENDING = 500;
 
@@ -50,6 +51,10 @@ export async function POST(req: Request) {
     };
     return fail(hints[field] ?? "Please check the form and try again.");
   }
+  const method = resolveMethod(await loadContent(), parsed.data.method);
+  if (!method) return fail("Please choose how you sent it.");
+  parsed.data.method = method.id;
+  parsed.data.methodLabel = method.label;
   if ((parsed.data.message.match(/https?:\/\//gi) ?? []).length > 1) return fail("Please leave links out of your message.");
 
   const pending = (await listContributions().catch(() => [])).filter((c) => c.status === "pending").length;

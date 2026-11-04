@@ -6,7 +6,7 @@ import { resizeImage } from "./resizeImage";
 const RELATIONSHIPS = ["Family", "Cousin", "Friend", "Colleague", "Church family", "Classmate", "Fan / viewer", "Other"];
 
 export default function TributeForm() {
-  const [state, setState] = useState<"idle" | "sending" | "done" | "error">("idle");
+  const [state, setState] = useState<"idle" | "sending" | "done" | "held" | "error">("idle");
   const [message, setMessage] = useState("");
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -19,28 +19,30 @@ export default function TributeForm() {
       if (photo instanceof File && photo.size > 0) data.set("photo", await resizeImage(photo, 1400, 0.82));
       else data.delete("photo");
       const res = await fetch("/api/paida/tributes", { method: "POST", body: data });
-      const json = (await res.json().catch(() => ({}))) as { ok?: boolean; message?: string };
+      const json = (await res.json().catch(() => ({}))) as { ok?: boolean; message?: string; published?: boolean };
       if (!res.ok || !json.ok) throw new Error(json.message || "Something went wrong. Please try again.");
       form.reset();
       setMessage("");
-      setState("done");
+      setState(json.published ? "done" : "held");
     } catch (err) {
       setMessage(err instanceof Error ? err.message : "Something went wrong.");
       setState("error");
     }
   }
 
-  if (state === "done") {
+  if (state === "done" || state === "held") {
     return (
       <p className="status" role="status">
-        💗 Thank you. Your tribute has been received and will appear once the family has approved it.
+        {state === "done"
+          ? "💗 Thank you for sharing. Your memory is now on the page."
+          : "💗 Thank you. Your message has a link or a detail that needs a quick look first, so it will appear once the family has approved it."}
       </p>
     );
   }
 
   return (
     <form className="tform" onSubmit={onSubmit}>
-      <h2>Leave a tribute</h2>
+      <h2>Share a memory or message</h2>
       <label>
         Your name
         <input type="text" name="name" required maxLength={60} autoComplete="name" />
@@ -55,7 +57,7 @@ export default function TributeForm() {
         </datalist>
       </label>
       <label>
-        Your message
+        Your memory or message
         <textarea name="message" required minLength={5} maxLength={1500} />
       </label>
       <label>
@@ -70,7 +72,7 @@ export default function TributeForm() {
         </label>
       </div>
       <button className="btn" type="submit" disabled={state === "sending"}>
-        {state === "sending" ? "Sending…" : "💗 Send tribute"}
+        {state === "sending" ? "Sending…" : "💗 Share"}
       </button>
       {state === "error" && (
         <p className="status err" role="alert">
@@ -78,7 +80,7 @@ export default function TributeForm() {
         </p>
       )}
       <p className="muted small" style={{ margin: 0 }}>
-        Tributes are shared with the family first and appear on this page once approved.
+        Please keep it kind. It appears straight away; messages with links or contact details wait for a quick review.
       </p>
     </form>
   );
