@@ -1,6 +1,8 @@
 import { randomUUID } from "crypto";
 import { z } from "zod";
-import { METHODS, type Contribution, type MethodId } from "./contribution-constants";
+import { FIXED_METHODS, type Contribution } from "./contribution-constants";
+import type { PaidaContent } from "./schema";
+import { usableMethods } from "./content";
 import { deleteObject, getObject, listKeys, putObject } from "./store";
 
 /**
@@ -12,7 +14,6 @@ import { deleteObject, getObject, listKeys, putObject } from "./store";
 // eslint-disable-next-line no-control-regex
 const clean = (s: string) => s.replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g, "").trim();
 const str = (max: number, min = 0) => z.string().transform(clean).pipe(z.string().min(min).max(max));
-const methodIds = METHODS.map((m) => m.id) as [MethodId, ...MethodId[]];
 
 /** Fields a contributor (or the admin, for manual entries) may supply. */
 export const contributionFields = z.object({
@@ -23,7 +24,8 @@ export const contributionFields = z.object({
     .string()
     .transform((s) => clean(s).toUpperCase())
     .pipe(z.string().regex(/^[A-Z0-9]{2,10}$/, "Enter a currency code, e.g. USD")),
-  method: z.enum(methodIds),
+  method: str(64, 1),
+  methodLabel: str(80).default(""),
   reference: str(80).default(""),
   dateSent: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Use YYYY-MM-DD"),
   relationship: str(40).default(""),
@@ -106,7 +108,7 @@ const COLUMNS: [string, (c: Contribution) => string | number | boolean][] = [
   ["Phone", (c) => c.phone],
   ["Amount", (c) => c.amount],
   ["Currency", (c) => c.currency],
-  ["Method", (c) => c.method],
+  ["Method", (c) => c.methodLabel || c.method],
   ["Reference", (c) => c.reference],
   ["Date sent", (c) => c.dateSent],
   ["Relationship", (c) => c.relationship],
@@ -133,4 +135,12 @@ export function toCsv(rows: Contribution[]): string {
     COLUMNS.map(([h, f]) => cell(f(c), h === "Phone" || h === "Reference")).join(",")
   );
   return "﻿" + [head, ...body].join("\r\n") + "\r\n";
+}
+
+/** Resolves a chosen method id against the saved payment methods (plus Cash / Other). */
+export function resolveMethod(content: PaidaContent, id: string): { id: string; label: string } | null {
+  const fixed = FIXED_METHODS.find((m) => m.id === id);
+  if (fixed) return { id: fixed.id, label: fixed.label };
+  const m = usableMethods(content).find((x) => x.id === id);
+  return m ? { id: m.id, label: m.label.trim() } : null;
 }

@@ -1,6 +1,9 @@
 "use client";
 
+import { zonedToUtcMs } from "@/lib/paida/time";
+
 interface Props {
+  tz: string;
   title: string;
   date: string; // YYYY-MM-DD
   time: string; // HH:MM (Harare) or ""
@@ -14,19 +17,12 @@ const esc = (s: string) => s.replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace
 const stamp = (d: Date) =>
   `${d.getUTCFullYear()}${pad(d.getUTCMonth() + 1)}${pad(d.getUTCDate())}T${pad(d.getUTCHours())}${pad(d.getUTCMinutes())}00Z`;
 
-/** Zimbabwe is UTC+2 year-round (no DST), so times are converted to UTC for maximum calendar-app compatibility. */
-function harareToUtc(date: string, time: string): Date {
-  const [y, m, d] = date.split("-").map(Number);
-  const [hh, mm] = time.split(":").map(Number);
-  return new Date(Date.UTC(y, m - 1, d, hh - 2, mm));
-}
-
 export function buildIcs(p: Props): string {
   const lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Paida Memorial//EN", "CALSCALE:GREGORIAN", "BEGIN:VEVENT"];
   lines.push(`UID:${p.date}-${p.title.replace(/\W+/g, "-")}@paida`, `DTSTAMP:${stamp(new Date())}`);
   if (p.time) {
-    const start = harareToUtc(p.date, p.time);
-    const end = p.endTime ? harareToUtc(p.date, p.endTime) : new Date(start.getTime() + 2 * 3600_000);
+    const start = new Date(zonedToUtcMs(p.date, p.time, p.tz));
+    const end = p.endTime ? new Date(zonedToUtcMs(p.date, p.endTime, p.tz)) : new Date(start.getTime() + 2 * 3600_000);
     lines.push(`DTSTART:${stamp(start)}`, `DTEND:${stamp(end)}`);
   } else {
     const [y, m, d] = p.date.split("-").map(Number);

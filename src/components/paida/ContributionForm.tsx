@@ -1,12 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { CURRENCIES, METHODS } from "@/lib/paida/contribution-constants";
+import { CURRENCIES, FIXED_METHODS } from "@/lib/paida/contribution-constants";
 
 const today = () => new Date().toISOString().slice(0, 10);
 
 /** "I've sent my contribution" — lets the family match payments and say thank you. Shows no data back. */
-export default function ContributionForm() {
+export default function ContributionForm({ methods }: { methods: { id: string; label: string }[] }) {
+  const options = [...methods, ...FIXED_METHODS];
   const [state, setState] = useState<"idle" | "sending" | "done" | "error">("idle");
   const [message, setMessage] = useState("");
   const [currency, setCurrency] = useState("USD");
@@ -79,7 +80,7 @@ export default function ContributionForm() {
               <option value="" disabled>
                 Choose…
               </option>
-              {METHODS.map((m) => (
+              {options.map((m) => (
                 <option key={m.id} value={m.id}>
                   {m.label}
                 </option>

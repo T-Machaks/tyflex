@@ -3,6 +3,7 @@ import { randomUUID } from "crypto";
 import { allow, clientIp } from "@/lib/paida/ratelimit";
 import { toWebp } from "@/lib/paida/images";
 import { canWrite, putObject } from "@/lib/paida/store";
+import { reviewReason } from "@/lib/paida/moderation";
 import { createTribute, listAll } from "@/lib/paida/tributes";
 import { mediaUrl } from "@/lib/paida/util";
 
@@ -12,7 +13,7 @@ const MAX_PENDING = 300;
 const fail = (message: string, status = 400) => NextResponse.json({ ok: false, message }, { status });
 
 export async function POST(req: Request) {
-  if (!canWrite) return fail("Tributes are not available right now.", 503);
+  if (!canWrite) return fail("This is not available right now.", 503);
 
   let form: FormData;
   try {
@@ -37,8 +38,7 @@ export async function POST(req: Request) {
   if (relationship.length > 40) return fail("Relationship is too long.");
   if (message.length < 5) return fail("Please write a short message.");
   if (message.length > 1500) return fail("Your message is too long (1500 characters max).");
-  if ((message.match(/https?:\/\//gi) ?? []).length > 1) return fail("Please leave links out of your tribute.");
-
+  
   const photo = form.get("photo");
   let photoUrl = "";
   if (photo instanceof File && photo.size > 0) {
@@ -57,6 +57,7 @@ export async function POST(req: Request) {
   const pending = (await listAll().catch(() => [])).filter((t) => t.status === "pending").length;
   if (pending >= MAX_PENDING) return fail("Tributes are paused while the family catches up. Please try again later.", 503);
 
-  await createTribute({ name, relationship, message, photo: photoUrl });
-  return NextResponse.json({ ok: true });
+  const flag = reviewReason(name, relationship, message);
+  const tribute = await createTribute({ name, relationship, message, photo: photoUrl, flag });
+  return NextResponse.json({ ok: true, published: tribute.status === "approved" });
 }

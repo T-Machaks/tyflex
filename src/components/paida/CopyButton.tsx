@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-export default function CopyButton({ text, label = "Copy" }: { text: string; label?: string }) {
+export default function CopyButton({ text, label = "Copy", compact = false }: { text: string; label?: string; compact?: boolean }) {
   const [done, setDone] = useState(false);
 
   async function copy() {
@@ -25,8 +25,8 @@ export default function CopyButton({ text, label = "Copy" }: { text: string; lab
   }
 
   return (
-    <button type="button" className="btn ghost" onClick={copy} aria-live="polite">
-      {done ? "✓ Copied" : `📋 ${label}`}
+    <button type="button" className={compact ? "btn ghost sm" : "btn ghost"} onClick={copy} aria-live="polite" aria-label={compact ? `Copy ${text}` : undefined}>
+      {done ? "✓ Copied" : compact ? "📋 Copy" : `📋 ${label}`}
     </button>
   );
 }

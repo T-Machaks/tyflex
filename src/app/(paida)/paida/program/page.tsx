@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { loadContent } from "@/lib/paida/content";
 import { formatDate, mapsHref, telHref } from "@/lib/paida/util";
+import { dayAndClock, eventLine, zonedToUtcMs } from "@/lib/paida/time";
 import PrintButton from "@/components/paida/PrintButton";
 
 export const dynamic = "force-dynamic";
@@ -37,9 +38,11 @@ export default async function ProgramPrintPage() {
       <ul className="list">
         {events.map((e) => {
           const where = [e.venue, e.address].filter(Boolean).join(", ");
-          const when = [e.date && formatDate(e.date, true), e.time && (e.endTime ? `${e.time} – ${e.endTime}` : e.time)]
-            .filter(Boolean)
-            .join(" · ");
+          const startMs = e.date && e.time ? zonedToUtcMs(e.date, e.time, e.timezone) : 0;
+          // The event in its own zone, plus Zimbabwe time when the event is elsewhere (the printout has no "your time").
+          const when = startMs
+            ? [eventLine(e.date, e.time, e.endTime, e.timezone), e.timezone !== "Africa/Harare" && `Zimbabwe: ${dayAndClock(startMs, "Africa/Harare")} CAT`].filter(Boolean).join(" · ")
+            : e.date ? formatDate(e.date, true) : "";
           const maps = where ? mapsHref(e) : null;
           return (
             <li key={e.id} className="item event">

@@ -24,3 +24,18 @@ export async function toOgJpeg(input: Buffer): Promise<Buffer> {
     .jpeg({ quality: 78, mozjpeg: true })
     .toBuffer();
 }
+
+/**
+ * Fits a photo to a page-friendly size: at most `maxWidth` wide and roughly `maxBytes`, lowering
+ * quality first and then width until it fits. The untouched original is kept separately.
+ */
+export async function toWebpTarget(input: Buffer, maxWidth = 1600, maxBytes = 300 * 1024): Promise<Processed> {
+  let width = maxWidth;
+  let quality = 82;
+  for (;;) {
+    const out = await toWebp(input, width, quality);
+    if (out.buffer.length <= maxBytes || (quality <= 50 && width <= 900)) return out;
+    if (quality > 50) quality -= 8;
+    else width = Math.round(width * 0.85);
+  }
+}

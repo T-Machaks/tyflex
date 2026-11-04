@@ -84,10 +84,18 @@ export async function listKeys(prefix: string): Promise<string[]> {
     return keys;
   }
   if (process.env.NODE_ENV === "production") return [];
+  const out: string[] = [];
+  const walk = async (rel: string) => {
+    for (const d of await fs.readdir(localPath(rel), { withFileTypes: true })) {
+      const child = rel ? `${rel}/${d.name}` : d.name;
+      if (d.isDirectory()) await walk(child);
+      else out.push(child);
+    }
+  };
   try {
-    const names = await fs.readdir(localPath(prefix.replace(/\/$/, "")));
-    return names.map((n) => prefix + n);
+    await walk(prefix.replace(/\/$/, ""));
   } catch {
-    return [];
+    /* prefix doesn't exist yet */
   }
+  return out;
 }

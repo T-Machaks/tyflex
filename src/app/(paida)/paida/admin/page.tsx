@@ -11,5 +11,5 @@ export const metadata: Metadata = { title: "Paida page — admin", robots: { ind
 export default async function PaidaAdminPage() {
   const session = await getSession();
   if (!session) return <AdminLogin ownerLoginEnabled={ownerLoginEnabled()} />;
-  return <AdminApp initial={await loadContent()} storageReady={canWrite} me={{ name: session.name, role: session.role, shared: session.id === "owner" }} />;
+  return <AdminApp initial={await loadContent()} storageReady={canWrite} me={{ id: session.id, name: session.name, role: session.role, shared: session.id === "owner" }} />;
 }
